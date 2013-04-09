@@ -8,18 +8,27 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     model = new QStringListModel(replayList);
     ui->listView->setModel(model);
-    settings = new QSettings("replays.ini", QSettings::IniFormat);
-    settings->setValue("match/168272986.dem", "Rubick Against Full Ulti Team");
-    settings->setValue("name/Rubick Against Full Ulti Team", "168272986.dem");
+    settings = new QSettings("settings.ini", QSettings::IniFormat);
+    if(settings->value("firstRun", true).toBool())
+    {
+        QMessageBox::information(this, tr("Dota 2 Replay Manager First Run"), tr("Please Select Your Dota 2 Replay Folder\nHint: Where Dota 2 downloads your replays to"));
+        on_pushButton_start_clicked();
+        settings->setValue("firstRun", false);
+    }
     settings->sync();
     dir = settings->value("replayFolder", "C:/Program Files (x86)/Steam/steamApps/common/dota 2 beta/dota/replays").toString();
     connect(ui->listView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(renameReplay()));
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("replays.db");
+    db.open();
+    model_2 = new QSqlTableModel(this, db);
+    renameReplay();
 }
 
 void MainWindow::on_pushButton_start_clicked()
 {
     QFileDialog fd;
-    dir = fd.getExistingDirectory(this, tr("Select Dota 2 Replays Folder"), dir);
+    dir = fd.getExistingDirectory(this, tr("Select Dota 2 Replays Folder"), "C:/Program Files (x86)/Steam/steamApps/common/dota 2 beta/dota/replays");
     settings->setValue("replayFolder", dir);
     settings->sync();
     replayList.clear();
@@ -72,11 +81,11 @@ void MainWindow::httpFinished()
     ui->lineEdit_5->setText(json.object().value("duration").toString());
     ui->lineEdit_6->setText(json.object().value("first_blood_time").toString());
 
-    ui->lineEdit_14->setText(json.object().value("slots").toObject().value("radiant").toArray().at(0).toObject().value("account_name").toString());
-    ui->lineEdit_8->setText(json.object().value("slots").toObject().value("radiant").toArray().at(1).toObject().value("account_name").toString());
-    ui->lineEdit_7->setText(json.object().value("slots").toObject().value("radiant").toArray().at(2).toObject().value("account_name").toString());
-    ui->lineEdit_9->setText(json.object().value("slots").toObject().value("radiant").toArray().at(3).toObject().value("account_name").toString());
-    ui->lineEdit_10->setText(json.object().value("slots").toObject().value("radiant").toArray().at(4).toObject().value("account_name").toString());
+    ui->radiantPlayer_1->setText(json.object().value("slots").toObject().value("radiant").toArray().at(0).toObject().value("account_name").toString());
+    ui->radiantPlayer_2->setText(json.object().value("slots").toObject().value("radiant").toArray().at(1).toObject().value("account_name").toString());
+    ui->radiantPlayer_3->setText(json.object().value("slots").toObject().value("radiant").toArray().at(2).toObject().value("account_name").toString());
+    ui->radiantPlayer_4->setText(json.object().value("slots").toObject().value("radiant").toArray().at(3).toObject().value("account_name").toString());
+    ui->radiantPlayer_5->setText(json.object().value("slots").toObject().value("radiant").toArray().at(4).toObject().value("account_name").toString());
 
     //player hero
     ui->lineEdit_15->setText(json.object().value("slots").toObject().value("radiant").toArray().at(0).toObject().value("hero").toObject().value("localized_name").toString());
@@ -102,6 +111,34 @@ void MainWindow::renameReplay()
 {
     QString name = model->itemData(ui->listView->currentIndex()).value(0).toString();
     qDebug() << name;
+    model_2->setTable("replay");
+    model_2->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model->setHeaderData(1, Qt::Horizontal, tr("Name"), Qt::NoTextInteraction);
+    model_2->select();
+    //model_2->removeColumn(0); // don't show the ID
+    ui->replayNames_2->setModel(model_2);
+    ui->replayNames_2->hideColumn(0);
+}
+
+void MainWindow::on_insertRow_Button_clicked()
+{
+    QSqlQuery query("insert into replay (name, filename) values (:name, :filename)");
+    query.bindValue(0, "");
+    query.bindValue(1, model->itemData(ui->listView->currentIndex()).value(0).toString());
+    query.exec();
+    model_2->select();
+}
+
+void MainWindow::on_removeRow_Button_clicked()
+{
+    model_2->removeRow(ui->replayNames_2->currentIndex().row());
+    model_2->select();
+}
+
+void MainWindow::on_refreshReplayListButton_clicked()
+{
+    replayList.clear();
+    listFileAndDirectory(dir);
 }
 
 bool MainWindow::listFileAndDirectory(QDir dir)
@@ -123,10 +160,7 @@ bool MainWindow::listFileAndDirectory(QDir dir)
                 }
                 else
                 {
-                    if(settings->contains("match/" + fileName))
-                        replayList.append(settings->value("match/" + fileName).toString());
-                    else
-                        replayList.append(fileName);
+                    replayList.append(fileName);
                     model->setStringList(replayList);
                 }
             }
@@ -140,6 +174,7 @@ bool MainWindow::listFileAndDirectory(QDir dir)
 
 MainWindow::~MainWindow()
 {
+    db.close();
     delete ui;
     delete model;
     delete settings;

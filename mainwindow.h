@@ -8,6 +8,12 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QMessageBox>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlTableModel>
+#include <QSqlRecord>
+#include <QSqlField>
+#include <QSqlError>
 
 namespace Ui {
 class MainWindow;
@@ -22,14 +28,17 @@ public:
     ~MainWindow();
 
 protected slots:
-    void on_pushButton_start_clicked();
     void on_pushButton_clicked();
     void httpFinished();
     void readyRead();
     void renameReplay();
+    void on_insertRow_Button_clicked();
+    void on_removeRow_Button_clicked();
+    void on_refreshReplayListButton_clicked();
     
 private:
     bool listFileAndDirectory(QDir dir);
+    void on_pushButton_start_clicked();
 
     QString dir;
     QStringList replayList;
@@ -39,6 +48,8 @@ private:
     QNetworkReply *reply;
     QJsonDocument json;
     QSettings *settings;
+    QSqlDatabase db;
+    QSqlTableModel *model_2;
 };
 
 #endif // MAINWINDOW_H

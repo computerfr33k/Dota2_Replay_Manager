@@ -3,17 +3,20 @@
 
 #include <QMainWindow>
 #include <QtGui>
-#include <QFileDialog>
+#include <QSqlDatabase>
+#include <QSqlTableModel>
+#include <QStringList>
+#include <QSqlQuery>
+#include <iterator>
+#include <QPixmap>
+#include <QMessageBox>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
-#include <QMessageBox>
-#include <QSqlDatabase>
-#include <QSqlQuery>
-#include <QSqlTableModel>
 #include <QSqlRecord>
-#include <QSqlField>
-#include <QSqlError>
+
+#include "edittitle.h"
+#include "preferences.h"
 
 namespace Ui {
 class MainWindow;
@@ -27,29 +30,30 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-protected slots:
-    void on_pushButton_clicked();
-    void httpFinished();
-    void readyRead();
-    void renameReplay();
-    void on_insertRow_Button_clicked();
-    void on_removeRow_Button_clicked();
-    void on_refreshReplayListButton_clicked();
+protected:
+    void start();
+    void checkDb();
+    void addFilesToDb();
+    void setMatchInfo(QJsonDocument);
     
-private:
-    bool listFileAndDirectory(QDir dir);
-    void on_pushButton_start_clicked();
+private slots:
+    void on_commandLinkButton_clicked();
+    void httpFinished();
+    void on_viewMatchButton_clicked();
+    void on_editTitle_clicked();
+    void on_actionPreferences_triggered();
 
-    QString dir;
-    QStringList replayList;
-    QStringListModel *model;
+private:
+    QSettings *settings;
+    QDir dir;
     Ui::MainWindow *ui;
+    QSqlDatabase db;
+    QSqlTableModel *model;
+    QSqlQueryModel queryModel;
+    QStringList list;
     QNetworkAccessManager *manager;
     QNetworkReply *reply;
-    QJsonDocument json;
-    QSettings *settings;
-    QSqlDatabase db;
-    QSqlTableModel *model_2;
+    QString picDir;
 };
 
 #endif // MAINWINDOW_H

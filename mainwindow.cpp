@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     settings = new QSettings("settings.ini", QSettings::IniFormat);
     dir = settings->value("replayFolder", "C:/Program Files (x86)/Steam/SteamApps/common/dota 2 beta/dota/replays").toString();
-    picDir = "thumbnails/";
+    picDir = QDir::currentPath() + "/thumbnails/";
     start();
     addFilesToDb();
 }
@@ -152,11 +152,11 @@ void MainWindow::setMatchInfo(QJsonDocument json)
     ui->radiantLevel_5->setText(radiantSlots.at(4).toObject().value("level").toString());
 
     //radiant Hero Pix
-    ui->radiantHeroPic_1->setPixmap(QPixmap("thumbnails/heroes/JPEG/" + radiantSlots.at(0).toObject().value("hero").toObject().value("name").toString() + ".jpg"));
-    ui->radiantHeroPic_2->setPixmap(QPixmap("thumbnails/heroes/JPEG/" + radiantSlots.at(1).toObject().value("hero").toObject().value("name").toString() + ".jpg"));
-    ui->radiantHeroPic_3->setPixmap(QPixmap("thumbnails/heroes/JPEG/" + radiantSlots.at(2).toObject().value("hero").toObject().value("name").toString() + ".jpg"));
-    ui->radiantHeroPic_4->setPixmap(QPixmap("thumbnails/heroes/JPEG/" + radiantSlots.at(3).toObject().value("hero").toObject().value("name").toString() + ".jpg"));
-    ui->radiantHeroPic_5->setPixmap(QPixmap("thumbnails/heroes/JPEG/" + radiantSlots.at(4).toObject().value("hero").toObject().value("name").toString() + ".jpg"));
+    ui->radiantHeroPic_1->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantSlots.at(0).toObject().value("hero").toObject().value("name").toString() + ".jpg"));
+    ui->radiantHeroPic_2->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantSlots.at(1).toObject().value("hero").toObject().value("name").toString() + ".jpg"));
+    ui->radiantHeroPic_3->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantSlots.at(2).toObject().value("hero").toObject().value("name").toString() + ".jpg"));
+    ui->radiantHeroPic_4->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantSlots.at(3).toObject().value("hero").toObject().value("name").toString() + ".jpg"));
+    ui->radiantHeroPic_5->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantSlots.at(4).toObject().value("hero").toObject().value("name").toString() + ".jpg"));
 
     // radiant Hero Names
     ui->radiantHero_1->setText(radiantSlots.at(0).toObject().value("hero").toObject().value("localized_name").toString());
@@ -188,40 +188,40 @@ void MainWindow::setMatchInfo(QJsonDocument json)
 
     //radiant Items
     //player 1
-    ui->radiantItems_1_1->setPixmap(QPixmap("items/JPEG/" + radiantSlots.at(0).toObject().value("item_0").toString() + ".jpg"));
-    ui->radiantItems_1_2->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(0).toObject().value("item_1").toString() + ".jpg"));
-    ui->radiantItems_1_3->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(0).toObject().value("item_2").toString() + ".jpg"));
-    ui->radiantItems_1_4->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(0).toObject().value("item_3").toString() + ".jpg"));
-    ui->radiantItems_1_5->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(0).toObject().value("item_4").toString() + ".jpg"));
-    ui->radiantItems_1_6->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(0).toObject().value("item_5").toString() + ".jpg"));
+    ui->radiantItems_1_1->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(0).toObject().value("item_0").toString() + ".jpg"));
+    ui->radiantItems_1_2->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(0).toObject().value("item_1").toString() + ".jpg"));
+    ui->radiantItems_1_3->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(0).toObject().value("item_2").toString() + ".jpg"));
+    ui->radiantItems_1_4->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(0).toObject().value("item_3").toString() + ".jpg"));
+    ui->radiantItems_1_5->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(0).toObject().value("item_4").toString() + ".jpg"));
+    ui->radiantItems_1_6->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(0).toObject().value("item_5").toString() + ".jpg"));
     //player 2
-    ui->radiantItems_2_1->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(1).toObject().value("item_0").toString() + ".jpg"));
-    ui->radiantItems_2_2->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(1).toObject().value("item_1").toString() + ".jpg"));
-    ui->radiantItems_2_3->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(1).toObject().value("item_2").toString() + ".jpg"));
-    ui->radiantItems_2_4->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(1).toObject().value("item_3").toString() + ".jpg"));
-    ui->radiantItems_2_5->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(1).toObject().value("item_4").toString() + ".jpg"));
-    ui->radiantItems_2_6->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(1).toObject().value("item_5").toString() + ".jpg"));
+    ui->radiantItems_2_1->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(1).toObject().value("item_0").toString() + ".jpg"));
+    ui->radiantItems_2_2->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(1).toObject().value("item_1").toString() + ".jpg"));
+    ui->radiantItems_2_3->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(1).toObject().value("item_2").toString() + ".jpg"));
+    ui->radiantItems_2_4->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(1).toObject().value("item_3").toString() + ".jpg"));
+    ui->radiantItems_2_5->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(1).toObject().value("item_4").toString() + ".jpg"));
+    ui->radiantItems_2_6->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(1).toObject().value("item_5").toString() + ".jpg"));
     //player 3
-    ui->radiantItems_3_1->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(2).toObject().value("item_0").toString() + ".jpg"));
-    ui->radiantItems_3_2->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(2).toObject().value("item_1").toString() + ".jpg"));
-    ui->radiantItems_3_3->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(2).toObject().value("item_2").toString() + ".jpg"));
-    ui->radiantItems_3_4->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(2).toObject().value("item_3").toString() + ".jpg"));
-    ui->radiantItems_3_5->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(2).toObject().value("item_4").toString() + ".jpg"));
-    ui->radiantItems_3_6->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(2).toObject().value("item_5").toString() + ".jpg"));
+    ui->radiantItems_3_1->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(2).toObject().value("item_0").toString() + ".jpg"));
+    ui->radiantItems_3_2->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(2).toObject().value("item_1").toString() + ".jpg"));
+    ui->radiantItems_3_3->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(2).toObject().value("item_2").toString() + ".jpg"));
+    ui->radiantItems_3_4->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(2).toObject().value("item_3").toString() + ".jpg"));
+    ui->radiantItems_3_5->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(2).toObject().value("item_4").toString() + ".jpg"));
+    ui->radiantItems_3_6->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(2).toObject().value("item_5").toString() + ".jpg"));
     //player 4
-    ui->radiantItems_4_1->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(3).toObject().value("item_0").toString() + ".jpg"));
-    ui->radiantItems_4_2->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(3).toObject().value("item_1").toString() + ".jpg"));
-    ui->radiantItems_4_3->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(3).toObject().value("item_2").toString() + ".jpg"));
-    ui->radiantItems_4_4->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(3).toObject().value("item_3").toString() + ".jpg"));
-    ui->radiantItems_4_5->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(3).toObject().value("item_4").toString() + ".jpg"));
-    ui->radiantItems_4_6->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(3).toObject().value("item_5").toString() + ".jpg"));
+    ui->radiantItems_4_1->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(3).toObject().value("item_0").toString() + ".jpg"));
+    ui->radiantItems_4_2->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(3).toObject().value("item_1").toString() + ".jpg"));
+    ui->radiantItems_4_3->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(3).toObject().value("item_2").toString() + ".jpg"));
+    ui->radiantItems_4_4->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(3).toObject().value("item_3").toString() + ".jpg"));
+    ui->radiantItems_4_5->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(3).toObject().value("item_4").toString() + ".jpg"));
+    ui->radiantItems_4_6->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(3).toObject().value("item_5").toString() + ".jpg"));
     //player 5
-    ui->radiantItems_5_1->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(4).toObject().value("item_0").toString() + ".jpg"));
-    ui->radiantItems_5_2->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(4).toObject().value("item_1").toString() + ".jpg"));
-    ui->radiantItems_5_3->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(4).toObject().value("item_2").toString() + ".jpg"));
-    ui->radiantItems_5_4->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(4).toObject().value("item_3").toString() + ".jpg"));
-    ui->radiantItems_5_5->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(4).toObject().value("item_4").toString() + ".jpg"));
-    ui->radiantItems_5_6->setPixmap(QPixmap("thumbnails/items/JPEG/" + radiantSlots.at(4).toObject().value("item_5").toString() + ".jpg"));
+    ui->radiantItems_5_1->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(4).toObject().value("item_0").toString() + ".jpg"));
+    ui->radiantItems_5_2->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(4).toObject().value("item_1").toString() + ".jpg"));
+    ui->radiantItems_5_3->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(4).toObject().value("item_2").toString() + ".jpg"));
+    ui->radiantItems_5_4->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(4).toObject().value("item_3").toString() + ".jpg"));
+    ui->radiantItems_5_5->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(4).toObject().value("item_4").toString() + ".jpg"));
+    ui->radiantItems_5_6->setPixmap(QPixmap(picDir + "items/JPEG/" + radiantSlots.at(4).toObject().value("item_5").toString() + ".jpg"));
 
     //radiant Gold
     /*

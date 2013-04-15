@@ -5,5 +5,5 @@ And also shows the stats for that game (Only works for games that are in the Dot
 
 Development Screenshots
 =======================
-![View 1](https://sphotos-b.xx.fbcdn.net/hphotos-prn1/903631_185134131633751_134371026_o.jpg)
-![View 2](https://sphotos-a.xx.fbcdn.net/hphotos-prn1/902580_185134138300417_1108512034_o.jpg)
+![View 1](http://objects.dreamhost.com/computerfr33k/replay-manager-table.png)
+![View 2](http://objects.dreamhost.com/computerfr33k/replay-manager-match-details.png)

@@ -15,6 +15,7 @@ class Preferences : public QDialog
 public:
     explicit Preferences(QWidget *parent = 0);
     QString getDir();
+    void setDir(QString);
     ~Preferences();
     
 private slots:

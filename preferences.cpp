@@ -18,6 +18,11 @@ QString Preferences::getDir()
     return ui->lineEdit->text();
 }
 
+void Preferences::setDir(QString dir)
+{
+    ui->lineEdit->setText(dir);
+}
+
 void Preferences::on_pushButton_clicked()
 {
     QFileDialog fd;

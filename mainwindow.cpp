@@ -34,6 +34,8 @@ void MainWindow::start()
     model->setTable("replays");
     model->select();
     ui->tableView->hideColumn(2);
+    QDir cache("cache");
+    cache.mkdir(QDir::currentPath() + "/cache");
 }
 
 void MainWindow::checkDb() //check and remove files from db that are no longer locally saved
@@ -121,8 +123,15 @@ void MainWindow::on_commandLinkButton_clicked()
 void MainWindow::httpFinished()
 {
     QJsonDocument json = QJsonDocument::fromJson(reply->readAll());
-    qDebug() << json.toJson();
-    setMatchInfo(json);
+    QFile file("cache/" + json.object().value("match_id").toString() + ".json");
+    file.open(QIODevice::WriteOnly);
+    file.write(json.toJson());
+    file.close();
+    //qDebug() << json.toJson();
+    if(json.object().value("success").toString().compare("1") == 0)
+        setMatchInfo(json);
+    else
+        QMessageBox::information(this, "Alert", "Could not find the selected match in the API");
 }
 
 void MainWindow::setMatchInfo(QJsonDocument json)
@@ -400,11 +409,44 @@ void MainWindow::on_viewMatchButton_clicked()
 {
     queryModel.setQuery("SELECT * FROM replays");
     QString matchID = queryModel.record(ui->tableView->selectionModel()->currentIndex().row()).value("filename").toString().remove(".dem");
-    manager = new QNetworkAccessManager(this);
-    reply = manager->get(QNetworkRequest(QUrl("http://dota2.computerfr33k.com/json.php?match_id=" + matchID)));
-    connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
-    connect(manager, SIGNAL(finished(QNetworkReply*)), manager, SLOT(deleteLater()));
-    connect(reply, SIGNAL(finished()), reply, SLOT(deleteLater()));
+    QDir cache(QDir::currentPath() + "/cache");
+    if(!cache.exists())
+        cache.mkdir(QDir::currentPath() + "/cache");
+
+    if(QFile::exists("cache/" + matchID + ".json"))
+    {
+        qDebug() << matchID + " exists";
+        QFileInfo fileInfo("cache/" + matchID + ".json");
+        if(fileInfo.lastModified().addDays(7) < QDateTime::currentDateTime())
+        {
+            qDebug() << "cache > 7 days old";
+            manager = new QNetworkAccessManager(this);
+            reply = manager->get(QNetworkRequest(QUrl("http://dota2.computerfr33k.com/json.php?match_id=" + matchID)));
+            connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
+            connect(manager, SIGNAL(finished(QNetworkReply*)), manager, SLOT(deleteLater()));
+            connect(reply, SIGNAL(finished()), reply, SLOT(deleteLater()));
+        }
+        else
+        {
+            qDebug() << "cache is less than 7 days old";
+            QFile file("cache/" + matchID + ".json");
+            file.open(QIODevice::ReadOnly);
+            if(file.isOpen())
+            {
+                QJsonDocument json = QJsonDocument::fromJson(file.readAll());
+                setMatchInfo(json);
+            }
+        }
+    }
+    else
+    {
+        qDebug() << matchID + " Does not exist";
+        manager = new QNetworkAccessManager(this);
+        reply = manager->get(QNetworkRequest(QUrl("http://dota2.computerfr33k.com/json.php?match_id=" + matchID)));
+        connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
+        connect(manager, SIGNAL(finished(QNetworkReply*)), manager, SLOT(deleteLater()));
+        connect(reply, SIGNAL(finished()), reply, SLOT(deleteLater()));
+    }
 }
 
 void MainWindow::on_editTitle_clicked()
@@ -426,6 +468,7 @@ void MainWindow::on_editTitle_clicked()
 void MainWindow::on_actionPreferences_triggered()
 {
     Preferences pref;
+    pref.setDir(settings->value("replayFolder").toString());
     if(pref.exec())
     {
         dir = pref.getDir();
@@ -433,4 +476,10 @@ void MainWindow::on_actionPreferences_triggered()
         settings->sync();
         QMessageBox::information(this, "Info", "Please Restart The Program To Reload The New Folder.\nThis is jsut a limitation until I finish this part of the program");
     }
+}
+
+void MainWindow::on_actionClear_Cache_triggered()
+{
+    QDir cache(QDir::currentPath() + "/cache");
+    cache.removeRecursively();
 }

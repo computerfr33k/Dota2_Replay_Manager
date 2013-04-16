@@ -42,6 +42,7 @@ private slots:
     void on_viewMatchButton_clicked();
     void on_editTitle_clicked();
     void on_actionPreferences_triggered();
+    void on_actionClear_Cache_triggered();
 
 private:
     QSettings *settings;

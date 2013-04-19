@@ -7,3 +7,7 @@ Development Screenshots
 =======================
 ![View 1](http://objects.dreamhost.com/computerfr33k/replay-manager-table.png)
 ![View 2](http://objects.dreamhost.com/computerfr33k/replay-manager-match-details.png)
+
+Downloads
+=========
+[Latest](http://mc.tt/7cCYykFdg7l)

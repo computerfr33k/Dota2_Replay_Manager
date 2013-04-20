@@ -117,7 +117,7 @@ void MainWindow::addFilesToDb()
 
 void MainWindow::on_commandLinkButton_clicked()
 {
-    QMessageBox::aboutQt(this, "About Qt");
+    QMessageBox::information(this, "TItle", "Whoa! Not so fast there buddy, this is currently not working yet.");
 }
 
 void MainWindow::httpFinished()
@@ -127,7 +127,7 @@ void MainWindow::httpFinished()
     file.open(QIODevice::WriteOnly);
     file.write(json.toJson());
     file.close();
-    //qDebug() << json.toJson();
+    qDebug() << json.toJson();
     if(json.object().value("success").toString().compare("1") == 0)
         setMatchInfo(json);
     else
@@ -420,11 +420,7 @@ void MainWindow::on_viewMatchButton_clicked()
         if(fileInfo.lastModified().addDays(7) < QDateTime::currentDateTime())
         {
             qDebug() << "cache > 7 days old";
-            manager = new QNetworkAccessManager(this);
-            reply = manager->get(QNetworkRequest(QUrl("http://dota2.computerfr33k.com/json.php?match_id=" + matchID)));
-            connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
-            connect(manager, SIGNAL(finished(QNetworkReply*)), manager, SLOT(deleteLater()));
-            connect(reply, SIGNAL(finished()), reply, SLOT(deleteLater()));
+            downloadMatch(matchID);
         }
         else
         {
@@ -441,11 +437,7 @@ void MainWindow::on_viewMatchButton_clicked()
     else
     {
         qDebug() << matchID + " Does not exist";
-        manager = new QNetworkAccessManager(this);
-        reply = manager->get(QNetworkRequest(QUrl("http://dota2.computerfr33k.com/json.php?match_id=" + matchID)));
-        connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
-        connect(manager, SIGNAL(finished(QNetworkReply*)), manager, SLOT(deleteLater()));
-        connect(reply, SIGNAL(finished()), reply, SLOT(deleteLater()));
+        downloadMatch(matchID);
     }
 }
 
@@ -482,4 +474,29 @@ void MainWindow::on_actionClear_Cache_triggered()
 {
     QDir cache(QDir::currentPath() + "/cache");
     cache.removeRecursively();
+}
+
+void MainWindow::downloadMatch(QString id)
+{
+    qDebug() << "match ID: " + id;
+    manager = new QNetworkAccessManager(this);
+    reply = manager->get(QNetworkRequest(QUrl("http://dota2.computerfr33k.com/json.php?match_id=" + id)));
+    connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
+    connect(manager, SIGNAL(finished(QNetworkReply*)), manager, SLOT(deleteLater()));
+    connect(reply, SIGNAL(finished()), reply, SLOT(deleteLater()));
+}
+
+void MainWindow::on_actionAbout_Qt_triggered()
+{
+    QMessageBox::aboutQt(this, tr("About Qt"));
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QMessageBox::about(this, tr("About"), tr("Version: Dev/Alpha\nCreated by: Computerfr33k"));
+}
+
+void MainWindow::on_actionWebsite_triggered()
+{
+    QDesktopServices::openUrl(QUrl("http://github.computerfr33k.com/Dota2_Replay_Manager"));
 }

@@ -35,6 +35,7 @@ protected:
     void checkDb();
     void addFilesToDb();
     void setMatchInfo(QJsonDocument);
+    void downloadMatch(QString);
     
 private slots:
     void on_commandLinkButton_clicked();
@@ -43,6 +44,9 @@ private slots:
     void on_editTitle_clicked();
     void on_actionPreferences_triggered();
     void on_actionClear_Cache_triggered();
+    void on_actionAbout_Qt_triggered();
+    void on_actionAbout_triggered();
+    void on_actionWebsite_triggered();
 
 private:
     QSettings *settings;

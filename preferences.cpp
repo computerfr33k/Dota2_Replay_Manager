@@ -28,3 +28,18 @@ void Preferences::on_pushButton_clicked()
     QFileDialog fd;
     ui->lineEdit->setText(fd.getExistingDirectory(this, "", "C:/Program Files (x86)/Steam/SteamApps/common/dota 2 beta/dota/replays"));
 }
+
+QFont Preferences::getFont()
+{
+    QFont font;
+    font.setFamily(ui->fontComboBox->currentText());
+    font.setPointSize(ui->spinBox->text().toInt());
+
+    return font;
+}
+
+void Preferences::setFont(QFont font)
+{
+    ui->fontComboBox->setCurrentText(font.family());
+    ui->spinBox->setValue(font.pointSize());
+}

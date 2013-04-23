@@ -6,10 +6,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    settings = new QSettings("settings.ini", QSettings::IniFormat);
-    dir = settings->value("replayFolder", "C:/Program Files (x86)/Steam/SteamApps/common/dota 2 beta/dota/replays").toString();
-    picDir = QDir::currentPath() + "/thumbnails/";
     start();
     addFilesToDb();
 }
@@ -25,6 +21,19 @@ MainWindow::~MainWindow()
 
 void MainWindow::start()
 {
+    settings = new QSettings("settings.ini", QSettings::IniFormat);
+    dir = settings->value("replayFolder", "C:/Program Files (x86)/Steam/SteamApps/common/dota 2 beta/dota/replays").toString();
+    picDir = QDir::currentPath() + "/thumbnails/";
+
+    //set buttons to disabled until user selects a valid row
+    ui->watchReplay->setEnabled(false);
+    ui->editTitle->setEnabled(false);
+    ui->viewMatchButton->setEnabled(false);
+
+    //font settings
+    font.setPointSize(settings->value("fontSize", "10").toInt());
+    font.setFamily(settings->value("fontFamily", "Times New Roman").toString());
+
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("matches.db");
     db.open();
@@ -112,12 +121,29 @@ void MainWindow::addFilesToDb()
         checkDb();
         model->select();
         ui->tableView->resizeColumnsToContents();
-        //return ok;
 }
 
-void MainWindow::on_commandLinkButton_clicked()
+void MainWindow::on_watchReplay_clicked()
 {
-    QMessageBox::information(this, "TItle", "Whoa! Not so fast there buddy, this is currently not working yet.");
+    queryModel.setQuery("SELECT * FROM replays");
+    QDialog dialog(this);
+    QVBoxLayout *layout = new QVBoxLayout;
+    QTextEdit *textEdit = new QTextEdit;
+    textEdit->setReadOnly(true);
+    layout->addWidget(textEdit);
+    textEdit->setText(QString("Type This Into Dota 2 Console:\n\nplaydemo replays/%1").arg(queryModel.record(ui->tableView->selectionModel()->currentIndex().row()).value("filename").toString()));
+    QDialogButtonBox *buttonBox = new QDialogButtonBox;
+    QPushButton *acceptButton = new QPushButton(tr("Ok"));
+    buttonBox->addButton(acceptButton, QDialogButtonBox::AcceptRole);
+    layout->addWidget(buttonBox);
+
+    dialog.setLayout(layout);
+    dialog.connect(buttonBox, SIGNAL(accepted()), SLOT(close()));
+    dialog.exec();
+    acceptButton->deleteLater();
+    buttonBox->deleteLater();
+    textEdit->deleteLater();
+    layout->deleteLater();
 }
 
 void MainWindow::httpFinished()
@@ -138,6 +164,8 @@ void MainWindow::setMatchInfo(QJsonDocument json)
 {
     //main match info
     ui->matchID->setText(json.object().value("match_id").toString());
+    ui->matchID->setFont(font);
+
     ui->gameMode->setText(json.object().value("game_mode").toString());
     ui->startTime->setText(json.object().value("start_time").toString());
     ui->lobbyType->setText(json.object().value("lobby_type").toString());
@@ -461,11 +489,18 @@ void MainWindow::on_actionPreferences_triggered()
 {
     Preferences pref;
     pref.setDir(settings->value("replayFolder").toString());
+    pref.setFont(font);
     if(pref.exec())
     {
         dir = pref.getDir();
         settings->setValue("replayFolder", pref.getDir());
+        settings->setValue("fontFamily", pref.getFont().family());
+        settings->setValue("fontSize", pref.getFont().pointSize());
         settings->sync();
+
+        //set font settings
+        font = pref.getFont();
+
         QMessageBox::information(this, "Info", "Please Restart The Program To Reload The New Folder.\nThis is jsut a limitation until I finish this part of the program");
     }
 }
@@ -493,10 +528,26 @@ void MainWindow::on_actionAbout_Qt_triggered()
 
 void MainWindow::on_actionAbout_triggered()
 {
-    QMessageBox::about(this, tr("About"), tr("Version: Dev/Alpha\nCreated by: Computerfr33k"));
+    QMessageBox::about(this, tr("About"), tr("Version: %1 \nCreated by: Computerfr33k").arg(QApplication::applicationVersion()));
 }
 
 void MainWindow::on_actionWebsite_triggered()
 {
-    QDesktopServices::openUrl(QUrl("http://github.computerfr33k.com/Dota2_Replay_Manager"));
+    QDesktopServices::openUrl(QUrl("http://www.dota2replay-manager.com"));
+}
+
+void MainWindow::on_tableView_clicked(const QModelIndex &index)
+{
+    if(index.row() < 0)
+    {
+        ui->watchReplay->setEnabled(false);
+        ui->editTitle->setEnabled(false);
+        ui->viewMatchButton->setEnabled(false);
+    }
+    else
+    {
+        ui->watchReplay->setEnabled(true);
+        ui->editTitle->setEnabled(true);
+        ui->viewMatchButton->setEnabled(true);
+    }
 }

@@ -14,6 +14,9 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QSqlRecord>
+#include <QTextEdit>
+#include <QDialog>
+#include <QDialogButtonBox>
 
 #include "edittitle.h"
 #include "preferences.h"
@@ -38,7 +41,7 @@ protected:
     void downloadMatch(QString);
     
 private slots:
-    void on_commandLinkButton_clicked();
+    void on_watchReplay_clicked();
     void httpFinished();
     void on_viewMatchButton_clicked();
     void on_editTitle_clicked();
@@ -48,9 +51,13 @@ private slots:
     void on_actionAbout_triggered();
     void on_actionWebsite_triggered();
 
+    void on_tableView_clicked(const QModelIndex &index);
+
 private:
     QSettings *settings;
     QDir dir;
+    QDir userDir;
+    QFont font;
     Ui::MainWindow *ui;
     QSqlDatabase db;
     QSqlTableModel *model;

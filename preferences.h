@@ -16,6 +16,8 @@ public:
     explicit Preferences(QWidget *parent = 0);
     QString getDir();
     void setDir(QString);
+    QFont getFont();
+    void setFont(QFont);
     ~Preferences();
     
 private slots:

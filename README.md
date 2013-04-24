@@ -5,7 +5,7 @@ And also shows the stats for that game (Only works for games that are in the Dot
 
 Development Screenshots
 =======================
-![View 1](http://objects.dreamhost.com/computerfr33k/replay-manager-table.png)
+![View 1](http://www.dota2replay-manager.com/files/thumb/15adea63bc38ed8/400)
 ![View 2](http://objects.dreamhost.com/computerfr33k/replay-manager-match-details.png)
 
 Downloads

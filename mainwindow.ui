@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -27,6 +27,9 @@
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <layout class="QFormLayout" name="formLayout">
+          <property name="fieldGrowthPolicy">
+           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+          </property>
           <item row="0" column="0">
            <widget class="QLabel" name="label_4">
             <property name="text">
@@ -252,6 +255,13 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Player</string>
+            </property>
+           </widget>
+          </item>
           <item row="6" column="14">
            <widget class="QLabel" name="radiantGold_3">
             <property name="text">
@@ -262,6 +272,13 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="4">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Hero</string>
+            </property>
+           </widget>
+          </item>
           <item row="8" column="14">
            <widget class="QLabel" name="radiantGold_4">
             <property name="text">
@@ -269,20 +286,6 @@
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Player</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="4">
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>Hero</string>
             </property>
            </widget>
           </item>
@@ -306,6 +309,13 @@
             </property>
            </widget>
           </item>
+          <item row="1" column="0">
+           <widget class="Line" name="line">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="10">
            <widget class="QLabel" name="label_21">
             <property name="text">
@@ -313,13 +323,6 @@
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="Line" name="line">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -339,6 +342,20 @@
             </property>
            </widget>
           </item>
+          <item row="8" column="1">
+           <widget class="Line" name="line_7">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="Line" name="line_17">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
           <item row="8" column="2">
            <widget class="QLabel" name="radiantLevel_4">
             <property name="maximumSize">
@@ -352,13 +369,6 @@
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="Line" name="line_17">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -432,6 +442,13 @@
             </property>
            </widget>
           </item>
+          <item row="1" column="4">
+           <widget class="Line" name="line_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
           <item row="5" column="2">
            <widget class="Line" name="line_21">
             <property name="orientation">
@@ -439,8 +456,8 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="4">
-           <widget class="Line" name="line_3">
+          <item row="1" column="2">
+           <widget class="Line" name="line_2">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -453,13 +470,6 @@
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="Line" name="line_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -539,6 +549,13 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Level</string>
+            </property>
+           </widget>
+          </item>
           <item row="4" column="2">
            <widget class="QLabel" name="radiantLevel_2">
             <property name="maximumSize">
@@ -552,13 +569,6 @@
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Level</string>
             </property>
            </widget>
           </item>
@@ -590,17 +600,26 @@
             </property>
            </widget>
           </item>
-          <item row="8" column="1">
-           <widget class="Line" name="line_7">
+          <item row="6" column="1">
+           <widget class="Line" name="line_6">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
            </widget>
           </item>
-          <item row="6" column="1">
-           <widget class="Line" name="line_6">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
+          <item row="8" column="10">
+           <widget class="QLabel" name="radiantAssists_4">
+            <property name="minimumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -632,16 +651,6 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="16">
-           <widget class="QLabel" name="radiantLH_1">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
           <item row="4" column="16">
            <widget class="QLabel" name="radiantLH_2">
             <property name="text">
@@ -652,8 +661,28 @@
             </property>
            </widget>
           </item>
+          <item row="2" column="16">
+           <widget class="QLabel" name="radiantLH_1">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
           <item row="6" column="16">
            <widget class="QLabel" name="radiantLH_3">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="14">
+           <widget class="QLabel" name="radiantGold_5">
             <property name="text">
              <string/>
             </property>
@@ -908,6 +937,20 @@
             </item>
            </layout>
           </item>
+          <item row="5" column="20">
+           <widget class="Line" name="line_109">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="20">
+           <widget class="Line" name="line_110">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
           <item row="4" column="12">
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
@@ -1076,18 +1119,14 @@
             </property>
            </widget>
           </item>
-          <item row="8" column="10">
-           <widget class="QLabel" name="radiantAssists_4">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
           <item row="4" column="10">
            <widget class="QLabel" name="radiantAssists_2">
+            <property name="minimumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -1098,6 +1137,12 @@
           </item>
           <item row="2" column="6">
            <widget class="QLabel" name="radiantKills_1">
+            <property name="minimumSize">
+             <size>
+              <width>30</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -1108,6 +1153,44 @@
           </item>
           <item row="10" column="10">
            <widget class="QLabel" name="radiantAssists_5">
+            <property name="minimumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="10">
+           <widget class="QLabel" name="radiantAssists_1">
+            <property name="minimumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="10">
+           <widget class="QLabel" name="radiantAssists_3">
+            <property name="minimumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -1162,28 +1245,14 @@
             </item>
            </layout>
           </item>
-          <item row="2" column="10">
-           <widget class="QLabel" name="radiantAssists_1">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="10">
-           <widget class="QLabel" name="radiantAssists_3">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
           <item row="4" column="6">
            <widget class="QLabel" name="radiantKills_2">
+            <property name="minimumSize">
+             <size>
+              <width>30</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -1194,6 +1263,12 @@
           </item>
           <item row="6" column="6">
            <widget class="QLabel" name="radiantKills_3">
+            <property name="minimumSize">
+             <size>
+              <width>30</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -1204,6 +1279,12 @@
           </item>
           <item row="8" column="6">
            <widget class="QLabel" name="radiantKills_4">
+            <property name="minimumSize">
+             <size>
+              <width>30</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -1214,6 +1295,12 @@
           </item>
           <item row="10" column="6">
            <widget class="QLabel" name="radiantKills_5">
+            <property name="minimumSize">
+             <size>
+              <width>30</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -1224,6 +1311,12 @@
           </item>
           <item row="2" column="8">
            <widget class="QLabel" name="radiantDeaths_1">
+            <property name="minimumSize">
+             <size>
+              <width>30</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -1341,17 +1434,17 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="10">
-           <widget class="Line" name="line_43">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
           <item row="8" column="5">
            <widget class="Line" name="line_39">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="10">
+           <widget class="Line" name="line_43">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -1509,13 +1602,6 @@
             </property>
            </widget>
           </item>
-          <item row="9" column="4">
-           <widget class="Line" name="line_36">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
           <item row="8" column="22">
            <widget class="QLabel" name="radiantXPM_4">
             <property name="text">
@@ -1523,6 +1609,13 @@
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="4">
+           <widget class="Line" name="line_36">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -1540,16 +1633,6 @@
            <widget class="Line" name="line_55">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="10" column="14">
-           <widget class="QLabel" name="radiantGold_5">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -1745,17 +1828,17 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="18">
-           <widget class="Line" name="line_93">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
           <item row="8" column="19">
            <widget class="Line" name="line_98">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="18">
+           <widget class="Line" name="line_93">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -1857,20 +1940,6 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="20">
-           <widget class="Line" name="line_109">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="20">
-           <widget class="Line" name="line_110">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="20">
            <widget class="Line" name="line_111">
             <property name="orientation">
@@ -1944,15 +2013,260 @@
         </item>
         <item>
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="9" column="0">
-           <widget class="Line" name="line_119">
+          <item row="2" column="18">
+           <widget class="QLabel" name="direDN_1">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="22">
+           <widget class="QLabel" name="direXPM_1">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="20">
+           <widget class="Line" name="line_190">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
-          <item row="11" column="0">
-           <widget class="Line" name="line_118">
+          <item row="7" column="20">
+           <widget class="Line" name="line_189">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="10">
+           <widget class="Line" name="line_164">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="18">
+           <widget class="Line" name="line_185">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="16">
+           <widget class="Line" name="line_178">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="16">
+           <widget class="Line" name="line_182">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="13">
+           <widget class="Line" name="line_211">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="21">
+           <widget class="Line" name="line_231">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="21">
+           <widget class="Line" name="line_232">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="8">
+           <widget class="Line" name="line_158">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="8">
+           <widget class="Line" name="line_160">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="19">
+           <widget class="Line" name="line_225">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="19">
+           <widget class="Line" name="line_226">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="5">
+           <widget class="Line" name="line_145">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="11">
+           <widget class="Line" name="line_205">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="15">
+           <widget class="Line" name="line_216">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="17">
+           <widget class="Line" name="line_220">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="15">
+           <widget class="Line" name="line_217">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="14">
+           <widget class="Line" name="line_177">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="9">
+           <widget class="Line" name="line_198">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="12">
+           <widget class="Line" name="line_168">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="9">
+           <widget class="Line" name="line_201">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="17">
+           <widget class="Line" name="line_219">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="19">
+           <widget class="Line" name="line_223">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="12">
+           <widget class="Line" name="line_169">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="9">
+           <widget class="Line" name="line_202">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="11">
+           <widget class="Line" name="line_203">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="18">
+           <widget class="Line" name="line_184">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="20">
+           <widget class="Line" name="line_192">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="20">
+           <widget class="Line" name="line_188">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="9">
+           <widget class="Line" name="line_200">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="22">
+           <widget class="Line" name="line_196">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="direPlayer_1">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_28">
+            <property name="text">
+             <string>Player</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="0">
+           <widget class="Line" name="line_119">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -1965,7 +2279,7 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="9">
+          <item row="0" column="18">
            <widget class="QLabel" name="label_36">
             <property name="text">
              <string>Denies</string>
@@ -1979,14 +2293,21 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="7">
+          <item row="0" column="14">
            <widget class="QLabel" name="label_15">
             <property name="text">
              <string>Gold</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
+          <item row="0" column="12">
+           <widget class="QLabel" name="label_14">
+            <property name="text">
+             <string>Items</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
            <widget class="QLabel" name="label_8">
             <property name="text">
              <string>Level</string>
@@ -1996,22 +2317,8 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="6">
-           <widget class="QLabel" name="label_14">
-            <property name="text">
-             <string>Items</string>
-            </property>
-           </widget>
-          </item>
           <item row="4" column="0">
            <widget class="QLabel" name="direPlayer_2">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="direPlayer_1">
             <property name="text">
              <string/>
             </property>
@@ -2031,21 +2338,14 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_28">
-            <property name="text">
-             <string>Player</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
+          <item row="0" column="4">
            <widget class="QLabel" name="label_10">
             <property name="text">
              <string>Hero</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="5">
+          <item row="0" column="10">
            <widget class="QLabel" name="label_13">
             <property name="text">
              <string>A</string>
@@ -2055,7 +2355,7 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="4">
+          <item row="0" column="8">
            <widget class="QLabel" name="label_12">
             <property name="text">
              <string>D</string>
@@ -2065,7 +2365,7 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="3">
+          <item row="0" column="6">
            <widget class="QLabel" name="label_11">
             <property name="text">
              <string>K</string>
@@ -2075,28 +2375,60 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="10">
+          <item row="0" column="20">
            <widget class="QLabel" name="label_37">
             <property name="text">
              <string>Gold/Min</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="8">
-           <widget class="QLabel" name="label_35">
-            <property name="text">
-             <string>Last Hits</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="11">
+          <item row="0" column="22">
            <widget class="QLabel" name="label_38">
             <property name="text">
              <string>XP/Min</string>
             </property>
            </widget>
           </item>
+          <item row="0" column="16">
+           <widget class="QLabel" name="label_35">
+            <property name="text">
+             <string>Last Hits</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="direLevel_1">
+            <property name="maximumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
           <item row="2" column="6">
+           <widget class="QLabel" name="direKills_1">
+            <property name="maximumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="12">
            <layout class="QHBoxLayout" name="horizontalLayout_13">
             <item>
              <widget class="QLabel" name="direItems_1_1">
@@ -2142,7 +2474,7 @@
             </item>
            </layout>
           </item>
-          <item row="4" column="6">
+          <item row="4" column="12">
            <layout class="QHBoxLayout" name="horizontalLayout_14">
             <item>
              <widget class="QLabel" name="direItems_2_1">
@@ -2188,7 +2520,7 @@
             </item>
            </layout>
           </item>
-          <item row="6" column="6">
+          <item row="6" column="12">
            <layout class="QHBoxLayout" name="horizontalLayout_15">
             <item>
              <widget class="QLabel" name="direItems_3_1">
@@ -2234,7 +2566,7 @@
             </item>
            </layout>
           </item>
-          <item row="8" column="6">
+          <item row="8" column="12">
            <layout class="QHBoxLayout" name="horizontalLayout_16">
             <item>
              <widget class="QLabel" name="direItems_4_1">
@@ -2280,7 +2612,7 @@
             </item>
            </layout>
           </item>
-          <item row="10" column="6">
+          <item row="10" column="12">
            <layout class="QHBoxLayout" name="horizontalLayout_17">
             <item>
              <widget class="QLabel" name="direItems_5_1">
@@ -2326,46 +2658,14 @@
             </item>
            </layout>
           </item>
-          <item row="2" column="1">
-           <widget class="QLabel" name="direLevel_1">
-            <property name="maximumSize">
-             <size>
-              <width>30</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="3">
-           <widget class="QLabel" name="direKills_1">
-            <property name="maximumSize">
-             <size>
-              <width>30</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="7">
+          <item row="2" column="14">
            <widget class="QLabel" name="direGold_1">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="2" column="4">
+          <item row="2" column="8">
            <widget class="QLabel" name="direDeaths_1">
             <property name="maximumSize">
              <size>
@@ -2381,14 +2681,14 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="8">
+          <item row="2" column="16">
            <widget class="QLabel" name="direLH_1">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="2" column="5">
+          <item row="2" column="10">
            <widget class="QLabel" name="direAssists_1">
             <property name="maximumSize">
              <size>
@@ -2404,28 +2704,14 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="9">
-           <widget class="QLabel" name="direDN_1">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="10">
+          <item row="2" column="20">
            <widget class="QLabel" name="direGPM_1">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="2" column="11">
-           <widget class="QLabel" name="direXPM_1">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
+          <item row="4" column="2">
            <widget class="QLabel" name="direLevel_2">
             <property name="maximumSize">
              <size>
@@ -2441,23 +2727,7 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="5">
-           <widget class="QLabel" name="direAssists_2">
-            <property name="maximumSize">
-             <size>
-              <width>30</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="3">
+          <item row="4" column="6">
            <widget class="QLabel" name="direKills_2">
             <property name="maximumSize">
              <size>
@@ -2473,8 +2743,8 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="4">
-           <widget class="QLabel" name="direDeaths_2">
+          <item row="4" column="10">
+           <widget class="QLabel" name="direAssists_2">
             <property name="maximumSize">
              <size>
               <width>30</width>
@@ -2490,41 +2760,57 @@
            </widget>
           </item>
           <item row="4" column="8">
+           <widget class="QLabel" name="direDeaths_2">
+            <property name="maximumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="16">
            <widget class="QLabel" name="direLH_2">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="4" column="7">
+          <item row="4" column="14">
            <widget class="QLabel" name="direGold_2">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="4" column="9">
+          <item row="4" column="18">
            <widget class="QLabel" name="direDN_2">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="4" column="10">
-           <widget class="QLabel" name="direGPM_2">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="11">
+          <item row="4" column="22">
            <widget class="QLabel" name="direXPM_2">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="6" column="1">
+          <item row="4" column="20">
+           <widget class="QLabel" name="direGPM_2">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="2">
            <widget class="QLabel" name="direLevel_3">
             <property name="maximumSize">
              <size>
@@ -2540,7 +2826,7 @@
             </property>
            </widget>
           </item>
-          <item row="6" column="3">
+          <item row="6" column="6">
            <widget class="QLabel" name="direKills_3">
             <property name="maximumSize">
              <size>
@@ -2556,7 +2842,7 @@
             </property>
            </widget>
           </item>
-          <item row="6" column="4">
+          <item row="6" column="8">
            <widget class="QLabel" name="direDeaths_3">
             <property name="maximumSize">
              <size>
@@ -2572,7 +2858,7 @@
             </property>
            </widget>
           </item>
-          <item row="6" column="5">
+          <item row="6" column="10">
            <widget class="QLabel" name="direAssists_3">
             <property name="maximumSize">
              <size>
@@ -2588,42 +2874,35 @@
             </property>
            </widget>
           </item>
-          <item row="6" column="7">
+          <item row="6" column="14">
            <widget class="QLabel" name="direGold_3">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="6" column="8">
+          <item row="6" column="16">
            <widget class="QLabel" name="direLH_3">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="6" column="9">
+          <item row="6" column="18">
            <widget class="QLabel" name="direDN_3">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="6" column="10">
+          <item row="6" column="20">
            <widget class="QLabel" name="direGPM_3">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="6" column="11">
-           <widget class="QLabel" name="direXPM_3">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="1">
+          <item row="8" column="2">
            <widget class="QLabel" name="direLevel_4">
             <property name="maximumSize">
              <size>
@@ -2639,7 +2918,14 @@
             </property>
            </widget>
           </item>
-          <item row="8" column="3">
+          <item row="6" column="22">
+           <widget class="QLabel" name="direXPM_3">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="6">
            <widget class="QLabel" name="direKills_4">
             <property name="maximumSize">
              <size>
@@ -2655,7 +2941,7 @@
             </property>
            </widget>
           </item>
-          <item row="8" column="4">
+          <item row="8" column="8">
            <widget class="QLabel" name="direDeaths_4">
             <property name="maximumSize">
              <size>
@@ -2671,7 +2957,7 @@
             </property>
            </widget>
           </item>
-          <item row="8" column="5">
+          <item row="8" column="10">
            <widget class="QLabel" name="direAssists_4">
             <property name="maximumSize">
              <size>
@@ -2687,58 +2973,42 @@
             </property>
            </widget>
           </item>
-          <item row="8" column="7">
+          <item row="8" column="14">
            <widget class="QLabel" name="direGold_4">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="8" column="8">
+          <item row="8" column="16">
            <widget class="QLabel" name="direLH_4">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="8" column="9">
+          <item row="8" column="18">
            <widget class="QLabel" name="direDN_4">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="8" column="10">
+          <item row="8" column="20">
            <widget class="QLabel" name="direGPM_4">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="8" column="11">
+          <item row="8" column="22">
            <widget class="QLabel" name="direXPM_4">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="10" column="1">
-           <widget class="QLabel" name="direLevel_5">
-            <property name="maximumSize">
-             <size>
-              <width>30</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="10" column="3">
+          <item row="10" column="6">
            <widget class="QLabel" name="direKills_5">
             <property name="maximumSize">
              <size>
@@ -2754,7 +3024,23 @@
             </property>
            </widget>
           </item>
-          <item row="10" column="4">
+          <item row="10" column="2">
+           <widget class="QLabel" name="direLevel_5">
+            <property name="maximumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="8">
            <widget class="QLabel" name="direDeaths_5">
             <property name="maximumSize">
              <size>
@@ -2770,7 +3056,7 @@
             </property>
            </widget>
           </item>
-          <item row="10" column="5">
+          <item row="10" column="10">
            <widget class="QLabel" name="direAssists_5">
             <property name="maximumSize">
              <size>
@@ -2786,42 +3072,42 @@
             </property>
            </widget>
           </item>
-          <item row="10" column="7">
+          <item row="10" column="14">
            <widget class="QLabel" name="direGold_5">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="10" column="8">
+          <item row="10" column="16">
            <widget class="QLabel" name="direLH_5">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="10" column="9">
-           <widget class="QLabel" name="direDN_5">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="10" column="10">
+          <item row="10" column="20">
            <widget class="QLabel" name="direGPM_5">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="10" column="11">
+          <item row="10" column="18">
+           <widget class="QLabel" name="direDN_5">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="22">
            <widget class="QLabel" name="direXPM_5">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="2" column="2">
+          <item row="2" column="4">
            <layout class="QHBoxLayout" name="horizontalLayout_12">
             <item>
              <widget class="QLabel" name="direHeroPic_1">
@@ -2845,7 +3131,7 @@
             </item>
            </layout>
           </item>
-          <item row="4" column="2">
+          <item row="4" column="4">
            <layout class="QHBoxLayout" name="horizontalLayout_18">
             <item>
              <widget class="QLabel" name="direHeroPic_2">
@@ -2869,7 +3155,7 @@
             </item>
            </layout>
           </item>
-          <item row="6" column="2">
+          <item row="6" column="4">
            <layout class="QHBoxLayout" name="horizontalLayout_19">
             <item>
              <widget class="QLabel" name="direHeroPic_3">
@@ -2893,7 +3179,7 @@
             </item>
            </layout>
           </item>
-          <item row="8" column="2">
+          <item row="8" column="4">
            <layout class="QHBoxLayout" name="horizontalLayout_20">
             <item>
              <widget class="QLabel" name="direHeroPic_4">
@@ -2917,7 +3203,7 @@
             </item>
            </layout>
           </item>
-          <item row="10" column="2">
+          <item row="10" column="4">
            <layout class="QHBoxLayout" name="horizontalLayout_21">
             <item>
              <widget class="QLabel" name="direHeroPic_5">
@@ -2957,6 +3243,552 @@
           </item>
           <item row="3" column="0">
            <widget class="Line" name="line_122">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="3">
+           <widget class="Line" name="line_138">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="1">
+           <widget class="Line" name="line_123">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="9">
+           <widget class="Line" name="line_199">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="12">
+           <widget class="Line" name="line_172">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="3">
+           <widget class="Line" name="line_140">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="14">
+           <widget class="Line" name="line_175">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="11">
+           <widget class="Line" name="line_206">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="13">
+           <widget class="Line" name="line_208">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="1">
+           <widget class="Line" name="line_124">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="14">
+           <widget class="Line" name="line_174">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="2">
+           <widget class="Line" name="line_130">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="Line" name="line_127">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="2">
+           <widget class="Line" name="line_128">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="Line" name="line_142">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="Line" name="line_125">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="16">
+           <widget class="Line" name="line_179">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="18">
+           <widget class="Line" name="line_183">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="15">
+           <widget class="Line" name="line_213">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="17">
+           <widget class="Line" name="line_218">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="11">
+           <widget class="Line" name="line_204">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="12">
+           <widget class="Line" name="line_171">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="14">
+           <widget class="Line" name="line_173">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="10">
+           <widget class="Line" name="line_163">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="19">
+           <widget class="Line" name="line_227">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="21">
+           <widget class="Line" name="line_229">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="21">
+           <widget class="Line" name="line_230">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="21">
+           <widget class="Line" name="line_228">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="13">
+           <widget class="Line" name="line_209">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="11">
+           <widget class="Line" name="line_207">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="19">
+           <widget class="Line" name="line_224">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="15">
+           <widget class="Line" name="line_215">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="15">
+           <widget class="Line" name="line_214">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="Line" name="line_131">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="Line" name="line_126">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="13">
+           <widget class="Line" name="line_212">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="13">
+           <widget class="Line" name="line_210">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="Line" name="line_132">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="2">
+           <widget class="Line" name="line_129">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="4">
+           <widget class="Line" name="line_133">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="4">
+           <widget class="Line" name="line_134">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="4">
+           <widget class="Line" name="line_135">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="4">
+           <widget class="Line" name="line_136">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="4">
+           <widget class="Line" name="line_137">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="8">
+           <widget class="Line" name="line_162">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="10">
+           <widget class="Line" name="line_166">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="22">
+           <widget class="Line" name="line_194">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="20">
+           <widget class="Line" name="line_191">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="12">
+           <widget class="Line" name="line_170">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="10">
+           <widget class="Line" name="line_167">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="8">
+           <widget class="Line" name="line_161">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="18">
+           <widget class="Line" name="line_186">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="16">
+           <widget class="Line" name="line_180">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="3">
+           <widget class="Line" name="line_139">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="8">
+           <widget class="Line" name="line_159">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="5">
+           <widget class="Line" name="line_143">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="16">
+           <widget class="Line" name="line_181">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="22">
+           <widget class="Line" name="line_193">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="5">
+           <widget class="Line" name="line_144">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="6">
+           <widget class="Line" name="line_150">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="3">
+           <widget class="Line" name="line_141">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="5">
+           <widget class="Line" name="line_146">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="6">
+           <widget class="Line" name="line_149">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="5">
+           <widget class="Line" name="line_147">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="6">
+           <widget class="Line" name="line_148">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="6">
+           <widget class="Line" name="line_152">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="7">
+           <widget class="Line" name="line_154">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="7">
+           <widget class="Line" name="line_153">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="7">
+           <widget class="Line" name="line_155">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="10">
+           <widget class="Line" name="line_165">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="6">
+           <widget class="Line" name="line_151">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="7">
+           <widget class="Line" name="line_156">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="22">
+           <widget class="Line" name="line_197">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="7">
+           <widget class="Line" name="line_157">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="14">
+           <widget class="Line" name="line_176">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="22">
+           <widget class="Line" name="line_195">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="17">
+           <widget class="Line" name="line_221">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="17">
+           <widget class="Line" name="line_222">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="18">
+           <widget class="Line" name="line_187">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>

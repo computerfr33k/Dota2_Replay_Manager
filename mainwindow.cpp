@@ -13,6 +13,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    settings->setValue("windowGeometry", saveGeometry());
+    settings->setValue("windowState", saveState());
+    settings->sync();
     db.close();
     delete settings;
     delete ui;
@@ -23,6 +26,8 @@ void MainWindow::start()
 {
     settings = new QSettings("settings.ini", QSettings::IniFormat);
     dir = settings->value("replayFolder", "C:/Program Files (x86)/Steam/SteamApps/common/dota 2 beta/dota/replays").toString();
+    restoreGeometry(settings->value("windowGeometry", "").toByteArray()); //restore previous session's dimensions of the program
+    restoreState(settings->value("windowState", "").toByteArray()); //restore the previous session's state of the program
     picDir = QDir::currentPath() + "/thumbnails/";
 
     //set buttons to disabled until user selects a valid row
@@ -77,8 +82,6 @@ void MainWindow::checkDb() //check and remove files from db that are no longer l
     }
     query.exec("delete from replays where fileExists = 0");
     db.commit();
-    //ui->tableView->sortByColumn(1, Qt::DescendingOrder);
-    //model->select();
 }
 
 void MainWindow::addFilesToDb()
@@ -158,6 +161,9 @@ void MainWindow::httpFinished()
         setMatchInfo(json);
     else
         QMessageBox::information(this, "Alert", "Could not find the selected match in the API");
+
+    manager->deleteLater();
+    reply->deleteLater();
 }
 
 void MainWindow::setMatchInfo(QJsonDocument json)
@@ -517,8 +523,8 @@ void MainWindow::downloadMatch(QString id)
     manager = new QNetworkAccessManager(this);
     reply = manager->get(QNetworkRequest(QUrl("http://dota2.computerfr33k.com/json.php?match_id=" + id)));
     connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
-    connect(manager, SIGNAL(finished(QNetworkReply*)), manager, SLOT(deleteLater()));
-    connect(reply, SIGNAL(finished()), reply, SLOT(deleteLater()));
+    //connect(manager, SIGNAL(finished(QNetworkReply*)), manager, SLOT(deleteLater()));
+    //connect(reply, SIGNAL(finished()), reply, SLOT(deleteLater()));
 }
 
 void MainWindow::on_actionAbout_Qt_triggered()

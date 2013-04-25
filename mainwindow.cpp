@@ -169,8 +169,7 @@ void MainWindow::httpFinished()
 void MainWindow::setMatchInfo(QJsonDocument json)
 {
     //main match info
-    ui->matchID->setText(json.object().value("match_id").toString());
-    ui->matchID->setFont(font);
+    ui->matchID->setText(QString("<a href=\"http://dotabuff.com/matches/%1\">%1</a>").arg(json.object().value("match_id").toString()));
 
     ui->gameMode->setText(json.object().value("game_mode").toString());
     ui->startTime->setText(json.object().value("start_time").toString());

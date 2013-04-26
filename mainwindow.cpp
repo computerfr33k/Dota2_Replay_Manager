@@ -16,6 +16,7 @@ MainWindow::~MainWindow()
     settings->setValue("windowGeometry", saveGeometry());
     settings->setValue("windowState", saveState());
     settings->sync();
+    db.exec(QString("VACUUM"));
     db.close();
     delete settings;
     delete ui;
@@ -134,7 +135,7 @@ void MainWindow::on_watchReplay_clicked()
     QTextEdit *textEdit = new QTextEdit;
     textEdit->setReadOnly(true);
     layout->addWidget(textEdit);
-    textEdit->setText(QString("Type This Into Dota 2 Console:\n\nplaydemo replays/%1").arg(queryModel.record(ui->tableView->selectionModel()->currentIndex().row()).value("filename").toString()));
+    textEdit->setHtml(QString("Type This Into Dota 2 Console: <p> <pre>playdemo replays/%1</pre><p><em>make sure the replay is in your default dota 2 replay directory</em>").arg(queryModel.record(ui->tableView->selectionModel()->currentIndex().row()).value("filename").toString()));
     QDialogButtonBox *buttonBox = new QDialogButtonBox;
     QPushButton *acceptButton = new QPushButton(tr("Ok"));
     buttonBox->addButton(acceptButton, QDialogButtonBox::AcceptRole);
@@ -176,6 +177,65 @@ void MainWindow::setMatchInfo(QJsonDocument json)
     ui->lobbyType->setText(json.object().value("lobby_type").toString());
     ui->duration->setText(json.object().value("duration").toString());
     ui->fbTime->setText(json.object().value("first_blood_time").toString());
+
+    //picks and bans
+    if(json.object().value("game_mode").toString().compare("Captains Mode") == 0)
+    {
+        QJsonArray radiantBans = json.object().value("picks_bans").toObject().value("radiant").toObject().value("bans").toArray();
+        ui->radiantBan_1->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantBans.at(0).toObject().value("name").toString() + ".jpg"));
+        ui->radiantBan_2->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantBans.at(1).toObject().value("name").toString() + ".jpg"));
+        ui->radiantBan_3->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantBans.at(2).toObject().value("name").toString() + ".jpg"));
+        ui->radiantBan_4->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantBans.at(3).toObject().value("name").toString() + ".jpg"));
+        ui->radiantBan_5->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantBans.at(4).toObject().value("name").toString() + ".jpg"));
+
+        QJsonArray radiantPicks = json.object().value("picks_bans").toObject().value("radiant").toObject().value("picks").toArray();
+        ui->radiantPick_1->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantPicks.at(0).toObject().value("name").toString() + ".jpg"));
+        ui->radiantPick_2->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantPicks.at(1).toObject().value("name").toString() + ".jpg"));
+        ui->radiantPick_3->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantPicks.at(2).toObject().value("name").toString() + ".jpg"));
+        ui->radiantPick_4->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantPicks.at(3).toObject().value("name").toString() + ".jpg"));
+        ui->radiantPick_5->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantPicks.at(4).toObject().value("name").toString() + ".jpg"));
+
+        QJsonArray direBans = json.object().value("picks_bans").toObject().value("dire").toObject().value("bans").toArray();
+        ui->direBan_1->setPixmap(QPixmap(picDir + "heroes/JPEG/" + direBans.at(0).toObject().value("name").toString() + ".jpg"));
+        ui->direBan_2->setPixmap(QPixmap(picDir + "heroes/JPEG/" + direBans.at(1).toObject().value("name").toString() + ".jpg"));
+        ui->direBan_3->setPixmap(QPixmap(picDir + "heroes/JPEG/" + direBans.at(2).toObject().value("name").toString() + ".jpg"));
+        ui->direBan_4->setPixmap(QPixmap(picDir + "heroes/JPEG/" + direBans.at(3).toObject().value("name").toString() + ".jpg"));
+        ui->direBan_5->setPixmap(QPixmap(picDir + "heroes/JPEG/" + direBans.at(4).toObject().value("name").toString() + ".jpg"));
+
+        QJsonArray direPicks = json.object().value("picks_bans").toObject().value("dire").toObject().value("picks").toArray();
+        ui->direPick_1->setPixmap(QPixmap(picDir + "heroes/JPEG/" + direPicks.at(0).toObject().value("name").toString() + ".jpg"));
+        ui->direPick_2->setPixmap(QPixmap(picDir + "heroes/JPEG/" + direPicks.at(1).toObject().value("name").toString() + ".jpg"));
+        ui->direPick_3->setPixmap(QPixmap(picDir + "heroes/JPEG/" + direPicks.at(2).toObject().value("name").toString() + ".jpg"));
+        ui->direPick_4->setPixmap(QPixmap(picDir + "heroes/JPEG/" + direPicks.at(3).toObject().value("name").toString() + ".jpg"));
+        ui->direPick_5->setPixmap(QPixmap(picDir + "heroes/JPEG/" + direPicks.at(4).toObject().value("name").toString() + ".jpg"));
+    }
+    else
+    {
+        //clear picks and bans because the selected match was not in CM
+        ui->radiantBan_1->clear();
+        ui->radiantBan_2->clear();
+        ui->radiantBan_3->clear();
+        ui->radiantBan_4->clear();
+        ui->radiantBan_5->clear();
+
+        ui->radiantPick_1->clear();
+        ui->radiantPick_2->clear();
+        ui->radiantPick_3->clear();
+        ui->radiantPick_4->clear();
+        ui->radiantPick_5->clear();
+
+        ui->direPick_1->clear();
+        ui->direPick_2->clear();
+        ui->direPick_3->clear();
+        ui->direPick_4->clear();
+        ui->direPick_5->clear();
+
+        ui->direBan_1->clear();
+        ui->direBan_2->clear();
+        ui->direBan_3->clear();
+        ui->direBan_4->clear();
+        ui->direBan_5->clear();
+    }
 
     //radiant
     // radiant Player Names
@@ -494,17 +554,11 @@ void MainWindow::on_actionPreferences_triggered()
 {
     Preferences pref;
     pref.setDir(settings->value("replayFolder").toString());
-    pref.setFont(font);
     if(pref.exec())
     {
         dir = pref.getDir();
         settings->setValue("replayFolder", pref.getDir());
-        settings->setValue("fontFamily", pref.getFont().family());
-        settings->setValue("fontSize", pref.getFont().pointSize());
         settings->sync();
-
-        //set font settings
-        font = pref.getFont();
 
         QMessageBox::information(this, "Info", "Please Restart The Program To Reload The New Folder.\nThis is jsut a limitation until I finish this part of the program");
     }
@@ -520,7 +574,7 @@ void MainWindow::downloadMatch(QString id)
 {
     qDebug() << "match ID: " + id;
     manager = new QNetworkAccessManager(this);
-    reply = manager->get(QNetworkRequest(QUrl("http://dota2.computerfr33k.com/json.php?match_id=" + id)));
+    reply = manager->get(QNetworkRequest(QUrl("http://api.dota2replay-manager.com/json.php?match_id=" + id)));
     connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
     //connect(manager, SIGNAL(finished(QNetworkReply*)), manager, SLOT(deleteLater()));
     //connect(reply, SIGNAL(finished()), reply, SLOT(deleteLater()));

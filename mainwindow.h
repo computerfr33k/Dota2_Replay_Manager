@@ -39,6 +39,7 @@ protected:
     void addFilesToDb();
     void setMatchInfo(QJsonDocument);
     void downloadMatch(QString);
+    void setPicksBans(); //to display picks and bans for CM games
     
 private slots:
     void on_watchReplay_clicked();
@@ -50,22 +51,21 @@ private slots:
     void on_actionAbout_Qt_triggered();
     void on_actionAbout_triggered();
     void on_actionWebsite_triggered();
-
     void on_tableView_clicked(const QModelIndex &index);
 
 private:
     QSettings *settings;
-    QDir dir;
-    QDir userDir;
+    QDir dir; //replay Dir
+    QDir userDir; //AppData Location for storing program settings
     QFont font;
     Ui::MainWindow *ui;
-    QSqlDatabase db;
+    QSqlDatabase db; //for the database of files and names
     QSqlTableModel *model;
-    QSqlQueryModel queryModel;
-    QStringList list;
-    QNetworkAccessManager *manager;
-    QNetworkReply *reply;
-    QString picDir;
+    QSqlQueryModel queryModel; //for querying the sqlite3 db
+    QStringList list; //list of replay files
+    QNetworkAccessManager *manager; //manager for network connections
+    QNetworkReply *reply; //http reply
+    QString picDir; //dir where images are located. (./thumbnails)
 };
 
 #endif // MAINWINDOW_H

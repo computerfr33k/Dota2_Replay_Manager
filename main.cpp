@@ -4,7 +4,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    QApplication::setApplicationVersion("Alpha 3");
+    QApplication::setApplicationName("Dota 2 Replay Manager");
+    QApplication::setApplicationVersion("Alpha 4");
     MainWindow w;
     w.show();
     

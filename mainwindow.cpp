@@ -25,7 +25,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::start()
 {
-    settings = new QSettings("settings.ini", QSettings::IniFormat);
+    userDir = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+    settings = new QSettings(userDir.absolutePath() + "/settings.ini", QSettings::IniFormat);
     dir = settings->value("replayFolder", "C:/Program Files (x86)/Steam/SteamApps/common/dota 2 beta/dota/replays").toString();
     restoreGeometry(settings->value("windowGeometry", "").toByteArray()); //restore previous session's dimensions of the program
     restoreState(settings->value("windowState", "").toByteArray()); //restore the previous session's state of the program
@@ -153,7 +154,7 @@ void MainWindow::on_watchReplay_clicked()
 void MainWindow::httpFinished()
 {
     QJsonDocument json = QJsonDocument::fromJson(reply->readAll());
-    QFile file("cache/" + json.object().value("match_id").toString() + ".json");
+    QFile file(userDir.absolutePath() + "/cache/" + json.object().value("match_id").toString() + ".json");
     file.open(QIODevice::WriteOnly);
     file.write(json.toJson());
     file.close();
@@ -502,14 +503,14 @@ void MainWindow::on_viewMatchButton_clicked()
 {
     queryModel.setQuery("SELECT * FROM replays");
     QString matchID = queryModel.record(ui->tableView->selectionModel()->currentIndex().row()).value("filename").toString().remove(".dem");
-    QDir cache(QDir::currentPath() + "/cache");
+    QDir cache(userDir.absolutePath() + "/cache");
     if(!cache.exists())
-        cache.mkdir(QDir::currentPath() + "/cache");
+        cache.mkdir(userDir.absolutePath() + "/cache");
 
-    if(QFile::exists("cache/" + matchID + ".json"))
+    if(QFile::exists(userDir.absolutePath() + "/cache/" + matchID + ".json"))
     {
         qDebug() << matchID + " exists";
-        QFileInfo fileInfo("cache/" + matchID + ".json");
+        QFileInfo fileInfo(userDir.absolutePath() + "/cache/" + matchID + ".json");
         if(fileInfo.lastModified().addDays(7) < QDateTime::currentDateTime())
         {
             qDebug() << "cache > 7 days old";
@@ -518,7 +519,7 @@ void MainWindow::on_viewMatchButton_clicked()
         else
         {
             qDebug() << "cache is less than 7 days old";
-            QFile file("cache/" + matchID + ".json");
+            QFile file(userDir.absolutePath() + "/cache/" + matchID + ".json");
             file.open(QIODevice::ReadOnly);
             if(file.isOpen())
             {
@@ -566,7 +567,7 @@ void MainWindow::on_actionPreferences_triggered()
 
 void MainWindow::on_actionClear_Cache_triggered()
 {
-    QDir cache(QDir::currentPath() + "/cache");
+    QDir cache(userDir.absolutePath() + "/cache");
     cache.removeRecursively();
 }
 

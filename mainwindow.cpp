@@ -42,7 +42,7 @@ void MainWindow::start()
     font.setFamily(settings->value("fontFamily", "Times New Roman").toString());
 
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("matches.db");
+    db.setDatabaseName(userDir.absolutePath() + "/matches.db");
     db.open();
     db.exec( "create table if not exists replays (title TEXT, filename TEXT PRIMARY KEY, fileExists BLOB)" );
     model = new QSqlTableModel(this, db);
@@ -51,7 +51,7 @@ void MainWindow::start()
     model->select();
     ui->tableView->hideColumn(2);
     QDir cache("cache");
-    cache.mkdir(QDir::currentPath() + "/cache");
+    cache.mkdir(userDir.absolutePath() + "/cache");
 }
 
 void MainWindow::checkDb() //check and remove files from db that are no longer locally saved

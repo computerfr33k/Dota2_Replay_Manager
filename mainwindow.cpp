@@ -170,6 +170,12 @@ void MainWindow::httpFinished()
 
 void MainWindow::setMatchInfo(QJsonDocument json)
 {
+    //set winner
+    if(json.object().value("radiant_win").toString().compare("1") == 0)
+        ui->winner->setText("<font color=\"green\">Radiant Victory</font>");
+    else
+        ui->winner->setText("<font color=\"red\">Dire Victory</font>");
+
     //main match info
     ui->matchID->setText(QString("<a href=\"http://dotabuff.com/matches/%1\">%1</a>").arg(json.object().value("match_id").toString()));
 
@@ -560,8 +566,8 @@ void MainWindow::on_actionPreferences_triggered()
         dir = pref.getDir();
         settings->setValue("replayFolder", pref.getDir());
         settings->sync();
-
-        QMessageBox::information(this, "Info", "Please Restart The Program To Reload The New Folder.\nThis is jsut a limitation until I finish this part of the program");
+        addFilesToDb();
+        //QMessageBox::information(this, "Info", "Please Restart The Program To Reload The New Folder.\nThis is jsut a limitation until I finish this part of the program");
     }
 }
 

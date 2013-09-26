@@ -25,7 +25,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::start()
 {
-    userDir = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+    userDir = QStandardPaths::standardLocations(QStandardPaths::DataLocation).at(0);
+
+    //create the folder if it doesn't already exist
+    if(!QDir(userDir).exists())
+    {
+        userDir.mkpath(userDir.absolutePath());
+    }
     settings = new QSettings(userDir.absolutePath() + "/settings.ini", QSettings::IniFormat);
     dir = settings->value("replayFolder", "C:/Program Files (x86)/Steam/SteamApps/common/dota 2 beta/dota/replays").toString();
     restoreGeometry(settings->value("windowGeometry", "").toByteArray()); //restore previous session's dimensions of the program

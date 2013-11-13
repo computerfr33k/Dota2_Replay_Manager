@@ -34,6 +34,7 @@ void MainWindow::start()
     }
     settings = new QSettings(userDir.absolutePath() + "/settings.ini", QSettings::IniFormat);
     apiKey = settings->value("apiKey").toString();
+
     dir = settings->value("replayFolder", "C:/Program Files (x86)/Steam/SteamApps/common/dota 2 beta/dota/replays").toString();
     restoreGeometry(settings->value("windowGeometry", "").toByteArray()); //restore previous session's dimensions of the program
     restoreState(settings->value("windowState", "").toByteArray()); //restore the previous session's state of the program
@@ -516,6 +517,13 @@ void MainWindow::setMatchInfo(QJsonDocument json)
 
 void MainWindow::on_viewMatchButton_clicked()
 {
+    //check if apiKey is not set
+    if(apiKey.isEmpty())
+    {
+        QMessageBox::information(this, "Api Key", "Make sure you set your api key in the preferences");
+        return;
+    }
+
     queryModel.setQuery("SELECT * FROM replays");
     QString matchID = queryModel.record(ui->tableView->selectionModel()->currentIndex().row()).value("filename").toString().remove(".dem");
     QDir cache(userDir.absolutePath() + "/cache");
@@ -575,7 +583,6 @@ void MainWindow::on_actionPreferences_triggered()
     {
         dir = pref.getDir();
         apiKey = pref.getApiKey();
-        qDebug() << pref.getApiKey();
         settings->setValue("replayFolder", pref.getDir());
         settings->setValue("apiKey", apiKey);
         settings->sync();
@@ -601,8 +608,6 @@ void MainWindow::downloadMatch(QString id)
     reply = manager->get(req);
 
     connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
-    //connect(manager, SIGNAL(finished(QNetworkReply*)), manager, SLOT(deleteLater()));
-    //connect(reply, SIGNAL(finished()), reply, SLOT(deleteLater()));
 }
 
 void MainWindow::on_actionAbout_Qt_triggered()

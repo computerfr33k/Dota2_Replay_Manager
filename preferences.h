@@ -18,6 +18,8 @@ public:
     void setDir(QString);
     QFont getFont();
     void setFont(QFont);
+    QString getApiKey();
+    void setApiKey(QString&);
     ~Preferences();
     
 private slots:

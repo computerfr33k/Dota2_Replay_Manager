@@ -33,6 +33,7 @@ void MainWindow::start()
         userDir.mkpath(userDir.absolutePath());
     }
     settings = new QSettings(userDir.absolutePath() + "/settings.ini", QSettings::IniFormat);
+    apiKey = settings->value("apiKey").toString();
     dir = settings->value("replayFolder", "C:/Program Files (x86)/Steam/SteamApps/common/dota 2 beta/dota/replays").toString();
     restoreGeometry(settings->value("windowGeometry", "").toByteArray()); //restore previous session's dimensions of the program
     restoreState(settings->value("windowState", "").toByteArray()); //restore the previous session's state of the program
@@ -160,15 +161,17 @@ void MainWindow::on_watchReplay_clicked()
 void MainWindow::httpFinished()
 {
     QJsonDocument json = QJsonDocument::fromJson(reply->readAll());
+    qDebug() << json.toJson();
     QFile file(userDir.absolutePath() + "/cache/" + json.object().value("match_id").toString() + ".json");
     file.open(QIODevice::WriteOnly);
     file.write(json.toJson());
     file.close();
-    qDebug() << json.toJson();
-    if(json.object().value("success").toString().compare("1") == 0)
+
+    if(json.object().value("success").toString().compare("1") == 0) //if success is 1, strcmp returns 0; if success true
         setMatchInfo(json);
     else
-        QMessageBox::information(this, "Alert", "Could not find the selected match in the API");
+        QMessageBox::warning(this, "Warning", json.object().value("message").toString());
+        //QMessageBox::information(this, "Alert", "Could not find the selected match in the API");
 
     manager->deleteLater();
     reply->deleteLater();
@@ -567,10 +570,14 @@ void MainWindow::on_actionPreferences_triggered()
 {
     Preferences pref;
     pref.setDir(settings->value("replayFolder").toString());
+    pref.setApiKey(apiKey);
     if(pref.exec())
     {
         dir = pref.getDir();
+        apiKey = pref.getApiKey();
+        qDebug() << pref.getApiKey();
         settings->setValue("replayFolder", pref.getDir());
+        settings->setValue("apiKey", apiKey);
         settings->sync();
         addFilesToDb();
         //QMessageBox::information(this, "Info", "Please Restart The Program To Reload The New Folder.\nThis is jsut a limitation until I finish this part of the program");
@@ -585,9 +592,14 @@ void MainWindow::on_actionClear_Cache_triggered()
 
 void MainWindow::downloadMatch(QString id)
 {
-    qDebug() << "match ID: " + id;
     manager = new QNetworkAccessManager(this);
-    reply = manager->get(QNetworkRequest(QUrl("http://api.dota2replay-manager.com/json.php?match_id=" + id)));
+    //reply = manager->get(QNetworkRequest(QUrl("http://api.dota2replay-manager.com/json.php?match_id=" + id)));
+
+    QNetworkRequest req(QUrl("https://computerfr33k-dota-2-replay-manager.p.mashape.com/json-mashape.php?match_id=" + id));
+    req.setRawHeader(QByteArray("X-Mashape-Authorization"), apiKey.toLatin1());
+    req.setRawHeader("User-Agent","d2rm-app");
+    reply = manager->get(req);
+
     connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
     //connect(manager, SIGNAL(finished(QNetworkReply*)), manager, SLOT(deleteLater()));
     //connect(reply, SIGNAL(finished()), reply, SLOT(deleteLater()));

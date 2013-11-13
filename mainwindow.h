@@ -66,6 +66,7 @@ private:
     QNetworkAccessManager *manager; //manager for network connections
     QNetworkReply *reply; //http reply
     QString picDir; //dir where images are located. (./thumbnails)
+    QString apiKey;
 };
 
 #endif // MAINWINDOW_H

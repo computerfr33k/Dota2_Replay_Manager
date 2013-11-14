@@ -139,6 +139,10 @@ void MainWindow::addFilesToDb()
  */
 QPixmap MainWindow::getImage(QString type, QString name)
 {
+    //return empty QPixmap because the item slot was empty, so no need to try and fetch something that will fail and waste time for a failed request.
+    if(name.compare("empty") == 0)
+        return QPixmap();
+
     QPixmap pic;
     QString size;
     int width;
@@ -166,7 +170,6 @@ QPixmap MainWindow::getImage(QString type, QString name)
     QEventLoop loop;
     connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
     loop.exec();
-    //pic.loadFromData(reply->readAll());
     pic.loadFromData(reply->readAll());
 
     qDebug() << "image from cache: " << reply->attribute(QNetworkRequest::SourceIsFromCacheAttribute).toBool();
@@ -481,40 +484,44 @@ void MainWindow::setMatchInfo(QJsonDocument json)
 
     //dire Items
     //player 1
-    ui->direItems_1_1->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(0).toObject().value("item_0").toString() + ".jpg"));
-    ui->direItems_1_2->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(0).toObject().value("item_1").toString() + ".jpg"));
-    ui->direItems_1_3->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(0).toObject().value("item_2").toString() + ".jpg"));
-    ui->direItems_1_4->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(0).toObject().value("item_3").toString() + ".jpg"));
-    ui->direItems_1_5->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(0).toObject().value("item_4").toString() + ".jpg"));
-    ui->direItems_1_6->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(0).toObject().value("item_5").toString() + ".jpg"));
+    ui->direItems_1_1->setPixmap(getImage( "items", direSlots.at(0).toObject().value("item_0").toString() ));
+    ui->direItems_1_2->setPixmap(getImage( "items", direSlots.at(0).toObject().value("item_1").toString() ));
+    ui->direItems_1_3->setPixmap(getImage( "items", direSlots.at(0).toObject().value("item_2").toString() ));
+    ui->direItems_1_4->setPixmap(getImage( "items", direSlots.at(0).toObject().value("item_3").toString() ));
+    ui->direItems_1_5->setPixmap(getImage( "items", direSlots.at(0).toObject().value("item_4").toString() ));
+    ui->direItems_1_6->setPixmap(getImage( "items", direSlots.at(0).toObject().value("item_5").toString() ));
+
     //player 2
-    ui->direItems_2_1->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(1).toObject().value("item_0").toString() + ".jpg"));
-    ui->direItems_2_2->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(1).toObject().value("item_1").toString() + ".jpg"));
-    ui->direItems_2_3->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(1).toObject().value("item_2").toString() + ".jpg"));
-    ui->direItems_2_4->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(1).toObject().value("item_3").toString() + ".jpg"));
-    ui->direItems_2_5->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(1).toObject().value("item_4").toString() + ".jpg"));
-    ui->direItems_2_6->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(1).toObject().value("item_5").toString() + ".jpg"));
+    ui->direItems_2_1->setPixmap(getImage( "items", direSlots.at(1).toObject().value("item_0").toString() ));
+    ui->direItems_2_2->setPixmap(getImage( "items", direSlots.at(1).toObject().value("item_1").toString() ));
+    ui->direItems_2_3->setPixmap(getImage( "items", direSlots.at(1).toObject().value("item_2").toString() ));
+    ui->direItems_2_4->setPixmap(getImage( "items", direSlots.at(1).toObject().value("item_3").toString() ));
+    ui->direItems_2_5->setPixmap(getImage( "items", direSlots.at(1).toObject().value("item_4").toString() ));
+    ui->direItems_2_6->setPixmap(getImage( "items", direSlots.at(1).toObject().value("item_5").toString() ));
+
     //player 3
-    ui->direItems_3_1->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(2).toObject().value("item_0").toString() + ".jpg"));
-    ui->direItems_3_2->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(2).toObject().value("item_1").toString() + ".jpg"));
-    ui->direItems_3_3->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(2).toObject().value("item_2").toString() + ".jpg"));
-    ui->direItems_3_4->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(2).toObject().value("item_3").toString() + ".jpg"));
-    ui->direItems_3_5->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(2).toObject().value("item_4").toString() + ".jpg"));
-    ui->direItems_3_6->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(2).toObject().value("item_5").toString() + ".jpg"));
+    ui->direItems_3_1->setPixmap(getImage( "items", direSlots.at(2).toObject().value("item_0").toString() ));
+    ui->direItems_3_2->setPixmap(getImage( "items", direSlots.at(2).toObject().value("item_1").toString() ));
+    ui->direItems_3_3->setPixmap(getImage( "items", direSlots.at(2).toObject().value("item_2").toString() ));
+    ui->direItems_3_4->setPixmap(getImage( "items", direSlots.at(2).toObject().value("item_3").toString() ));
+    ui->direItems_3_5->setPixmap(getImage( "items", direSlots.at(2).toObject().value("item_4").toString() ));
+    ui->direItems_3_6->setPixmap(getImage( "items", direSlots.at(2).toObject().value("item_5").toString() ));
+
     //player 4
-    ui->direItems_4_1->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(3).toObject().value("item_0").toString() + ".jpg"));
-    ui->direItems_4_2->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(3).toObject().value("item_1").toString() + ".jpg"));
-    ui->direItems_4_3->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(3).toObject().value("item_2").toString() + ".jpg"));
-    ui->direItems_4_4->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(3).toObject().value("item_3").toString() + ".jpg"));
-    ui->direItems_4_5->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(3).toObject().value("item_4").toString() + ".jpg"));
-    ui->direItems_4_6->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(3).toObject().value("item_5").toString() + ".jpg"));
+    ui->direItems_4_1->setPixmap(getImage( "items", direSlots.at(3).toObject().value("item_0").toString() ));
+    ui->direItems_4_2->setPixmap(getImage( "items", direSlots.at(3).toObject().value("item_1").toString() ));
+    ui->direItems_4_3->setPixmap(getImage( "items", direSlots.at(3).toObject().value("item_2").toString() ));
+    ui->direItems_4_4->setPixmap(getImage( "items", direSlots.at(3).toObject().value("item_3").toString() ));
+    ui->direItems_4_5->setPixmap(getImage( "items", direSlots.at(3).toObject().value("item_4").toString() ));
+    ui->direItems_4_6->setPixmap(getImage( "items", direSlots.at(3).toObject().value("item_5").toString() ));
+
     //player 5
-    ui->direItems_5_1->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(4).toObject().value("item_0").toString() + ".jpg"));
-    ui->direItems_5_2->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(4).toObject().value("item_1").toString() + ".jpg"));
-    ui->direItems_5_3->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(4).toObject().value("item_2").toString() + ".jpg"));
-    ui->direItems_5_4->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(4).toObject().value("item_3").toString() + ".jpg"));
-    ui->direItems_5_5->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(4).toObject().value("item_4").toString() + ".jpg"));
-    ui->direItems_5_6->setPixmap(QPixmap(picDir + "items/JPEG/" + direSlots.at(4).toObject().value("item_5").toString() + ".jpg"));
+    ui->direItems_5_1->setPixmap(getImage( "items", direSlots.at(4).toObject().value("item_0").toString() ));
+    ui->direItems_5_2->setPixmap(getImage( "items", direSlots.at(4).toObject().value("item_1").toString() ));
+    ui->direItems_5_3->setPixmap(getImage( "items", direSlots.at(4).toObject().value("item_2").toString() ));
+    ui->direItems_5_4->setPixmap(getImage( "items", direSlots.at(4).toObject().value("item_3").toString() ));
+    ui->direItems_5_5->setPixmap(getImage( "items", direSlots.at(4).toObject().value("item_4").toString() ));
+    ui->direItems_5_6->setPixmap(getImage( "items", direSlots.at(4).toObject().value("item_5").toString() ));
 
     //dire Gold
     ui->direGold_1->setText(direSlots.at(0).toObject().value("gold_spent").toString());

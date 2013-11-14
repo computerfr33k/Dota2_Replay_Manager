@@ -13,10 +13,12 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
+#include <QNetworkDiskCache>
 #include <QSqlRecord>
 #include <QTextEdit>
 #include <QDialog>
 #include <QDialogButtonBox>
+#include <QProgressDialog>
 
 #include "edittitle.h"
 #include "preferences.h"
@@ -42,6 +44,7 @@ protected:
     void setPicksBans(); //to display picks and bans for CM games
     
 private slots:
+    QPixmap getImage(QString type, QString name);
     void on_watchReplay_clicked();
     void httpFinished();
     void on_viewMatchButton_clicked();
@@ -52,6 +55,7 @@ private slots:
     void on_actionAbout_triggered();
     void on_actionWebsite_triggered();
     void on_tableView_clicked(const QModelIndex &index);
+    void on_refreshButton_clicked();
 
 private:
     QSettings *settings;
@@ -67,6 +71,8 @@ private:
     QNetworkReply *reply; //http reply
     QString picDir; //dir where images are located. (./thumbnails)
     QString apiKey;
+    QPixmap image;
+    QProgressDialog *progressDialog;
 };
 
 #endif // MAINWINDOW_H

@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -35,7 +35,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>668</width>
+             <width>978</width>
              <height>631</height>
             </rect>
            </property>
@@ -528,6 +528,12 @@
                <layout class="QHBoxLayout" name="horizontalLayout_13">
                 <item>
                  <widget class="QLabel" name="direItems_1_1">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -535,6 +541,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_1_2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -542,6 +554,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_1_3">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -549,6 +567,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_1_4">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -556,6 +580,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_1_5">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -563,6 +593,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_1_6">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -574,6 +610,12 @@
                <layout class="QHBoxLayout" name="horizontalLayout_14">
                 <item>
                  <widget class="QLabel" name="direItems_2_1">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -581,6 +623,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_2_2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -588,6 +636,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_2_3">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -595,6 +649,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_2_4">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -602,6 +662,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_2_5">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -609,6 +675,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_2_6">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -620,6 +692,12 @@
                <layout class="QHBoxLayout" name="horizontalLayout_15">
                 <item>
                  <widget class="QLabel" name="direItems_3_1">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -627,6 +705,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_3_2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -634,6 +718,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_3_3">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -641,6 +731,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_3_4">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -648,6 +744,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_3_5">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -655,6 +757,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_3_6">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -666,6 +774,12 @@
                <layout class="QHBoxLayout" name="horizontalLayout_16">
                 <item>
                  <widget class="QLabel" name="direItems_4_1">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -673,6 +787,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_4_2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -680,6 +800,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_4_3">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -687,6 +813,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_4_4">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -694,6 +826,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_4_5">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -701,6 +839,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direItems_4_6">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1279,7 +1423,7 @@
                   <property name="maximumSize">
                    <size>
                     <width>45</width>
-                    <height>16777215</height>
+                    <height>25</height>
                    </size>
                   </property>
                   <property name="text">
@@ -1303,7 +1447,7 @@
                   <property name="maximumSize">
                    <size>
                     <width>45</width>
-                    <height>16777215</height>
+                    <height>25</height>
                    </size>
                   </property>
                   <property name="text">
@@ -1327,7 +1471,7 @@
                   <property name="maximumSize">
                    <size>
                     <width>45</width>
-                    <height>16777215</height>
+                    <height>25</height>
                    </size>
                   </property>
                   <property name="text">
@@ -1351,7 +1495,7 @@
                   <property name="maximumSize">
                    <size>
                     <width>45</width>
-                    <height>16777215</height>
+                    <height>25</height>
                    </size>
                   </property>
                   <property name="text">
@@ -1980,7 +2124,7 @@
                   <property name="maximumSize">
                    <size>
                     <width>45</width>
-                    <height>16777215</height>
+                    <height>25</height>
                    </size>
                   </property>
                   <property name="text">
@@ -2259,7 +2403,7 @@
                   <property name="maximumSize">
                    <size>
                     <width>45</width>
-                    <height>16777215</height>
+                    <height>25</height>
                    </size>
                   </property>
                   <property name="text">
@@ -2328,6 +2472,12 @@
                <layout class="QHBoxLayout" name="horizontalLayout_10">
                 <item>
                  <widget class="QLabel" name="radiantItems_4_1">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2335,6 +2485,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_4_2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2342,6 +2498,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_4_3">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2349,6 +2511,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_4_4">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2356,6 +2524,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_4_5">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2363,6 +2537,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_4_6">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2567,7 +2747,7 @@
                   <property name="maximumSize">
                    <size>
                     <width>45</width>
-                    <height>16777215</height>
+                    <height>25</height>
                    </size>
                   </property>
                   <property name="text">
@@ -2588,6 +2768,12 @@
                <layout class="QHBoxLayout" name="horizontalLayout_9">
                 <item>
                  <widget class="QLabel" name="radiantItems_3_1">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2595,6 +2781,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_3_2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2602,6 +2794,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_3_3">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2609,6 +2807,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_3_4">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2616,6 +2820,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_3_5">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2623,6 +2833,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_3_6">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2634,6 +2850,12 @@
                <layout class="QHBoxLayout" name="horizontalLayout_8">
                 <item>
                  <widget class="QLabel" name="radiantItems_1_1">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2641,6 +2863,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_1_2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2648,6 +2876,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_1_3">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2655,6 +2889,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_1_4">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2662,6 +2902,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_1_5">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2669,6 +2915,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_1_6">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2694,6 +2946,12 @@
                <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>
                  <widget class="QLabel" name="radiantItems_2_1">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2701,6 +2959,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_2_2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2708,6 +2972,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_2_3">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2715,6 +2985,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_2_4">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2722,6 +2998,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_2_5">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2729,6 +3011,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_2_6">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2750,7 +3038,7 @@
                   <property name="maximumSize">
                    <size>
                     <width>45</width>
-                    <height>16777215</height>
+                    <height>25</height>
                    </size>
                   </property>
                   <property name="text">
@@ -2774,7 +3062,7 @@
                   <property name="maximumSize">
                    <size>
                     <width>45</width>
-                    <height>16777215</height>
+                    <height>25</height>
                    </size>
                   </property>
                   <property name="text">
@@ -2816,6 +3104,12 @@
                <layout class="QHBoxLayout" name="horizontalLayout_11">
                 <item>
                  <widget class="QLabel" name="radiantItems_5_1">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2823,6 +3117,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_5_2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2830,6 +3130,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_5_3">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2837,6 +3143,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_5_4">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2844,6 +3156,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_5_5">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2851,6 +3169,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantItems_5_6">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3867,6 +4191,12 @@
                <layout class="QHBoxLayout" name="horizontalLayout_23">
                 <item>
                  <widget class="QLabel" name="radiantBan_1">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3874,6 +4204,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantBan_2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3881,6 +4217,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantBan_3">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3888,6 +4230,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantBan_4">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3895,6 +4243,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantBan_5">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3919,6 +4273,12 @@
                <layout class="QHBoxLayout" name="horizontalLayout_26">
                 <item>
                  <widget class="QLabel" name="direBan_1">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3926,6 +4286,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direBan_2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3933,6 +4299,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direBan_3">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3940,6 +4312,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direBan_4">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3947,6 +4325,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direBan_5">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3971,6 +4355,12 @@
                <layout class="QHBoxLayout" name="horizontalLayout_25">
                 <item>
                  <widget class="QLabel" name="radiantPick_1">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3978,6 +4368,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantPick_2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3985,6 +4381,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantPick_3">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3992,6 +4394,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantPick_4">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3999,6 +4407,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="radiantPick_5">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -4023,6 +4437,12 @@
                <layout class="QHBoxLayout" name="horizontalLayout_24">
                 <item>
                  <widget class="QLabel" name="direPick_1">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -4030,6 +4450,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direPick_2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -4037,6 +4463,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direPick_3">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -4044,6 +4476,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direPick_4">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -4051,6 +4489,12 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="direPick_5">
+                  <property name="maximumSize">
+                   <size>
+                    <width>45</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -4227,6 +4671,13 @@
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="refreshButton">
+            <property name="text">
+             <string>Refresh</string>
+            </property>
+           </widget>
+          </item>
           <item>
            <widget class="QPushButton" name="watchReplay">
             <property name="text">

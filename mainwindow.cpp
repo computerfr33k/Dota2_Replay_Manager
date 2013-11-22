@@ -628,6 +628,13 @@ void MainWindow::on_actionClear_Cache_triggered()
     delete cache;
 }
 
+void MainWindow::on_deleteReplayButton_clicked()
+{
+    queryModel.setQuery("SELECT * FROM replays");
+    QString filename = queryModel.record(ui->tableView->selectionModel()->currentIndex().row()).value("filename").toString();
+    QFile::remove(dir.absolutePath() + "/" + filename);
+}
+
 void MainWindow::downloadMatch(QString id)
 {
     QNetworkDiskCache *cache = new QNetworkDiskCache(this);

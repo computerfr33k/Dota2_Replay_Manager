@@ -52,6 +52,9 @@
        <property name="text">
         <string>&lt;a href=&quot;https://www.mashape.com/computerfr33k/dota-2-replay-manager#!pricing&quot;&gt;Get Api Key Here!&lt;/a&gt;</string>
        </property>
+       <property name="openExternalLinks">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>

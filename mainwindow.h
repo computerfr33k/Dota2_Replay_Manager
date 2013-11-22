@@ -56,6 +56,7 @@ private slots:
     void on_actionWebsite_triggered();
     void on_tableView_clicked(const QModelIndex &index);
     void on_refreshButton_clicked();
+    void on_deleteReplayButton_clicked();
 
 private:
     QSettings *settings;

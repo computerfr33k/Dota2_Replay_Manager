@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -4674,7 +4674,7 @@
           <item>
            <widget class="QPushButton" name="refreshButton">
             <property name="text">
-             <string>Refresh</string>
+             <string>Refresh List</string>
             </property>
            </widget>
           </item>
@@ -4696,6 +4696,13 @@
            <widget class="QPushButton" name="viewMatchButton">
             <property name="text">
              <string>View Match Details</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="deleteReplayButton">
+            <property name="text">
+             <string>Delete Replay</string>
             </property>
            </widget>
           </item>

@@ -94,6 +94,12 @@ void MainWindow::checkDb() //check and remove files from db that are no longer l
 
 void MainWindow::addFilesToDb()
 {
+    //Disable buttons since nothing will be selected
+    ui->watchReplay->setEnabled(false);
+    ui->editTitle->setEnabled(false);
+    ui->viewMatchButton->setEnabled(false);
+    ui->deleteReplayButton->setEnabled(false);
+
     list.clear();
     QSqlQuery query;
     db.transaction();
@@ -629,7 +635,6 @@ void MainWindow::on_actionPreferences_triggered()
         settings->setValue("apiKey", apiKey);
         settings->sync();
         addFilesToDb();
-        //QMessageBox::information(this, "Info", "Please Restart The Program To Reload The New Folder.\nThis is jsut a limitation until I finish this part of the program");
     }
 }
 
@@ -647,6 +652,8 @@ void MainWindow::on_deleteReplayButton_clicked()
     queryModel.setQuery("SELECT * FROM replays");
     QString filename = queryModel.record(ui->tableView->selectionModel()->currentIndex().row()).value("filename").toString();
     QFile::remove(dir.absolutePath() + "/" + filename);
+    addFilesToDb();
+    ui->deleteReplayButton->setEnabled(false);
 }
 
 void MainWindow::downloadMatch(QString id)
@@ -663,7 +670,7 @@ void MainWindow::downloadMatch(QString id)
 
     connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(networkError()));
-    connect(reply, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(sslError(QList<QSslError> errors)));
+    //connect(reply, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(sslError(QList<QSslError> errors)));
 }
 
 void MainWindow::on_actionAbout_Qt_triggered()
@@ -711,15 +718,12 @@ void MainWindow::networkError()
     reply->deleteLater();
     progressDialog->close();
     progressDialog->deleteLater();
-    manager->deleteLater();
 }
 
 void MainWindow::sslError(QList<QSslError> errors)
 {
     block = true;
     qDebug() << errors;
-    reply->deleteLater();
     progressDialog->close();
     progressDialog->deleteLater();
-    manager->deleteLater();
 }

@@ -35,8 +35,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>978</width>
-             <height>631</height>
+             <width>992</width>
+             <height>600</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_4">
@@ -4701,6 +4701,9 @@
           </item>
           <item>
            <widget class="QPushButton" name="deleteReplayButton">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
             <property name="text">
              <string>Delete Replay</string>
             </property>
@@ -4720,7 +4723,7 @@
      <x>0</x>
      <y>0</y>
      <width>1036</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

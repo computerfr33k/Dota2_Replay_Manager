@@ -43,6 +43,7 @@ void MainWindow::start()
     ui->watchReplay->setEnabled(false);
     ui->editTitle->setEnabled(false);
     ui->viewMatchButton->setEnabled(false);
+    ui->deleteReplayButton->setEnabled(false);
 
     //font settings
     font.setPointSize(settings->value("fontSize", "10").toInt());
@@ -139,6 +140,10 @@ void MainWindow::addFilesToDb()
  */
 QPixmap MainWindow::getImage(QString type, QString name)
 {
+    //user canceled the network request, so block
+    if(block)
+        return QPixmap();
+
     //return empty QPixmap because the item slot was empty, so no need to try and fetch something that will fail and waste time for a failed request.
     if(name.compare("empty") == 0)
         return QPixmap();
@@ -225,6 +230,12 @@ void MainWindow::httpFinished()
 
 void MainWindow::setMatchInfo(QJsonDocument json)
 {
+    //either network was canceled, or network error occured. Don't waste time iterating.
+    if(block)
+    {
+        return;
+    }
+
     //set winner
     if(json.object().value("radiant_win").toString().compare("1") == 0)
         ui->winner->setText("<font color=\"green\">Radiant Victory</font>");
@@ -568,6 +579,9 @@ void MainWindow::setMatchInfo(QJsonDocument json)
 
 void MainWindow::on_viewMatchButton_clicked()
 {
+    //reset blocking, so the new requests work
+    block = false;
+
     //check if apiKey is not set
     if(apiKey.isEmpty())
     {
@@ -648,6 +662,8 @@ void MainWindow::downloadMatch(QString id)
     reply = manager->get(req);
 
     connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
+    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(networkError()));
+    connect(reply, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(sslError(QList<QSslError> errors)));
 }
 
 void MainWindow::on_actionAbout_Qt_triggered()
@@ -672,16 +688,38 @@ void MainWindow::on_tableView_clicked(const QModelIndex &index)
         ui->watchReplay->setEnabled(false);
         ui->editTitle->setEnabled(false);
         ui->viewMatchButton->setEnabled(false);
+        ui->deleteReplayButton->setEnabled(false);
     }
     else
     {
         ui->watchReplay->setEnabled(true);
         ui->editTitle->setEnabled(true);
         ui->viewMatchButton->setEnabled(true);
+        ui->deleteReplayButton->setEnabled(true);
     }
 }
 
 void MainWindow::on_refreshButton_clicked()
 {
     addFilesToDb();
+}
+
+void MainWindow::networkError()
+{
+    block = true;
+    qDebug() << reply->errorString();
+    reply->deleteLater();
+    progressDialog->close();
+    progressDialog->deleteLater();
+    manager->deleteLater();
+}
+
+void MainWindow::sslError(QList<QSslError> errors)
+{
+    block = true;
+    qDebug() << errors;
+    reply->deleteLater();
+    progressDialog->close();
+    progressDialog->deleteLater();
+    manager->deleteLater();
 }

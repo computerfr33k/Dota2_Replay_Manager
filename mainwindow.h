@@ -20,6 +20,7 @@
 #include <QDialogButtonBox>
 #include <QProgressDialog>
 #include <QSslError>
+#include <QDebug>
 
 #include "edittitle.h"
 #include "preferences.h"

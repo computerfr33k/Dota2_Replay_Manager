@@ -723,7 +723,7 @@ void MainWindow::networkError()
 void MainWindow::sslError(QList<QSslError> errors)
 {
     block = true;
-    qDebug() << errors;
+    //qDebug() << errors;
     progressDialog->close();
     progressDialog->deleteLater();
 }

@@ -11,7 +11,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Dota2_Replay_Manager_Gui
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
         mainwindow.cpp \
     edittitle.cpp \

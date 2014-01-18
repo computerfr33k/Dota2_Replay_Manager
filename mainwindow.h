@@ -59,6 +59,7 @@ private slots:
     void on_tableView_clicked(const QModelIndex &index);
     void on_refreshButton_clicked();
     void on_deleteReplayButton_clicked();
+    void on_actionCheck_For_Updates_triggered();
     void networkError();
     void sslError(QList<QSslError> errors);
 

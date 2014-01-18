@@ -711,6 +711,14 @@ void MainWindow::on_refreshButton_clicked()
     addFilesToDb();
 }
 
+void MainWindow::on_actionCheck_For_Updates_triggered()
+{
+#ifdef Q_OS_WIN32
+    //open the updater with admin priv, so if there is an update we can download and install it.
+    QDesktopServices::openUrl(QUrl("file:///" + QDir::currentPath() + "/autoupdate/autoupdate-windows.exe", QUrl::TolerantMode));
+#endif
+}
+
 void MainWindow::networkError()
 {
     block = true;

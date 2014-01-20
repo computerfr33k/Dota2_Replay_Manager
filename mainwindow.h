@@ -61,7 +61,7 @@ private slots:
     void on_deleteReplayButton_clicked();
     void on_actionCheck_For_Updates_triggered();
     void networkError();
-    void sslError(QList<QSslError> errors);
+    void sslError();
 
 private:
     QSettings *settings;

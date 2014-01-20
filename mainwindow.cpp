@@ -717,6 +717,9 @@ void MainWindow::on_actionCheck_For_Updates_triggered()
     //open the updater with admin priv, so if there is an update we can download and install it.
     QDesktopServices::openUrl(QUrl("file:///" + QDir::currentPath() + "/autoupdate/autoupdate-windows.exe", QUrl::TolerantMode));
 #endif
+#ifdef Q_OS_LINUX
+    QProcess::startDetached("autoupdate/autoupdate-linux.run");
+#endif
 }
 
 void MainWindow::networkError()
@@ -728,7 +731,7 @@ void MainWindow::networkError()
     progressDialog->deleteLater();
 }
 
-void MainWindow::sslError(QList<QSslError> errors)
+void MainWindow::sslError()
 {
     block = true;
     //qDebug() << errors;

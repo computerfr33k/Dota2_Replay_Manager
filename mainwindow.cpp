@@ -158,7 +158,6 @@ QPixmap MainWindow::getImage(QString type, QString name)
     QString size;
     int width;
 
-    manager = new QNetworkAccessManager(this);
     QNetworkDiskCache *cache = new QNetworkDiskCache(this);
     cache->setCacheDirectory(userDir.absolutePath() + "/cache");
     manager->setCache(cache);
@@ -175,6 +174,7 @@ QPixmap MainWindow::getImage(QString type, QString name)
     }
 
     QNetworkRequest req(QUrl("http://media.steampowered.com/apps/dota2/images/" + type + "/" + name + "_" + size + ".png"));
+    req.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
     req.setRawHeader("User-Agent","d2rm-app");
     reply = manager->get(req);
 
@@ -184,9 +184,6 @@ QPixmap MainWindow::getImage(QString type, QString name)
     pic.loadFromData(reply->readAll());
 
     qDebug() << "image from cache: " << reply->attribute(QNetworkRequest::SourceIsFromCacheAttribute).toBool();
-
-    manager->deleteLater();
-    reply->deleteLater();
 
     return pic.scaledToWidth(width);
 }
@@ -217,9 +214,11 @@ void MainWindow::on_watchReplay_clicked()
 void MainWindow::httpFinished()
 {
         QJsonDocument json = QJsonDocument::fromJson(reply->readAll());
+        reply->deleteLater();
 
         if(json.object().value("match_id").isNull())
         {
+            manager->deleteLater();
             QMessageBox::warning(this, "ERROR!", "Could not find match.");
         }
         else
@@ -227,11 +226,11 @@ void MainWindow::httpFinished()
             if(json.object().value("success").toString().compare("1") == 0) //if success is 1, strcmp returns 0; if success true
                 setMatchInfo(json);
             else
+            {
+               manager->deleteLater();
                QMessageBox::warning(this, "Warning", json.object().value("message").toString());
+            }
         }
-
-    manager->deleteLater();
-    reply->deleteLater();
 }
 
 void MainWindow::setMatchInfo(QJsonDocument json)
@@ -578,6 +577,9 @@ void MainWindow::setMatchInfo(QJsonDocument json)
     //end dire
 
     //switch to match details tab after writing all the info
+    json = QJsonDocument();
+    manager->deleteLater();
+    reply->deleteLater();
     progressDialog->close();
     progressDialog->deleteLater();
     ui->tabWidget->setCurrentIndex(0);
@@ -644,7 +646,7 @@ void MainWindow::on_actionClear_Cache_triggered()
     cache->setCacheDirectory(userDir.absolutePath() + "/cache");
     cache->clear();
 
-    delete cache;
+    cache->deleteLater();
 }
 
 void MainWindow::on_deleteReplayButton_clicked()

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtNetwork>
 #include <QtGui>
 #include <QSqlDatabase>
 #include <QSqlTableModel>
@@ -10,10 +11,6 @@
 #include <iterator>
 #include <QPixmap>
 #include <QMessageBox>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QNetworkRequest>
-#include <QNetworkDiskCache>
 #include <QSqlRecord>
 #include <QTextEdit>
 #include <QDialog>
@@ -24,6 +21,7 @@
 
 #include "edittitle.h"
 #include "preferences.h"
+#include "http.h"
 
 namespace Ui {
 class MainWindow;

@@ -14,11 +14,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     edittitle.cpp \
-    preferences.cpp
+    preferences.cpp \
+    http.cpp \
+    matchinfo.cpp
 
 HEADERS  += mainwindow.h \
     edittitle.h \
-    preferences.h
+    preferences.h \
+    http.h \
+    matchinfo.h
 
 FORMS    += mainwindow.ui \
     edittitle.ui \

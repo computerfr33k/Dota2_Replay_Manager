@@ -1,29 +1,93 @@
 #include "http.h"
 
-Http::Http(QObject *parent) :
-    QObject(parent)
+class QThreadEx : public QThread
 {
-    manager = new QNetworkAccessManager(this);
+public:
+    static void msleep(unsigned long ms)
+    {
+        QThread::msleep(ms);
+    }
+};
+
+static void msleep(int ms)
+{
+    QThreadEx::msleep(ms);
 }
+
+Http::Http(QObject *parent) :
+    QObject(parent),
+    m_pSocketThread(NULL),
+    m_pNetworkProxy(NULL)
+{
+    clear();
+    init();
+}
+
 Http::~Http()
 {
-    if(manager != NULL)
+    m_loop.exit(1);
+    close();
+    endSocketThread();
+}
+
+Http::Http(const QString &strUrl, QObject *parent) : QObject(parent), m_pSocketThread(NULL), m_pNetworkProxy(NULL)
+{
+    clear();
+    init();
+    setUrl(strUrl);
+}
+
+
+Http::Http(const QUrl &Url, QObject *parent) : QObject(parent), m_pSocketThread(NULL), m_pNetworkProxy(NULL)
+{
+    clear();
+    init();
+    setUrl(Url);
+}
+
+void Http::endSocketThread()
+{
+    if(m_pSocketThread != NULL)
     {
-        delete manager;
-        manager = NULL;
+        m_pSocketThread->quit();
+        m_pSocketThread->wait();
+
+        delete m_pSocketThread;
+        m_pSocketThread = NULL;
     }
 }
 
-QByteArray Http::get()
+void Http::clear()
 {
-    return QByteArray();
+    m_pReply = NULL;
+    m_NetworkError = QNetworkReply::NoError;
+    m_nResponse = 0;
+    m_bReadTimeOutms = false;
+    m_strContentType.clear();
+    m_nSize = 0;
+    m_sslErrors.clear();
 }
 
-void Http::close()
+void Http::init()
 {
+    endSocketThread();
+
+    m_pSocketThread = new QThread(this);
+    moveToThread(m_pSocketThread);
+    m_pSocketThread->start(QThread::HighestPriority);
 }
 
-void Http::downloadReadyRead(QNetworkReply *reply)
+QUrl Http::url() const
 {
-    reply->readAll();
+    return m_url;
+}
+
+void Http::setUrl(const QString &strUrl)
+{
+    m_url = QUrl::fromEncoded(strUrl.toUtf8());
+}
+
+void Http::setUrl(const QUrl &Url)
+{
+    m_url = Url;
 }

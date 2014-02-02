@@ -147,6 +147,7 @@ void MainWindow::addFilesToDb()
  */
 QPixmap MainWindow::getImage(QString type, QString name)
 {
+    return QPixmap();
     //user canceled the network request, so block
     if(block)
         return QPixmap();
@@ -225,7 +226,9 @@ void MainWindow::httpFinished()
         else
         {
             if(json.object().value("success").toString().compare("1") == 0) //if success is 1, strcmp returns 0; if success true
-                setMatchInfo(json);
+            {
+            }
+                //setMatchInfo(json);
             else
             {
                manager->deleteLater();
@@ -234,8 +237,12 @@ void MainWindow::httpFinished()
         }
 }
 
-void MainWindow::setMatchInfo(QJsonDocument json)
+void MainWindow::setMatchInfo()
 {
+    QString matchID = queryModel.record(ui->tableView->selectionModel()->currentIndex().row()).value("filename").toString().remove(".dem");
+    QFile file(matchID + ".json");
+    file.open(QIODevice::ReadOnly);
+    QJsonDocument json = QJsonDocument::fromJson(file.readAll());
     //either network was canceled, or network error occured. Don't waste time iterating.
     if(block)
     {
@@ -579,10 +586,10 @@ void MainWindow::setMatchInfo(QJsonDocument json)
 
     //switch to match details tab after writing all the info
     json = QJsonDocument();
-    manager->deleteLater();
-    reply->deleteLater();
-    progressDialog->close();
-    progressDialog->deleteLater();
+    //manager->deleteLater();
+    //reply->deleteLater();
+    //progressDialog->close();
+    //progressDialog->deleteLater();
     ui->tabWidget->setCurrentIndex(0);
 }
 
@@ -597,14 +604,16 @@ void MainWindow::on_viewMatchButton_clicked()
         QMessageBox::information(this, "Api Key", "Make sure you set your api key in the preferences");
         return;
     }
+    /*
     progressDialog = new QProgressDialog(this);
     progressDialog->setRange(0,0);
     progressDialog->setLabelText("Loading...");
+    */
 
     queryModel.setQuery("SELECT * FROM replays");
     QString matchID = queryModel.record(ui->tableView->selectionModel()->currentIndex().row()).value("filename").toString().remove(".dem");
     downloadMatch(matchID);
-    progressDialog->exec();
+    //progressDialog->exec();
 
     //use QNetworkDiskCache instead of my method for ease
 }
@@ -661,6 +670,10 @@ void MainWindow::on_deleteReplayButton_clicked()
 
 void MainWindow::downloadMatch(QString id)
 {
+    http.append("https://computerfr33k-dota-2-replay-manager.p.mashape.com/json-mashape.php?match_id=" + id);
+    http.setRawHeader(QByteArray("X-Mashape-Authorization"), apiKey.toLatin1());
+    connect(&http, SIGNAL(finished()), SLOT(setMatchInfo()));
+/*
     QNetworkDiskCache *cache = new QNetworkDiskCache(this);
     cache->setCacheDirectory(userDir.absolutePath() + "/cache");
     manager = new QNetworkAccessManager(this);
@@ -674,6 +687,7 @@ void MainWindow::downloadMatch(QString id)
     connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(networkError()));
     //connect(reply, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(sslError(QList<QSslError> errors)));
+    */
 }
 
 void MainWindow::on_actionAbout_Qt_triggered()

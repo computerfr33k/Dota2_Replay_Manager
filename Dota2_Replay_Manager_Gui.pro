@@ -16,13 +16,15 @@ SOURCES += main.cpp\
     edittitle.cpp \
     preferences.cpp \
     http.cpp \
-    matchinfo.cpp
+    matchinfo.cpp \
+    thread.cpp
 
 HEADERS  += mainwindow.h \
     edittitle.h \
     preferences.h \
     http.h \
-    matchinfo.h
+    matchinfo.h \
+    thread.h
 
 FORMS    += mainwindow.ui \
     edittitle.ui \

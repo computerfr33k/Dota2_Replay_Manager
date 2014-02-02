@@ -39,7 +39,7 @@ protected:
     void start();
     void checkDb();
     void addFilesToDb();
-    void setMatchInfo(QJsonDocument);
+
     void downloadMatch(QString);
     void setPicksBans();                //to display picks and bans for CM games
     
@@ -60,6 +60,7 @@ private slots:
     void on_actionCheck_For_Updates_triggered();
     void networkError();
     void sslError();
+    void setMatchInfo();
 
 private:
     QSettings *settings;
@@ -78,6 +79,7 @@ private:
     QPixmap image;
     QProgressDialog *progressDialog;
     bool block;                         //if true, block all network requests
+    Http http;
 };
 
 #endif // MAINWINDOW_H

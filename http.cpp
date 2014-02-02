@@ -1,93 +1,124 @@
 #include "http.h"
 
-class QThreadEx : public QThread
-{
-public:
-    static void msleep(unsigned long ms)
-    {
-        QThread::msleep(ms);
-    }
-};
+#include <QFileInfo>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QString>
+#include <QStringList>
+#include <QTimer>
+#include <stdio.h>
 
-static void msleep(int ms)
+Http::Http(QObject *parent) : QObject(parent), downloadCount(0), totalCount(0)
 {
-    QThreadEx::msleep(ms);
+    manager = new QNetworkAccessManager(this);
 }
-
-Http::Http(QObject *parent) :
-    QObject(parent),
-    m_pSocketThread(NULL),
-    m_pNetworkProxy(NULL)
-{
-    clear();
-    init();
-}
-
 Http::~Http()
 {
-    m_loop.exit(1);
-    close();
-    endSocketThread();
+    delete manager;
+    delete currentDownload;
 }
 
-Http::Http(const QString &strUrl, QObject *parent) : QObject(parent), m_pSocketThread(NULL), m_pNetworkProxy(NULL)
+void Http::append(const QUrl &url)
 {
-    clear();
-    init();
-    setUrl(strUrl);
+    if(downloadQueue.isEmpty())
+        QTimer::singleShot(0, this, SLOT(startNextDownload()));
+
+    downloadQueue.enqueue(url);
+    ++totalCount;
 }
 
-
-Http::Http(const QUrl &Url, QObject *parent) : QObject(parent), m_pSocketThread(NULL), m_pNetworkProxy(NULL)
+void Http::append(const QStringList &urlList)
 {
-    clear();
-    init();
-    setUrl(Url);
+    foreach(QString url, urlList)
+        append(QUrl::fromEncoded(url.toLocal8Bit()));
+
+    if(downloadQueue.isEmpty())
+        QTimer::singleShot(0, this, SIGNAL(finished()));
 }
 
-void Http::endSocketThread()
+void Http::setRawHeader(QByteArray &headers, QByteArray &headerValue)
 {
-    if(m_pSocketThread != NULL)
+    rawHeaders = headers;
+    rawHeaderValue = headerValue;
+}
+
+QString Http::saveFileName(const QUrl &url)
+{
+    QString path = url.path();
+    QString basename = QFileInfo(path).fileName();
+
+    if(QFile::exists(basename))
     {
-        m_pSocketThread->quit();
-        m_pSocketThread->wait();
+        //already exists, don't overwrite
+        int i=0;
+        basename += '.';
+        while(QFile::exists(basename + QString::number(i)))
+            ++i;
 
-        delete m_pSocketThread;
-        m_pSocketThread = NULL;
+        basename += QString::number(i);
     }
+    return basename;
 }
 
-void Http::clear()
+void Http::startNextDownload()
 {
-    m_pReply = NULL;
-    m_NetworkError = QNetworkReply::NoError;
-    m_nResponse = 0;
-    m_bReadTimeOutms = false;
-    m_strContentType.clear();
-    m_nSize = 0;
-    m_sslErrors.clear();
+    if(downloadQueue.isEmpty())
+    {
+        printf("%d/%d files downloaded successfully\n", downloadCount, totalCount);
+        emit finished();
+        return;
+    }
+
+    QUrl url = downloadQueue.dequeue();
+
+    QString filename = saveFileName(url);
+    qDebug() << filename.compare("json-mashape.php");
+    if(filename.compare("json-mashape.php") == 0)
+        filename = QUrlQuery(url).queryItemValue("match_id") + QString(".json");
+
+    qDebug() << filename;
+    output.setFileName(filename);
+    if(!output.open(QIODevice::WriteOnly))
+    {
+        fprintf(stderr, "Problem Opening save file %s for download %s: %s\n", qPrintable(filename), url.toEncoded().constData(), qPrintable(output.errorString()));
+
+        startNextDownload();
+        return;
+    }
+
+    QNetworkRequest request(url);
+    request.setRawHeader(rawHeaders, rawHeaderValue);
+    currentDownload = manager->get(request);
+    connect(currentDownload, SIGNAL(downloadProgress(qint64,qint64)), SLOT(downloadProgress(qint64,qint64)));
+    connect(currentDownload, SIGNAL(finished()), SLOT(downloadFinished()));
+    connect(currentDownload, SIGNAL(readyRead()), SLOT(downloadReadyRead()));
+
+    printf("Downloading %s...\n", url.toEncoded().constData());
+    downloadTime.start();
 }
 
-void Http::init()
+void Http::downloadProgress(qint64 bytesReceived, qint64 bytesTotal)
 {
-    endSocketThread();
-
-    m_pSocketThread = new QThread(this);
-    moveToThread(m_pSocketThread);
-    m_pSocketThread->start(QThread::HighestPriority);
 }
 
-QUrl Http::url() const
+void Http::downloadFinished()
 {
-    return m_url;
+    output.close();
+
+    if(currentDownload->error())
+    {
+        progressDialog.close();
+    }
+    else
+    {
+        ++downloadCount;
+    }
+
+    currentDownload->deleteLater();
+    startNextDownload();
 }
 
-void Http::setUrl(const QString &strUrl)
+void Http::downloadReadyRead()
 {
-    m_url = QUrl::fromEncoded(strUrl.toUtf8());
-}
-
-void Http::setUrl(const QUrl &Url)
-{
-    m_url = Url;
+    output.write(currentDownload->readAll());
 }

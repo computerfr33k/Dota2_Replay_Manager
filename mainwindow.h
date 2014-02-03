@@ -63,6 +63,12 @@ private slots:
     void setMatchInfo();
 
 private:
+    //array of labels for UI
+    //use array because it will be less code and allow us to iterate through them with for loops.
+    QLabel *radiantBansUI[5];
+    QLabel *direBansUI[5];
+    QLabel *radiantHeroPicUI[5];
+
     QSettings *settings;
     QDir dir;                           //replay Dir
     QDir userDir;                       //AppData Location for storing program settings
@@ -77,6 +83,7 @@ private:
     QString picDir;                     //dir where images are located. (./thumbnails)
     QString apiKey;
     QPixmap image;
+    QPixmap *emptyPicture;              //QPixmap object that is empty, useful so we only need one object for empty images instead of multiple.
     QProgressDialog *progressDialog;
     bool block;                         //if true, block all network requests
     Http http;

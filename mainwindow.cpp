@@ -9,6 +9,25 @@ MainWindow::MainWindow(QWidget *parent) :
     start();
     addFilesToDb();
     connect(ui->tableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_tableView_clicked(QModelIndex)));
+
+    //create our QLabel array so we can for loop our match info
+    radiantBansUI[0] = ui->radiantBan_1;
+    radiantBansUI[1] = ui->radiantBan_2;
+    radiantBansUI[2] = ui->radiantBan_3;
+    radiantBansUI[3] = ui->radiantBan_4;
+    radiantBansUI[4] = ui->radiantBan_5;
+
+    radiantHeroPicUI[0] = ui->radiantHeroPic_1;
+    radiantHeroPicUI[1] = ui->radiantHeroPic_2;
+    radiantHeroPicUI[2] = ui->radiantHeroPic_3;
+    radiantHeroPicUI[3] = ui->radiantHeroPic_4;
+    radiantHeroPicUI[4] = ui->radiantHeroPic_5;
+
+    direBansUI[0] = ui->direBan_1;
+    direBansUI[1] = ui->direBan_2;
+    direBansUI[2] = ui->direBan_3;
+    direBansUI[3] = ui->direBan_4;
+    direBansUI[4] = ui->direBan_5;
 }
 
 
@@ -19,9 +38,10 @@ MainWindow::~MainWindow()
     settings->sync();
     db.exec(QString("VACUUM"));
     db.close();
+
     delete settings;
-    delete ui;
     delete model;
+    delete ui;
 }
 
 void MainWindow::start()
@@ -147,22 +167,13 @@ void MainWindow::addFilesToDb()
  */
 QPixmap MainWindow::getImage(QString type, QString name)
 {
-    return QPixmap();
-    //user canceled the network request, so block
-    if(block)
-        return QPixmap();
-
     //return empty QPixmap because the item slot was empty, so no need to try and fetch something that will fail and waste time for a failed request.
     if(name.compare("empty") == 0)
-        return QPixmap();
+        return image;
 
     QPixmap pic;
     QString size;
     int width;
-
-    QNetworkDiskCache *cache = new QNetworkDiskCache(this);
-    cache->setCacheDirectory(userDir.absolutePath() + "/cache");
-    manager->setCache(cache);
 
     if(type.compare("heroes") == 0)
     {
@@ -174,18 +185,7 @@ QPixmap MainWindow::getImage(QString type, QString name)
         size = "lg";
         width = 32;
     }
-
-    QNetworkRequest req(QUrl("http://media.steampowered.com/apps/dota2/images/" + type + "/" + name + "_" + size + ".png"));
-    req.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
-    req.setRawHeader("User-Agent","d2rm-app");
-    reply = manager->get(req);
-
-    QEventLoop loop;
-    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
-    loop.exec();
-    pic.loadFromData(reply->readAll());
-
-    qDebug() << "image from cache: " << reply->attribute(QNetworkRequest::SourceIsFromCacheAttribute).toBool();
+    pic.load("downloads/" + name + "_" + size + ".png");
 
     return pic.scaledToWidth(width);
 }
@@ -239,15 +239,17 @@ void MainWindow::httpFinished()
 
 void MainWindow::setMatchInfo()
 {
+    const QString baseUrl = "http://media.steampowered.com/apps/dota2/images/heroes/";
+
+    ui->tabWidget->setCurrentIndex(0);
+    //we need to make sure we don't use this slot anymore since this is in the slot.
+    //if we kept this slot enabled we would keep calling this everytime a download is finished and continous loop.
+    http.disconnect();
+
     QString matchID = queryModel.record(ui->tableView->selectionModel()->currentIndex().row()).value("filename").toString().remove(".dem");
-    QFile file(matchID + ".json");
+    QFile file("downloads/" + matchID + ".json");
     file.open(QIODevice::ReadOnly);
     QJsonDocument json = QJsonDocument::fromJson(file.readAll());
-    //either network was canceled, or network error occured. Don't waste time iterating.
-    if(block)
-    {
-        return;
-    }
 
     //set winner
     if(json.object().value("radiant_win").toString().compare("1") == 0)
@@ -268,12 +270,13 @@ void MainWindow::setMatchInfo()
     if(json.object().value("game_mode").toString().compare("Captains Mode") == 0)
     {
         QJsonArray radiantBans = json.object().value("picks_bans").toObject().value("radiant").toObject().value("bans").toArray();
-        //ui->radiantBan_1->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantBans.at(0).toObject().value("name").toString() + ".jpg"));
-        ui->radiantBan_1->setPixmap(getImage(QString("heroes"), radiantBans.at(0).toObject().value("name").toString()));
-        ui->radiantBan_2->setPixmap(getImage(QString("heroes"), radiantBans.at(1).toObject().value("name").toString()));
-        ui->radiantBan_3->setPixmap(getImage(QString("heroes"), radiantBans.at(2).toObject().value("name").toString()));
-        ui->radiantBan_4->setPixmap(getImage(QString("heroes"), radiantBans.at(3).toObject().value("name").toString()));
-        ui->radiantBan_5->setPixmap(getImage(QString("heroes"), radiantBans.at(4).toObject().value("name").toString()));
+        for(int i=0; i < 5; i++)
+        {
+            http.append(QUrl(baseUrl + radiantBans.at(i).toObject().value("name").toString() + "_sb.png"));
+        }
+
+        for(int i=0; i < 5; i++)
+            radiantBansUI[i]->setPixmap(getImage(QString("heroes"), radiantBans.at(0).toObject().value("name").toString()));
 
         QJsonArray radiantPicks = json.object().value("picks_bans").toObject().value("radiant").toObject().value("picks").toArray();
         //ui->radiantPick_1->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantPicks.at(0).toObject().value("name").toString() + ".jpg"));
@@ -344,11 +347,11 @@ void MainWindow::setMatchInfo()
     ui->radiantLevel_5->setText(radiantSlots.at(4).toObject().value("level").toString());
 
     //radiant Hero Pix
-    ui->radiantHeroPic_1->setPixmap(getImage( "heroes", radiantSlots.at(0).toObject().value("hero").toObject().value("name").toString() ));
-    ui->radiantHeroPic_2->setPixmap(getImage( "heroes", radiantSlots.at(1).toObject().value("hero").toObject().value("name").toString() ));
-    ui->radiantHeroPic_3->setPixmap(getImage( "heroes", radiantSlots.at(2).toObject().value("hero").toObject().value("name").toString() ));
-    ui->radiantHeroPic_4->setPixmap(getImage( "heroes", radiantSlots.at(3).toObject().value("hero").toObject().value("name").toString() ));
-    ui->radiantHeroPic_5->setPixmap(getImage( "heroes", radiantSlots.at(4).toObject().value("hero").toObject().value("name").toString() ));
+    for(int i=0; i < 5; i++)
+        http.append(QUrl(baseUrl + radiantSlots.at(i).toObject().value("hero").toObject().value("name").toString() + "_sb.png"));
+
+    for(int i=0; i<5;i++)
+        radiantHeroPicUI[i]->setPixmap(getImage( "heroes", radiantSlots.at(i).toObject().value("hero").toObject().value("name").toString() ));
 
     // radiant Hero Names
     ui->radiantHero_1->setText(radiantSlots.at(0).toObject().value("hero").toObject().value("localized_name").toString());
@@ -472,6 +475,8 @@ void MainWindow::setMatchInfo()
     ui->direLevel_5->setText(direSlots.at(4).toObject().value("level").toString());
 
     //dire Hero Pix
+    for(int i=0; i<5; i++)
+        http.append(QUrl("http://media.steampowered.com/apps/dota2/images/heroes/" + direSlots.at(i).toObject().value("hero").toObject().value("name").toString() + "_sb.png"));
     ui->direHeroPic_1->setPixmap(getImage( "heroes", direSlots.at(0).toObject().value("hero").toObject().value("name").toString() ));
     ui->direHeroPic_2->setPixmap(getImage( "heroes", direSlots.at(1).toObject().value("hero").toObject().value("name").toString() ));
     ui->direHeroPic_3->setPixmap(getImage( "heroes", direSlots.at(2).toObject().value("hero").toObject().value("name").toString() ));
@@ -584,38 +589,22 @@ void MainWindow::setMatchInfo()
 
     //end dire
 
-    //switch to match details tab after writing all the info
-    json = QJsonDocument();
-    //manager->deleteLater();
-    //reply->deleteLater();
-    //progressDialog->close();
-    //progressDialog->deleteLater();
-    ui->tabWidget->setCurrentIndex(0);
+    ui->statusBar->showMessage("Loading Complete!", 30000);     //display message in status bar for 30 sec.
 }
 
 void MainWindow::on_viewMatchButton_clicked()
 {
-    //reset blocking, so the new requests work
-    block = false;
-
     //check if apiKey is not set
     if(apiKey.isEmpty())
     {
         QMessageBox::information(this, "Api Key", "Make sure you set your api key in the preferences");
         return;
     }
-    /*
-    progressDialog = new QProgressDialog(this);
-    progressDialog->setRange(0,0);
-    progressDialog->setLabelText("Loading...");
-    */
+    ui->statusBar->showMessage("Loading...");
 
     queryModel.setQuery("SELECT * FROM replays");
     QString matchID = queryModel.record(ui->tableView->selectionModel()->currentIndex().row()).value("filename").toString().remove(".dem");
     downloadMatch(matchID);
-    //progressDialog->exec();
-
-    //use QNetworkDiskCache instead of my method for ease
 }
 
 void MainWindow::on_editTitle_clicked()
@@ -673,21 +662,6 @@ void MainWindow::downloadMatch(QString id)
     http.append("https://computerfr33k-dota-2-replay-manager.p.mashape.com/json-mashape.php?match_id=" + id);
     http.setRawHeader(QByteArray("X-Mashape-Authorization"), apiKey.toLatin1());
     connect(&http, SIGNAL(finished()), SLOT(setMatchInfo()));
-/*
-    QNetworkDiskCache *cache = new QNetworkDiskCache(this);
-    cache->setCacheDirectory(userDir.absolutePath() + "/cache");
-    manager = new QNetworkAccessManager(this);
-    manager->setCache(cache);
-
-    QNetworkRequest req(QUrl("https://computerfr33k-dota-2-replay-manager.p.mashape.com/json-mashape.php?match_id=" + id));
-    req.setRawHeader(QByteArray("X-Mashape-Authorization"), apiKey.toLatin1());
-    req.setRawHeader("User-Agent","d2rm-app");
-    reply = manager->get(req);
-
-    connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
-    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(networkError()));
-    //connect(reply, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(sslError(QList<QSslError> errors)));
-    */
 }
 
 void MainWindow::on_actionAbout_Qt_triggered()

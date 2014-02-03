@@ -6,7 +6,6 @@
 #include <QString>
 #include <QStringList>
 #include <QTimer>
-#include <stdio.h>
 
 Http::Http(QObject *parent) : QObject(parent), downloadCount(0), totalCount(0)
 {
@@ -47,16 +46,6 @@ QString Http::saveFileName(const QUrl &url)
     QString path = url.path();
     QString basename = QFileInfo(path).fileName();
 
-    if(QFile::exists(basename))
-    {
-        //already exists, don't overwrite
-        int i=0;
-        basename += '.';
-        while(QFile::exists(basename + QString::number(i)))
-            ++i;
-
-        basename += QString::number(i);
-    }
     return basename;
 }
 
@@ -64,7 +53,6 @@ void Http::startNextDownload()
 {
     if(downloadQueue.isEmpty())
     {
-        printf("%d/%d files downloaded successfully\n", downloadCount, totalCount);
         emit finished();
         return;
     }
@@ -72,12 +60,17 @@ void Http::startNextDownload()
     QUrl url = downloadQueue.dequeue();
 
     QString filename = saveFileName(url);
-    qDebug() << filename.compare("json-mashape.php");
+    //if filename is equal to the php script filename, then we know it is the match info in json. So add json as the file extension
     if(filename.compare("json-mashape.php") == 0)
         filename = QUrlQuery(url).queryItemValue("match_id") + QString(".json");
 
-    qDebug() << filename;
-    output.setFileName(filename);
+    output.setFileName("downloads/" + filename);
+    if(QFileInfo(output.fileName()).lastModified().addDays(14) > QDateTime::currentDateTime()) //file is not older than 2 weeks, do not bother updating it.
+    {
+        startNextDownload();
+        return;
+    }
+
     if(!output.open(QIODevice::WriteOnly))
     {
         fprintf(stderr, "Problem Opening save file %s for download %s: %s\n", qPrintable(filename), url.toEncoded().constData(), qPrintable(output.errorString()));
@@ -114,7 +107,9 @@ void Http::downloadFinished()
         ++downloadCount;
     }
 
+    currentDownload->close();
     currentDownload->deleteLater();
+    currentDownload = NULL;
     startNextDownload();
 }
 

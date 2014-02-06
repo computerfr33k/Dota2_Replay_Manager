@@ -14,7 +14,6 @@ Http::Http(QObject *parent) : QObject(parent), downloadCount(0), totalCount(0)
 Http::~Http()
 {
     delete manager;
-    delete currentDownload;
 }
 
 void Http::append(const QUrl &url)
@@ -35,7 +34,7 @@ void Http::append(const QStringList &urlList)
         QTimer::singleShot(0, this, SIGNAL(finished()));
 }
 
-void Http::setRawHeader(QByteArray &headers, QByteArray &headerValue)
+void Http::setRawHeader(QByteArray headers, QByteArray headerValue)
 {
     rawHeaders = headers;
     rawHeaderValue = headerValue;
@@ -47,6 +46,11 @@ QString Http::saveFileName(const QUrl &url)
     QString basename = QFileInfo(path).fileName();
 
     return basename;
+}
+
+bool Http::isFinished()
+{
+    return downloadQueue.isEmpty();
 }
 
 void Http::startNextDownload()
@@ -63,6 +67,8 @@ void Http::startNextDownload()
     //if filename is equal to the php script filename, then we know it is the match info in json. So add json as the file extension
     if(filename.compare("json-mashape.php") == 0)
         filename = QUrlQuery(url).queryItemValue("match_id") + QString(".json");
+    else if(filename.compare("_sb.png") == 0)
+        startNextDownload();
 
     output.setFileName("downloads/" + filename);
     if(QFileInfo(output.fileName()).lastModified().addDays(14) > QDateTime::currentDateTime()) //file is not older than 2 weeks, do not bother updating it.
@@ -100,7 +106,6 @@ void Http::downloadFinished()
 
     if(currentDownload->error())
     {
-        progressDialog.close();
     }
     else
     {

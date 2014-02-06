@@ -19,8 +19,9 @@ public:
 
     void append(const QUrl &url);
     void append(const QStringList &urlList);
-    void setRawHeader(QByteArray &header, QByteArray &headerValue);
+    void setRawHeader(QByteArray header, QByteArray headerValue);
     QString saveFileName(const QUrl &url);
+    bool isFinished();                                                      //use for waiting for the queue to complete
 
 signals:
     void finished();

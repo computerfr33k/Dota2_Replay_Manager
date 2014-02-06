@@ -19,6 +19,10 @@
 #include <QSslError>
 #include <QDebug>
 
+#ifdef Q_OS_LINUX
+#include <unistd.h>
+#endif
+
 #include "edittitle.h"
 #include "preferences.h"
 #include "http.h"
@@ -30,7 +34,7 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-    
+
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -42,11 +46,11 @@ protected:
 
     void downloadMatch(QString);
     void setPicksBans();                //to display picks and bans for CM games
-    
+
 private slots:
     QPixmap getImage(QString type, QString name);
     void on_watchReplay_clicked();
-    void httpFinished();
+    //void httpFinished();
     void on_viewMatchButton_clicked();
     void on_editTitle_clicked();
     void on_actionPreferences_triggered();
@@ -66,8 +70,24 @@ private:
     //array of labels for UI
     //use array because it will be less code and allow us to iterate through them with for loops.
     QLabel *radiantBansUI[5];
+    QLabel *radiantPicksUI[5];
+    QLabel *direPicksUI[5];
     QLabel *direBansUI[5];
     QLabel *radiantHeroPicUI[5];
+    QLabel *playerNameUI[2][5];
+    QLabel *playerLevelUI[2][5];
+    QLabel *playerHeroNameUI[2][5];
+    QLabel *playerheroPicUI[2][5];
+    QLabel *playerKillsUI[2][5];
+    QLabel *playerDeathsUI[2][5];
+    QLabel *playerAssistsUI[2][5];
+    QLabel *playerItemsUI[2][5][6];     // 3-D Array for items [team][player][item_slot]
+    QLabel *playerGoldUI[2][5];
+    QLabel *playerLastHitsUI[2][5];
+    QLabel *playerDeniesUI[2][5];
+    QLabel *playerGPMUI[2][5];
+    QLabel *playerXPMUI[2][5];
+    //
 
     QSettings *settings;
     QDir dir;                           //replay Dir

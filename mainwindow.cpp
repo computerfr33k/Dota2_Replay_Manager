@@ -6,270 +6,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    initializeUIPointers();
     start();
     addFilesToDb();
     connect(ui->tableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_tableView_clicked(QModelIndex)));
-
-    //create our QLabel array so we can for loop our match info
-    // 2-D Array of QLabels; first index: 0 = radiant, 1 = Dire
-    radiantBansUI[0] = ui->radiantBan_1;
-    radiantBansUI[1] = ui->radiantBan_2;
-    radiantBansUI[2] = ui->radiantBan_3;
-    radiantBansUI[3] = ui->radiantBan_4;
-    radiantBansUI[4] = ui->radiantBan_5;
-
-    radiantPicksUI[0] = ui->radiantPick_1;
-    radiantPicksUI[1] = ui->radiantPick_2;
-    radiantPicksUI[2] = ui->radiantPick_3;
-    radiantPicksUI[3] = ui->radiantPick_4;
-    radiantPicksUI[4] = ui->radiantPick_5;
-
-    radiantHeroPicUI[0] = ui->radiantHeroPic_1;
-    radiantHeroPicUI[1] = ui->radiantHeroPic_2;
-    radiantHeroPicUI[2] = ui->radiantHeroPic_3;
-    radiantHeroPicUI[3] = ui->radiantHeroPic_4;
-    radiantHeroPicUI[4] = ui->radiantHeroPic_5;
-
-    direBansUI[0] = ui->direBan_1;
-    direBansUI[1] = ui->direBan_2;
-    direBansUI[2] = ui->direBan_3;
-    direBansUI[3] = ui->direBan_4;
-    direBansUI[4] = ui->direBan_5;
-
-    direPicksUI[0] = ui->direPick_1;
-    direPicksUI[1] = ui->direPick_2;
-    direPicksUI[2] = ui->direPick_3;
-    direPicksUI[3] = ui->direPick_4;
-    direPicksUI[4] = ui->direPick_5;
-
-    //radiant Player Names
-    playerNameUI[0][0] = ui->radiantPlayer_1;
-    playerNameUI[0][1] = ui->radiantPlayer_2;
-    playerNameUI[0][2] = ui->radiantPlayer_3;
-    playerNameUI[0][3] = ui->radiantPlayer_4;
-    playerNameUI[0][4] = ui->radiantPlayer_5;
-    //Dire Player Names
-    playerNameUI[1][0] = ui->direPlayer_1;
-    playerNameUI[1][1] = ui->direPlayer_2;
-    playerNameUI[1][2] = ui->direPlayer_3;
-    playerNameUI[1][3] = ui->direPlayer_4;
-    playerNameUI[1][4] = ui->direPlayer_5;
-
-    //radiant levels
-    playerLevelUI[0][0] = ui->radiantLevel_1;
-    playerLevelUI[0][1] = ui->radiantLevel_2;
-    playerLevelUI[0][2] = ui->radiantLevel_3;
-    playerLevelUI[0][3] = ui->radiantLevel_4;
-    playerLevelUI[0][4] = ui->radiantLevel_5;
-    //dire Levels
-    playerLevelUI[1][0] = ui->direLevel_1;
-    playerLevelUI[1][1] = ui->direLevel_2;
-    playerLevelUI[1][2] = ui->direLevel_3;
-    playerLevelUI[1][3] = ui->direLevel_4;
-    playerLevelUI[1][4] = ui->direLevel_5;
-
-    //radiant Hero Pic
-    playerheroPicUI[0][0] = ui->radiantHeroPic_1;
-    playerheroPicUI[0][1] = ui->radiantHeroPic_2;
-    playerheroPicUI[0][2] = ui->radiantHeroPic_3;
-    playerheroPicUI[0][3] = ui->radiantHeroPic_4;
-    playerheroPicUI[0][4] = ui->radiantHeroPic_5;
-    //dire hero pic
-    playerheroPicUI[1][0] = ui->direHeroPic_1;
-    playerheroPicUI[1][1] = ui->direHeroPic_2;
-    playerheroPicUI[1][2] = ui->direHeroPic_3;
-    playerheroPicUI[1][3] = ui->direHeroPic_4;
-    playerheroPicUI[1][4] = ui->direHeroPic_5;
-
-    //radiant hero name
-    playerHeroNameUI[0][0] = ui->radiantHero_1;
-    playerHeroNameUI[0][1] = ui->radiantHero_2;
-    playerHeroNameUI[0][2] = ui->radiantHero_3;
-    playerHeroNameUI[0][3] = ui->radiantHero_4;
-    playerHeroNameUI[0][4] = ui->radiantHero_5;
-    //dire hero name
-    playerHeroNameUI[1][0] = ui->direHero_1;
-    playerHeroNameUI[1][1] = ui->direHero_2;
-    playerHeroNameUI[1][2] = ui->direHero_3;
-    playerHeroNameUI[1][3] = ui->direHero_4;
-    playerHeroNameUI[1][4] = ui->direHero_5;
-
-    //radiant Kills
-    playerKillsUI[0][0] = ui->radiantKills_1;
-    playerKillsUI[0][1] = ui->radiantKills_2;
-    playerKillsUI[0][2] = ui->radiantKills_3;
-    playerKillsUI[0][3] = ui->radiantKills_4;
-    playerKillsUI[0][4] = ui->radiantKills_5;
-    //dire kills
-    playerKillsUI[1][0] = ui->direKills_1;
-    playerKillsUI[1][1] = ui->direKills_2;
-    playerKillsUI[1][2] = ui->direKills_3;
-    playerKillsUI[1][3] = ui->direKills_4;
-    playerKillsUI[1][4] = ui->direKills_5;
-
-    //radiant Deaths
-    playerDeathsUI[0][0] = ui->radiantDeaths_1;
-    playerDeathsUI[0][1] = ui->radiantDeaths_2;
-    playerDeathsUI[0][2] = ui->radiantDeaths_3;
-    playerDeathsUI[0][3] = ui->radiantDeaths_4;
-    playerDeathsUI[0][4] = ui->radiantDeaths_5;
-    //dire Deaths
-    playerDeathsUI[1][0] = ui->direDeaths_1;
-    playerDeathsUI[1][1] = ui->direDeaths_2;
-    playerDeathsUI[1][2] = ui->direDeaths_3;
-    playerDeathsUI[1][3] = ui->direDeaths_4;
-    playerDeathsUI[1][4] = ui->direDeaths_5;
-
-    //radiant Assists
-    playerAssistsUI[0][0] = ui->radiantAssists_1;
-    playerAssistsUI[0][1] = ui->radiantAssists_2;
-    playerAssistsUI[0][2] = ui->radiantAssists_3;
-    playerAssistsUI[0][3] = ui->radiantAssists_4;
-    playerAssistsUI[0][4] = ui->radiantAssists_5;
-    //dire Assists
-    playerAssistsUI[1][0] = ui->direAssists_1;
-    playerAssistsUI[1][1] = ui->direAssists_2;
-    playerAssistsUI[1][2] = ui->direAssists_3;
-    playerAssistsUI[1][3] = ui->direAssists_4;
-    playerAssistsUI[1][4] = ui->direAssists_5;
-
-    //radiant items 0-5
-    //player 1
-    playerItemsUI[0][0][0] = ui->radiantItems_1_1;
-    playerItemsUI[0][0][1] = ui->radiantItems_1_2;
-    playerItemsUI[0][0][2] = ui->radiantItems_1_3;
-    playerItemsUI[0][0][3] = ui->radiantItems_1_4;
-    playerItemsUI[0][0][4] = ui->radiantItems_1_5;
-    playerItemsUI[0][0][5] = ui->radiantItems_1_6;
-    //player 2
-    playerItemsUI[0][1][0] = ui->radiantItems_2_1;
-    playerItemsUI[0][1][1] = ui->radiantItems_2_2;
-    playerItemsUI[0][1][2] = ui->radiantItems_2_3;
-    playerItemsUI[0][1][3] = ui->radiantItems_2_4;
-    playerItemsUI[0][1][4] = ui->radiantItems_2_5;
-    playerItemsUI[0][1][5] = ui->radiantItems_2_6;
-    //player 3
-    playerItemsUI[0][2][0] = ui->radiantItems_3_1;
-    playerItemsUI[0][2][1] = ui->radiantItems_3_2;
-    playerItemsUI[0][2][2] = ui->radiantItems_3_3;
-    playerItemsUI[0][2][3] = ui->radiantItems_3_4;
-    playerItemsUI[0][2][4] = ui->radiantItems_3_5;
-    playerItemsUI[0][2][5] = ui->radiantItems_3_6;
-    //player 4
-    playerItemsUI[0][3][0] = ui->radiantItems_4_1;
-    playerItemsUI[0][3][1] = ui->radiantItems_4_2;
-    playerItemsUI[0][3][2] = ui->radiantItems_4_3;
-    playerItemsUI[0][3][3] = ui->radiantItems_4_4;
-    playerItemsUI[0][3][4] = ui->radiantItems_4_5;
-    playerItemsUI[0][3][5] = ui->radiantItems_4_6;
-    //player 5
-    playerItemsUI[0][4][0] = ui->radiantItems_5_1;
-    playerItemsUI[0][4][1] = ui->radiantItems_5_2;
-    playerItemsUI[0][4][2] = ui->radiantItems_5_3;
-    playerItemsUI[0][4][3] = ui->radiantItems_5_4;
-    playerItemsUI[0][4][4] = ui->radiantItems_5_5;
-    playerItemsUI[0][4][5] = ui->radiantItems_5_6;
-    //dire items
-    //player 1
-    playerItemsUI[1][0][0] = ui->direItems_1_1;
-    playerItemsUI[1][0][1] = ui->direItems_1_2;
-    playerItemsUI[1][0][2] = ui->direItems_1_3;
-    playerItemsUI[1][0][3] = ui->direItems_1_4;
-    playerItemsUI[1][0][4] = ui->direItems_1_5;
-    playerItemsUI[1][0][5] = ui->direItems_1_6;
-    //player 2
-    playerItemsUI[1][1][0] = ui->direItems_2_1;
-    playerItemsUI[1][1][1] = ui->direItems_2_2;
-    playerItemsUI[1][1][2] = ui->direItems_2_3;
-    playerItemsUI[1][1][3] = ui->direItems_2_4;
-    playerItemsUI[1][1][4] = ui->direItems_2_5;
-    playerItemsUI[1][1][5] = ui->direItems_2_6;
-    //player 3
-    playerItemsUI[1][2][0] = ui->direItems_3_1;
-    playerItemsUI[1][2][1] = ui->direItems_3_1;
-    playerItemsUI[1][2][2] = ui->direItems_3_1;
-    playerItemsUI[1][2][3] = ui->direItems_3_1;
-    playerItemsUI[1][2][4] = ui->direItems_3_1;
-    playerItemsUI[1][2][5] = ui->direItems_3_1;
-    //player 4
-    playerItemsUI[1][3][0] = ui->direItems_4_1;
-    playerItemsUI[1][3][1] = ui->direItems_4_1;
-    playerItemsUI[1][3][2] = ui->direItems_4_1;
-    playerItemsUI[1][3][3] = ui->direItems_4_1;
-    playerItemsUI[1][3][4] = ui->direItems_4_1;
-    playerItemsUI[1][3][5] = ui->direItems_4_1;
-    //player 5
-    playerItemsUI[1][4][0] = ui->direItems_5_1;
-    playerItemsUI[1][4][1] = ui->direItems_5_1;
-    playerItemsUI[1][4][2] = ui->direItems_5_1;
-    playerItemsUI[1][4][3] = ui->direItems_5_1;
-    playerItemsUI[1][4][4] = ui->direItems_5_1;
-    playerItemsUI[1][4][5] = ui->direItems_5_1;
-
-    //radiant Gold
-    playerGoldUI[0][0] = ui->radiantGold_1;
-    playerGoldUI[0][1] = ui->radiantGold_2;
-    playerGoldUI[0][2] = ui->radiantGold_3;
-    playerGoldUI[0][3] = ui->radiantGold_4;
-    playerGoldUI[0][4] = ui->radiantGold_5;
-    //dire Gold
-    playerGoldUI[1][0] = ui->direGold_1;
-    playerGoldUI[1][1] = ui->direGold_2;
-    playerGoldUI[1][2] = ui->direGold_3;
-    playerGoldUI[1][3] = ui->direGold_4;
-    playerGoldUI[1][4] = ui->direGold_5;
-
-    //radiant Last Hits
-    playerLastHitsUI[0][0] = ui->radiantLH_1;
-    playerLastHitsUI[0][1] = ui->radiantLH_2;
-    playerLastHitsUI[0][2] = ui->radiantLH_3;
-    playerLastHitsUI[0][3] = ui->radiantLH_4;
-    playerLastHitsUI[0][4] = ui->radiantLH_5;
-    //dire Last Hits
-    playerLastHitsUI[1][0] = ui->direLH_1;
-    playerLastHitsUI[1][1] = ui->direLH_2;
-    playerLastHitsUI[1][2] = ui->direLH_3;
-    playerLastHitsUI[1][3] = ui->direLH_4;
-    playerLastHitsUI[1][4] = ui->direLH_5;
-
-    //radiant Denies
-    playerDeniesUI[0][0] = ui->radiantDN_1;
-    playerDeniesUI[0][1] = ui->radiantDN_2;
-    playerDeniesUI[0][2] = ui->radiantDN_3;
-    playerDeniesUI[0][3] = ui->radiantDN_4;
-    playerDeniesUI[0][4] = ui->radiantDN_5;
-    //dire Denies
-    playerDeniesUI[1][0] = ui->direDN_1;
-    playerDeniesUI[1][1] = ui->direDN_2;
-    playerDeniesUI[1][2] = ui->direDN_3;
-    playerDeniesUI[1][3] = ui->direDN_4;
-    playerDeniesUI[1][4] = ui->direDN_5;
-
-    //radiant Gold/Min
-    playerGPMUI[0][0] = ui->radiantGPM_1;
-    playerGPMUI[0][1] = ui->radiantGPM_2;
-    playerGPMUI[0][2] = ui->radiantGPM_3;
-    playerGPMUI[0][3] = ui->radiantGPM_4;
-    playerGPMUI[0][4] = ui->radiantGPM_5;
-    //dire Gold/Min
-    playerGPMUI[1][0] = ui->direGPM_1;
-    playerGPMUI[1][1] = ui->direGPM_2;
-    playerGPMUI[1][2] = ui->direGPM_3;
-    playerGPMUI[1][3] = ui->direGPM_4;
-    playerGPMUI[1][4] = ui->direGPM_5;
-
-    //radiant XPM
-    playerXPMUI[0][0] = ui->radiantXPM_1;
-    playerXPMUI[0][1] = ui->radiantXPM_2;
-    playerXPMUI[0][2] = ui->radiantXPM_3;
-    playerXPMUI[0][3] = ui->radiantXPM_4;
-    playerXPMUI[0][4] = ui->radiantXPM_5;
-    //dire XPM
-    playerXPMUI[1][0] = ui->direXPM_1;
-    playerXPMUI[1][1] = ui->direXPM_2;
-    playerXPMUI[1][2] = ui->direXPM_3;
-    playerXPMUI[1][3] = ui->direXPM_4;
-    playerXPMUI[1][4] = ui->direXPM_5;
 }
 
 
@@ -884,4 +624,268 @@ void MainWindow::sslError()
     //qDebug() << errors;
     progressDialog->close();
     progressDialog->deleteLater();
+}
+
+void MainWindow::initializeUIPointers()
+{
+    //create our QLabel array so we can for loop our match info
+    // 2-D Array of QLabels; first index: 0 = radiant, 1 = Dire
+    radiantBansUI[0] = ui->radiantBan_1;
+    radiantBansUI[1] = ui->radiantBan_2;
+    radiantBansUI[2] = ui->radiantBan_3;
+    radiantBansUI[3] = ui->radiantBan_4;
+    radiantBansUI[4] = ui->radiantBan_5;
+
+    radiantPicksUI[0] = ui->radiantPick_1;
+    radiantPicksUI[1] = ui->radiantPick_2;
+    radiantPicksUI[2] = ui->radiantPick_3;
+    radiantPicksUI[3] = ui->radiantPick_4;
+    radiantPicksUI[4] = ui->radiantPick_5;
+
+    radiantHeroPicUI[0] = ui->radiantHeroPic_1;
+    radiantHeroPicUI[1] = ui->radiantHeroPic_2;
+    radiantHeroPicUI[2] = ui->radiantHeroPic_3;
+    radiantHeroPicUI[3] = ui->radiantHeroPic_4;
+    radiantHeroPicUI[4] = ui->radiantHeroPic_5;
+
+    direBansUI[0] = ui->direBan_1;
+    direBansUI[1] = ui->direBan_2;
+    direBansUI[2] = ui->direBan_3;
+    direBansUI[3] = ui->direBan_4;
+    direBansUI[4] = ui->direBan_5;
+
+    direPicksUI[0] = ui->direPick_1;
+    direPicksUI[1] = ui->direPick_2;
+    direPicksUI[2] = ui->direPick_3;
+    direPicksUI[3] = ui->direPick_4;
+    direPicksUI[4] = ui->direPick_5;
+
+    //radiant Player Names
+    playerNameUI[0][0] = ui->radiantPlayer_1;
+    playerNameUI[0][1] = ui->radiantPlayer_2;
+    playerNameUI[0][2] = ui->radiantPlayer_3;
+    playerNameUI[0][3] = ui->radiantPlayer_4;
+    playerNameUI[0][4] = ui->radiantPlayer_5;
+    //Dire Player Names
+    playerNameUI[1][0] = ui->direPlayer_1;
+    playerNameUI[1][1] = ui->direPlayer_2;
+    playerNameUI[1][2] = ui->direPlayer_3;
+    playerNameUI[1][3] = ui->direPlayer_4;
+    playerNameUI[1][4] = ui->direPlayer_5;
+
+    //radiant levels
+    playerLevelUI[0][0] = ui->radiantLevel_1;
+    playerLevelUI[0][1] = ui->radiantLevel_2;
+    playerLevelUI[0][2] = ui->radiantLevel_3;
+    playerLevelUI[0][3] = ui->radiantLevel_4;
+    playerLevelUI[0][4] = ui->radiantLevel_5;
+    //dire Levels
+    playerLevelUI[1][0] = ui->direLevel_1;
+    playerLevelUI[1][1] = ui->direLevel_2;
+    playerLevelUI[1][2] = ui->direLevel_3;
+    playerLevelUI[1][3] = ui->direLevel_4;
+    playerLevelUI[1][4] = ui->direLevel_5;
+
+    //radiant Hero Pic
+    playerheroPicUI[0][0] = ui->radiantHeroPic_1;
+    playerheroPicUI[0][1] = ui->radiantHeroPic_2;
+    playerheroPicUI[0][2] = ui->radiantHeroPic_3;
+    playerheroPicUI[0][3] = ui->radiantHeroPic_4;
+    playerheroPicUI[0][4] = ui->radiantHeroPic_5;
+    //dire hero pic
+    playerheroPicUI[1][0] = ui->direHeroPic_1;
+    playerheroPicUI[1][1] = ui->direHeroPic_2;
+    playerheroPicUI[1][2] = ui->direHeroPic_3;
+    playerheroPicUI[1][3] = ui->direHeroPic_4;
+    playerheroPicUI[1][4] = ui->direHeroPic_5;
+
+    //radiant hero name
+    playerHeroNameUI[0][0] = ui->radiantHero_1;
+    playerHeroNameUI[0][1] = ui->radiantHero_2;
+    playerHeroNameUI[0][2] = ui->radiantHero_3;
+    playerHeroNameUI[0][3] = ui->radiantHero_4;
+    playerHeroNameUI[0][4] = ui->radiantHero_5;
+    //dire hero name
+    playerHeroNameUI[1][0] = ui->direHero_1;
+    playerHeroNameUI[1][1] = ui->direHero_2;
+    playerHeroNameUI[1][2] = ui->direHero_3;
+    playerHeroNameUI[1][3] = ui->direHero_4;
+    playerHeroNameUI[1][4] = ui->direHero_5;
+
+    //radiant Kills
+    playerKillsUI[0][0] = ui->radiantKills_1;
+    playerKillsUI[0][1] = ui->radiantKills_2;
+    playerKillsUI[0][2] = ui->radiantKills_3;
+    playerKillsUI[0][3] = ui->radiantKills_4;
+    playerKillsUI[0][4] = ui->radiantKills_5;
+    //dire kills
+    playerKillsUI[1][0] = ui->direKills_1;
+    playerKillsUI[1][1] = ui->direKills_2;
+    playerKillsUI[1][2] = ui->direKills_3;
+    playerKillsUI[1][3] = ui->direKills_4;
+    playerKillsUI[1][4] = ui->direKills_5;
+
+    //radiant Deaths
+    playerDeathsUI[0][0] = ui->radiantDeaths_1;
+    playerDeathsUI[0][1] = ui->radiantDeaths_2;
+    playerDeathsUI[0][2] = ui->radiantDeaths_3;
+    playerDeathsUI[0][3] = ui->radiantDeaths_4;
+    playerDeathsUI[0][4] = ui->radiantDeaths_5;
+    //dire Deaths
+    playerDeathsUI[1][0] = ui->direDeaths_1;
+    playerDeathsUI[1][1] = ui->direDeaths_2;
+    playerDeathsUI[1][2] = ui->direDeaths_3;
+    playerDeathsUI[1][3] = ui->direDeaths_4;
+    playerDeathsUI[1][4] = ui->direDeaths_5;
+
+    //radiant Assists
+    playerAssistsUI[0][0] = ui->radiantAssists_1;
+    playerAssistsUI[0][1] = ui->radiantAssists_2;
+    playerAssistsUI[0][2] = ui->radiantAssists_3;
+    playerAssistsUI[0][3] = ui->radiantAssists_4;
+    playerAssistsUI[0][4] = ui->radiantAssists_5;
+    //dire Assists
+    playerAssistsUI[1][0] = ui->direAssists_1;
+    playerAssistsUI[1][1] = ui->direAssists_2;
+    playerAssistsUI[1][2] = ui->direAssists_3;
+    playerAssistsUI[1][3] = ui->direAssists_4;
+    playerAssistsUI[1][4] = ui->direAssists_5;
+
+    //radiant items 0-5
+    //player 1
+    playerItemsUI[0][0][0] = ui->radiantItems_1_1;
+    playerItemsUI[0][0][1] = ui->radiantItems_1_2;
+    playerItemsUI[0][0][2] = ui->radiantItems_1_3;
+    playerItemsUI[0][0][3] = ui->radiantItems_1_4;
+    playerItemsUI[0][0][4] = ui->radiantItems_1_5;
+    playerItemsUI[0][0][5] = ui->radiantItems_1_6;
+    //player 2
+    playerItemsUI[0][1][0] = ui->radiantItems_2_1;
+    playerItemsUI[0][1][1] = ui->radiantItems_2_2;
+    playerItemsUI[0][1][2] = ui->radiantItems_2_3;
+    playerItemsUI[0][1][3] = ui->radiantItems_2_4;
+    playerItemsUI[0][1][4] = ui->radiantItems_2_5;
+    playerItemsUI[0][1][5] = ui->radiantItems_2_6;
+    //player 3
+    playerItemsUI[0][2][0] = ui->radiantItems_3_1;
+    playerItemsUI[0][2][1] = ui->radiantItems_3_2;
+    playerItemsUI[0][2][2] = ui->radiantItems_3_3;
+    playerItemsUI[0][2][3] = ui->radiantItems_3_4;
+    playerItemsUI[0][2][4] = ui->radiantItems_3_5;
+    playerItemsUI[0][2][5] = ui->radiantItems_3_6;
+    //player 4
+    playerItemsUI[0][3][0] = ui->radiantItems_4_1;
+    playerItemsUI[0][3][1] = ui->radiantItems_4_2;
+    playerItemsUI[0][3][2] = ui->radiantItems_4_3;
+    playerItemsUI[0][3][3] = ui->radiantItems_4_4;
+    playerItemsUI[0][3][4] = ui->radiantItems_4_5;
+    playerItemsUI[0][3][5] = ui->radiantItems_4_6;
+    //player 5
+    playerItemsUI[0][4][0] = ui->radiantItems_5_1;
+    playerItemsUI[0][4][1] = ui->radiantItems_5_2;
+    playerItemsUI[0][4][2] = ui->radiantItems_5_3;
+    playerItemsUI[0][4][3] = ui->radiantItems_5_4;
+    playerItemsUI[0][4][4] = ui->radiantItems_5_5;
+    playerItemsUI[0][4][5] = ui->radiantItems_5_6;
+    //dire items
+    //player 1
+    playerItemsUI[1][0][0] = ui->direItems_1_1;
+    playerItemsUI[1][0][1] = ui->direItems_1_2;
+    playerItemsUI[1][0][2] = ui->direItems_1_3;
+    playerItemsUI[1][0][3] = ui->direItems_1_4;
+    playerItemsUI[1][0][4] = ui->direItems_1_5;
+    playerItemsUI[1][0][5] = ui->direItems_1_6;
+    //player 2
+    playerItemsUI[1][1][0] = ui->direItems_2_1;
+    playerItemsUI[1][1][1] = ui->direItems_2_2;
+    playerItemsUI[1][1][2] = ui->direItems_2_3;
+    playerItemsUI[1][1][3] = ui->direItems_2_4;
+    playerItemsUI[1][1][4] = ui->direItems_2_5;
+    playerItemsUI[1][1][5] = ui->direItems_2_6;
+    //player 3
+    playerItemsUI[1][2][0] = ui->direItems_3_1;
+    playerItemsUI[1][2][1] = ui->direItems_3_1;
+    playerItemsUI[1][2][2] = ui->direItems_3_1;
+    playerItemsUI[1][2][3] = ui->direItems_3_1;
+    playerItemsUI[1][2][4] = ui->direItems_3_1;
+    playerItemsUI[1][2][5] = ui->direItems_3_1;
+    //player 4
+    playerItemsUI[1][3][0] = ui->direItems_4_1;
+    playerItemsUI[1][3][1] = ui->direItems_4_1;
+    playerItemsUI[1][3][2] = ui->direItems_4_1;
+    playerItemsUI[1][3][3] = ui->direItems_4_1;
+    playerItemsUI[1][3][4] = ui->direItems_4_1;
+    playerItemsUI[1][3][5] = ui->direItems_4_1;
+    //player 5
+    playerItemsUI[1][4][0] = ui->direItems_5_1;
+    playerItemsUI[1][4][1] = ui->direItems_5_1;
+    playerItemsUI[1][4][2] = ui->direItems_5_1;
+    playerItemsUI[1][4][3] = ui->direItems_5_1;
+    playerItemsUI[1][4][4] = ui->direItems_5_1;
+    playerItemsUI[1][4][5] = ui->direItems_5_1;
+
+    //radiant Gold
+    playerGoldUI[0][0] = ui->radiantGold_1;
+    playerGoldUI[0][1] = ui->radiantGold_2;
+    playerGoldUI[0][2] = ui->radiantGold_3;
+    playerGoldUI[0][3] = ui->radiantGold_4;
+    playerGoldUI[0][4] = ui->radiantGold_5;
+    //dire Gold
+    playerGoldUI[1][0] = ui->direGold_1;
+    playerGoldUI[1][1] = ui->direGold_2;
+    playerGoldUI[1][2] = ui->direGold_3;
+    playerGoldUI[1][3] = ui->direGold_4;
+    playerGoldUI[1][4] = ui->direGold_5;
+
+    //radiant Last Hits
+    playerLastHitsUI[0][0] = ui->radiantLH_1;
+    playerLastHitsUI[0][1] = ui->radiantLH_2;
+    playerLastHitsUI[0][2] = ui->radiantLH_3;
+    playerLastHitsUI[0][3] = ui->radiantLH_4;
+    playerLastHitsUI[0][4] = ui->radiantLH_5;
+    //dire Last Hits
+    playerLastHitsUI[1][0] = ui->direLH_1;
+    playerLastHitsUI[1][1] = ui->direLH_2;
+    playerLastHitsUI[1][2] = ui->direLH_3;
+    playerLastHitsUI[1][3] = ui->direLH_4;
+    playerLastHitsUI[1][4] = ui->direLH_5;
+
+    //radiant Denies
+    playerDeniesUI[0][0] = ui->radiantDN_1;
+    playerDeniesUI[0][1] = ui->radiantDN_2;
+    playerDeniesUI[0][2] = ui->radiantDN_3;
+    playerDeniesUI[0][3] = ui->radiantDN_4;
+    playerDeniesUI[0][4] = ui->radiantDN_5;
+    //dire Denies
+    playerDeniesUI[1][0] = ui->direDN_1;
+    playerDeniesUI[1][1] = ui->direDN_2;
+    playerDeniesUI[1][2] = ui->direDN_3;
+    playerDeniesUI[1][3] = ui->direDN_4;
+    playerDeniesUI[1][4] = ui->direDN_5;
+
+    //radiant Gold/Min
+    playerGPMUI[0][0] = ui->radiantGPM_1;
+    playerGPMUI[0][1] = ui->radiantGPM_2;
+    playerGPMUI[0][2] = ui->radiantGPM_3;
+    playerGPMUI[0][3] = ui->radiantGPM_4;
+    playerGPMUI[0][4] = ui->radiantGPM_5;
+    //dire Gold/Min
+    playerGPMUI[1][0] = ui->direGPM_1;
+    playerGPMUI[1][1] = ui->direGPM_2;
+    playerGPMUI[1][2] = ui->direGPM_3;
+    playerGPMUI[1][3] = ui->direGPM_4;
+    playerGPMUI[1][4] = ui->direGPM_5;
+
+    //radiant XPM
+    playerXPMUI[0][0] = ui->radiantXPM_1;
+    playerXPMUI[0][1] = ui->radiantXPM_2;
+    playerXPMUI[0][2] = ui->radiantXPM_3;
+    playerXPMUI[0][3] = ui->radiantXPM_4;
+    playerXPMUI[0][4] = ui->radiantXPM_5;
+    //dire XPM
+    playerXPMUI[1][0] = ui->direXPM_1;
+    playerXPMUI[1][1] = ui->direXPM_2;
+    playerXPMUI[1][2] = ui->direXPM_3;
+    playerXPMUI[1][3] = ui->direXPM_4;
+    playerXPMUI[1][4] = ui->direXPM_5;
 }

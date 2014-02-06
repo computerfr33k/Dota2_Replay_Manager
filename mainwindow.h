@@ -67,6 +67,8 @@ private slots:
     void setMatchInfo();
 
 private:
+    void initializeUIPointers();
+
     //array of labels for UI
     //use array because it will be less code and allow us to iterate through them with for loops.
     QLabel *radiantBansUI[5];

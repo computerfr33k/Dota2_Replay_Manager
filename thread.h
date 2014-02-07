@@ -2,12 +2,16 @@
 #define THREAD_H
 
 #include <QObject>
+#include <QThread>
+#include <QDebug>
 
-class Thread : public QObject
+class Thread : public QThread
 {
     Q_OBJECT
+private:
+    void run();
+
 public:
-    explicit Thread(QObject *parent = 0);
 
 signals:
 

@@ -6,6 +6,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    //create blank image for empty item slots
+    image = QPixmap(QSize(32,24));
+    image.fill(Qt::black);
+
     initializeUIPointers();
     start();
     addFilesToDb();
@@ -198,12 +203,13 @@ void MainWindow::on_watchReplay_clicked()
 
 void MainWindow::setMatchInfo()
 {
-    const QString baseUrl = "http://media.steampowered.com/apps/dota2/images/";
-
-    ui->tabWidget->setCurrentIndex(0);
     //we need to make sure we don't use this slot anymore since this is in the slot.
     //if we kept this slot enabled we would keep calling this everytime a download is finished and continous loop.
     http.disconnect();
+
+    const QString baseUrl = "http://media.steampowered.com/apps/dota2/images/";
+
+    ui->tabWidget->setCurrentIndex(0);
 
     QString matchID = queryModel.record(ui->tableView->selectionModel()->currentIndex().row()).value("filename").toString().remove(".dem");
     QFile file("downloads/" + matchID + ".json");
@@ -317,6 +323,10 @@ void MainWindow::setMatchInfo()
                 playerItemsUI[0][i][j]->setPixmap(getImage( "items", radiantSlots.at(i).toObject().value( QString("item_") + QString::number(j) ).toString() ));
             }
         }
+
+    //wait for downloads to complete, so we can have images to display
+    while(!http.isFinished())
+        QApplication::processEvents();
 
     //radiant gold spent
     ui->radiantGold_1->setText(radiantSlots.at(0).toObject().value("gold_spent").toString());
@@ -484,7 +494,6 @@ void MainWindow::setMatchInfo()
     ui->direXPM_5->setText(direSlots.at(4).toObject().value("xp_per_min").toString());
 
     //end dire
-
     ui->statusBar->showMessage("Loading Complete!", 30000);     //display message in status bar for 30 sec.
 }
 

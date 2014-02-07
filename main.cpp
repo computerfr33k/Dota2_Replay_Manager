@@ -1,5 +1,8 @@
 #include "mainwindow.h"
+#include "thread.h"
+#include "http.h"
 #include <QApplication>
+#include <QObject>
 
 int main(int argc, char *argv[])
 {

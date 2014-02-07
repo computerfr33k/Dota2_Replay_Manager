@@ -6,6 +6,7 @@
 #include <QString>
 #include <QStringList>
 #include <QTimer>
+#include "thread.h"
 
 Http::Http(QObject *parent) : QObject(parent), downloadCount(0), totalCount(0)
 {
@@ -86,13 +87,17 @@ void Http::startNextDownload()
     }
 
     QNetworkRequest request(url);
-    request.setRawHeader(rawHeaders, rawHeaderValue);
+
+    //only apply api key header to requests that are going to the API
+    if(url.host().compare("computerfr33k-dota-2-replay-manager.p.mashape.com") == 0)
+        request.setRawHeader(rawHeaders, rawHeaderValue);
+
     currentDownload = manager->get(request);
     connect(currentDownload, SIGNAL(downloadProgress(qint64,qint64)), SLOT(downloadProgress(qint64,qint64)));
     connect(currentDownload, SIGNAL(finished()), SLOT(downloadFinished()));
     connect(currentDownload, SIGNAL(readyRead()), SLOT(downloadReadyRead()));
 
-    printf("Downloading %s...\n", url.toEncoded().constData());
+    //printf("Downloading %s...\n", url.toEncoded().constData());
     downloadTime.start();
 }
 

@@ -26,6 +26,7 @@
 #include "edittitle.h"
 #include "preferences.h"
 #include "http.h"
+#include "thread.h"
 
 namespace Ui {
 class MainWindow;
@@ -50,7 +51,6 @@ protected:
 private slots:
     QPixmap getImage(QString type, QString name);
     void on_watchReplay_clicked();
-    //void httpFinished();
     void on_viewMatchButton_clicked();
     void on_editTitle_clicked();
     void on_actionPreferences_triggered();
@@ -68,6 +68,7 @@ private slots:
 
 private:
     void initializeUIPointers();
+    Thread *thread;
 
     //array of labels for UI
     //use array because it will be less code and allow us to iterate through them with for loops.
@@ -104,8 +105,7 @@ private:
     QNetworkReply *reply;               //http reply
     QString picDir;                     //dir where images are located. (./thumbnails)
     QString apiKey;
-    QPixmap image;
-    QPixmap *emptyPicture;              //QPixmap object that is empty, useful so we only need one object for empty images instead of multiple.
+    QPixmap image;                      //QPixmap object that is empty, useful so we only need one object for empty images instead of multiple.
     QProgressDialog *progressDialog;
     bool block;                         //if true, block all network requests
     Http http;

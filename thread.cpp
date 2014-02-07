@@ -1,6 +1,11 @@
 #include "thread.h"
 
-Thread::Thread(QObject *parent) :
-    QObject(parent)
+#include <QTimer>
+
+void Thread::run()
 {
+    qDebug()<<"From work thread: "<< currentThreadId();
+    QTimer timer;
+    timer.start(1000);
+    exec();
 }

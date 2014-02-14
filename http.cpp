@@ -119,7 +119,6 @@ void Http::downloadFinished()
 
     currentDownload->close();
     currentDownload->deleteLater();
-    currentDownload = NULL;
     startNextDownload();
 }
 

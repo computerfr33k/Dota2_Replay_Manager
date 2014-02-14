@@ -19,14 +19,11 @@
 #include <QSslError>
 #include <QDebug>
 
-#ifdef Q_OS_LINUX
-#include <unistd.h>
-#endif
-
 #include "edittitle.h"
 #include "preferences.h"
 #include "http.h"
 #include "thread.h"
+#include "matchinfo.h"
 
 namespace Ui {
 class MainWindow;
@@ -68,7 +65,7 @@ private slots:
 
 private:
     void initializeUIPointers();
-    Thread *thread;
+    //Thread *thread;
 
     //array of labels for UI
     //use array because it will be less code and allow us to iterate through them with for loops.
@@ -101,12 +98,12 @@ private:
     QSqlTableModel *model;
     QSqlQueryModel queryModel;          //for querying the sqlite3 db
     QStringList list;                   //list of replay files
-    QNetworkAccessManager *manager;     //manager for network connections
-    QNetworkReply *reply;               //http reply
+    //QNetworkAccessManager *manager;     //manager for network connections
+    //QNetworkReply *reply;               //http reply
     QString picDir;                     //dir where images are located. (./thumbnails)
     QString apiKey;
     QPixmap image;                      //QPixmap object that is empty, useful so we only need one object for empty images instead of multiple.
-    QProgressDialog *progressDialog;
+    //QProgressDialog *progressDialog;
     bool block;                         //if true, block all network requests
     Http http;
 };

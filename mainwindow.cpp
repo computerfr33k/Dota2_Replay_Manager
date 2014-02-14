@@ -207,13 +207,48 @@ void MainWindow::setMatchInfo()
     //if we kept this slot enabled we would keep calling this everytime a download is finished and continous loop.
     http.disconnect();
 
-    const QString baseUrl = "http://media.steampowered.com/apps/dota2/images/";
-
     ui->tabWidget->setCurrentIndex(0);
 
     QString matchID = queryModel.record(ui->tableView->selectionModel()->currentIndex().row()).value("filename").toString().remove(".dem");
     QFile file("downloads/" + matchID + ".json");
-    file.open(QIODevice::ReadOnly);
+
+    //test matchInfo parse class
+    matchInfo MatchParser;
+    MatchParser.parse("downloads/" + matchID + ".json");
+
+    //display basic match info
+    ui->matchID->setText( MatchParser.getMatchID() );
+    ui->gameMode->setText( MatchParser.getGameMode() );
+    ui->startTime->setText( MatchParser.getStartTime() );
+    ui->lobbyType->setText( MatchParser.getLobbyType() );
+    ui->duration->setText( MatchParser.getDuration() );
+    ui->fbTime->setText( MatchParser.getFirstBloodTime() );
+
+    playerheroPicUI[0][0]->setText("<img src='downloads/necrolyte_sb.png' width='45' />");
+
+    //if CM, then display picks & bans
+    if(MatchParser.getGameMode().compare("Captains Mode") == 0)
+    {
+        QString img;
+        for(int i=0; i < 5; i++)
+        {
+            radiantBansUI[i]->setText("<img src=\"downloads/" + MatchParser.getBans()[0][i] + "_sb.png\" width=\"45\" />");
+            radiantPicksUI[i]->setText("<img src=\"downloads/" + MatchParser.getPicks()[0][i] + "_sb.png\" width=\"45\" />");
+        }
+
+        for(int i=0; i<5; i++)
+        {
+            //Pixmap display higher quality, but using html <img> is easier but does not display as good of quality
+            //QPixmap pic;
+            //pic.load("downloads/" + MatchParser.getBans()[1][i] + "_sb.png");
+
+            direBansUI[i]->setText("<img src=\"downloads/" + MatchParser.getBans()[1][i] + "_sb.png\" width=\"45\" />");
+            direPicksUI[i]->setText("<img src=\"downloads/" + MatchParser.getPicks()[1][i] + "_sb.png\" width=\"45\" />");
+        }
+    }
+
+    /*
+     * file.open(QIODevice::ReadOnly);
     QJsonDocument json = QJsonDocument::fromJson(file.readAll());
 
     //set winner
@@ -494,6 +529,7 @@ void MainWindow::setMatchInfo()
     ui->direXPM_5->setText(direSlots.at(4).toObject().value("xp_per_min").toString());
 
     //end dire
+    */
     ui->statusBar->showMessage("Loading Complete!", 30000);     //display message in status bar for 30 sec.
 }
 
@@ -546,11 +582,6 @@ void MainWindow::on_actionPreferences_triggered()
 
 void MainWindow::on_actionClear_Cache_triggered()
 {
-    QNetworkDiskCache *cache = new QNetworkDiskCache(this);
-    cache->setCacheDirectory(userDir.absolutePath() + "/cache");
-    cache->clear();
-
-    cache->deleteLater();
 }
 
 void MainWindow::on_deleteReplayButton_clicked()
@@ -620,19 +651,10 @@ void MainWindow::on_actionCheck_For_Updates_triggered()
 
 void MainWindow::networkError()
 {
-    block = true;
-    qDebug() << reply->errorString();
-    reply->deleteLater();
-    progressDialog->close();
-    progressDialog->deleteLater();
 }
 
 void MainWindow::sslError()
 {
-    block = true;
-    //qDebug() << errors;
-    progressDialog->close();
-    progressDialog->deleteLater();
 }
 
 void MainWindow::initializeUIPointers()

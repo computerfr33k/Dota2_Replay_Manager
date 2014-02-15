@@ -77,7 +77,7 @@ private:
     QLabel *playerNameUI[2][5];
     QLabel *playerLevelUI[2][5];
     QLabel *playerHeroNameUI[2][5];
-    QLabel *playerheroPicUI[2][5];
+    QLabel *playerHeroPicUI[2][5];
     QLabel *playerKillsUI[2][5];
     QLabel *playerDeathsUI[2][5];
     QLabel *playerAssistsUI[2][5];

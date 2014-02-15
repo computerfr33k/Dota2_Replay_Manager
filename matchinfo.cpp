@@ -5,11 +5,40 @@ matchInfo::matchInfo(QObject *parent) :
 {
     //size our array accordingly
     bans.resize(2);
-    bans[0].resize(5);
-    bans[1].resize(5);
     picks.resize(2);
-    picks[0].resize(5);
-    picks[1].resize(5);
+    playerNames.resize(2);
+    playerLevel.resize(2);
+    playerHeroName.resize(2);
+    playerKills.resize(2);
+    playerDeaths.resize(2);
+    playerAssists.resize(2);
+    playerItems.resize(2);
+    playerGold.resize(2);
+    playerLH.resize(2);
+    playerDN.resize(2);
+    playerGPM.resize(2);
+    playerXPM.resize(2);
+
+    for(int i=0; i<2; i++)
+    {
+        bans[i].resize(5);
+        picks[i].resize(5);
+        playerNames[i].resize(5);
+        playerLevel[i].resize(5);
+        playerHeroName[i].resize(5);
+        playerKills[i].resize(5);
+        playerDeaths[i].resize(5);
+        playerAssists[i].resize(5);
+        playerItems[i].resize(5);
+        for(int j=0; j<5; j++)
+            playerItems[i][j].resize(6);
+
+        playerGold[i].resize(5);
+        playerLH[i].resize(5);
+        playerDN[i].resize(5);
+        playerGPM[i].resize(5);
+        playerXPM[i].resize(5);
+    }
 
     baseUrl = "http://media.steampowered.com/apps/dota2/images/";
 }
@@ -53,6 +82,29 @@ void matchInfo::parse(const QString &filename)
             }
         }
     }
+    //Captains Draft is similar to CM, but has less bans
+    else if(gameMode.compare("Captains Draft") == 0)
+    {
+    }
+
+    //used for holding either 'dire' or 'radiant' depending on which part of the for loop we are in.
+    QString team;
+    for(int i=0; i<2; i++)
+        for(int j=0; j<5; j++)
+        {
+            team = (i == 0) ? "radiant" : "dire";       //if else statement, just in a single line.
+            playerNames[i][j] = json.object().value("slots").toObject().value(team).toArray().at(j).toObject().value("account_name").toString();
+            playerLevel[i][j] = json.object().value("slots").toObject().value(team).toArray().at(j).toObject().value("level").toString();
+            playerHeroName[i][j] = json.object().value("slots").toObject().value(team).toArray().at(j).toObject().value("hero").toObject();
+            playerKills[i][j] = json.object().value("slots").toObject().value(team).toArray().at(j).toObject().value("kills").toString();
+            playerDeaths[i][j] = json.object().value("slots").toObject().value(team).toArray().at(j).toObject().value("deaths").toString();
+            playerAssists[i][j] = json.object().value("slots").toObject().value(team).toArray().at(j).toObject().value("assists").toString();
+            playerGold[i][j] = json.object().value("slots").toObject().value(team).toArray().at(j).toObject().value("gold_spent").toString();
+            playerLH[i][j] = json.object().value("slots").toObject().value(team).toArray().at(j).toObject().value("last_hits").toString();
+            playerDN[i][j] = json.object().value("slots").toObject().value(team).toArray().at(j).toObject().value("denies").toString();
+            playerGPM[i][j] = json.object().value("slots").toObject().value(team).toArray().at(j).toObject().value("gold_per_min").toString();
+            playerXPM[i][j] = json.object().value("slots").toObject().value(team).toArray().at(j).toObject().value("xp_per_min").toString();
+        }
 
     //Now Download Images since we are done parsing
     downloadImages();
@@ -106,18 +158,90 @@ QVector<QVector<QString> > matchInfo::getBans()
     return bans;
 }
 
+QVector<QVector<QString> > matchInfo::getPlayerNames()
+{
+    return playerNames;
+}
+
+QVector<QVector<QString> > matchInfo::getPlayerLevel()
+{
+    return playerLevel;
+}
+
+QVector<QVector<QJsonObject> > matchInfo::getPlayerHeroName()
+{
+    return playerHeroName;
+}
+
+QVector<QVector<QString> > matchInfo::getPlayerKills()
+{
+    return playerKills;
+}
+
+QVector<QVector<QString> > matchInfo::getPlayerDeaths()
+{
+    return playerDeaths;
+}
+
+QVector<QVector<QString> > matchInfo::getPlayerAssists()
+{
+    return playerAssists;
+}
+
+QVector<QVector<QVector<QString> > > matchInfo::getPlayerItems()
+{
+    return playerItems;
+}
+
+QVector<QVector<QString> > matchInfo::getPlayerGold()
+{
+    return playerGold;
+}
+
+QVector<QVector<QString> > matchInfo::getPlayerLH()
+{
+    return playerLH;
+}
+
+QVector<QVector<QString> > matchInfo::getPlayerDN()
+{
+    return playerDN;
+}
+
+QVector<QVector<QString> > matchInfo::getPlayerGPM()
+{
+    return playerGPM;
+}
+
+QVector<QVector<QString> > matchInfo::getPlayerXPM()
+{
+    return playerXPM;
+}
+
 void matchInfo::downloadImages()
 {
     Http http;
     QEventLoop loop;
 
     //get picks for picks & bans
+    if(gameMode.compare("Captains Mode") == 0)
+    {
+        for(int i=0; i<2; i++)
+            for(int j=0; j<5; j++)
+            {
+                //qDebug() << "Downloading... " + baseUrl + "heroes/" + getBans()[i][j] + "_sb.png";
+                http.append(QUrl(baseUrl + "heroes/" + getBans()[i][j] + "_sb.png" ));
+                http.append(QUrl(baseUrl + "heroes/" + getPicks()[i][j] + "_sb.png" ));
+            }
+    }
+    else if(gameMode.compare("Captains Draft") == 0)
+    {
+    }
+
     for(int i=0; i<2; i++)
         for(int j=0; j<5; j++)
         {
-            //qDebug() << "Downloading... " + baseUrl + "heroes/" + getBans()[i][j] + "_sb.png";
-            http.append(QUrl(baseUrl + "heroes/" + getBans()[i][j] + "_sb.png" ));
-            http.append(QUrl(baseUrl + "heroes/" + getPicks()[i][j] + "_sb.png" ));
+            http.append(QUrl(baseUrl + "heroes/" + getPlayerHeroName()[i][j].value("name").toString() + "_sb.png"));
         }
 
     //Need an event loop so that networking can do its thing and download the files.

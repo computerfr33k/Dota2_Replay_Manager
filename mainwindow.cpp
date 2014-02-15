@@ -14,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent) :
     initializeUIPointers();
     start();
     addFilesToDb();
-    connect(ui->tableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(on_tableView_clicked(QModelIndex)));
 }
 
 
@@ -81,7 +80,7 @@ void MainWindow::checkDb() //check and remove files from db that are no longer l
     for(QStringList::Iterator it = list.begin(); it != list.end(); it++)
     {
         QString param = QString(list.at(i));
-        qDebug() << param;
+        //qDebug() << param;
         query.bindValue(":id", param);
         if(query.exec())
         {
@@ -224,12 +223,9 @@ void MainWindow::setMatchInfo()
     ui->duration->setText( MatchParser.getDuration() );
     ui->fbTime->setText( MatchParser.getFirstBloodTime() );
 
-    playerheroPicUI[0][0]->setText("<img src='downloads/necrolyte_sb.png' width='45' />");
-
     //if CM, then display picks & bans
     if(MatchParser.getGameMode().compare("Captains Mode") == 0)
     {
-        QString img;
         for(int i=0; i < 5; i++)
         {
             radiantBansUI[i]->setText("<img src=\"downloads/" + MatchParser.getBans()[0][i] + "_sb.png\" width=\"45\" />");
@@ -246,6 +242,33 @@ void MainWindow::setMatchInfo()
             direPicksUI[i]->setText("<img src=\"downloads/" + MatchParser.getPicks()[1][i] + "_sb.png\" width=\"45\" />");
         }
     }
+    else //match was not CM, clear images
+    {
+        for(int i=0; i<5; i++)
+        {
+            radiantBansUI[i]->clear();
+            radiantPicksUI[i]->clear();
+            direBansUI[i]->clear();
+            direPicksUI[i]->clear();
+        }
+    }
+
+    for(int i=0; i<2; i++)
+        for(int j=0; j<5; j++)
+        {
+            playerNameUI[i][j]->setText( MatchParser.getPlayerNames()[i][j] );
+            playerLevelUI[i][j]->setText( MatchParser.getPlayerLevel()[i][j] );
+            playerHeroPicUI[i][j]->setText( "<img src=\"downloads/" + MatchParser.getPlayerHeroName()[i][j].value("name").toString() + "_sb.png\" width=\"45\" />" );
+            playerHeroNameUI[i][j]->setText( MatchParser.getPlayerHeroName()[i][j].value("localized_name").toString() );
+            playerKillsUI[i][j]->setText( MatchParser.getPlayerKills()[i][j] );
+            playerDeathsUI[i][j]->setText( MatchParser.getPlayerDeaths()[i][j] );
+            playerAssistsUI[i][j]->setText( MatchParser.getPlayerAssists()[i][j] );
+            playerGoldUI[i][j]->setText( MatchParser.getPlayerGold()[i][j] );
+            playerLastHitsUI[i][j]->setText( MatchParser.getPlayerLH()[i][j] );
+            playerDeniesUI[i][j]->setText( MatchParser.getPlayerDN()[i][j] );
+            playerGPMUI[i][j]->setText( MatchParser.getPlayerGPM()[i][j] );
+            playerXPMUI[i][j]->setText( MatchParser.getPlayerXPM()[i][j] );
+        }
 
     /*
      * file.open(QIODevice::ReadOnly);
@@ -582,6 +605,9 @@ void MainWindow::on_actionPreferences_triggered()
 
 void MainWindow::on_actionClear_Cache_triggered()
 {
+    QDir cache("downloads");
+    QMessageBox::information(this, tr("Clear Cache"), cache.removeRecursively() ? tr("cache cleared successfully") : tr("cache was not cleared successfully") );
+    cache.mkdir(QDir::currentPath() + "/downloads");
 }
 
 void MainWindow::on_deleteReplayButton_clicked()
@@ -718,17 +744,17 @@ void MainWindow::initializeUIPointers()
     playerLevelUI[1][4] = ui->direLevel_5;
 
     //radiant Hero Pic
-    playerheroPicUI[0][0] = ui->radiantHeroPic_1;
-    playerheroPicUI[0][1] = ui->radiantHeroPic_2;
-    playerheroPicUI[0][2] = ui->radiantHeroPic_3;
-    playerheroPicUI[0][3] = ui->radiantHeroPic_4;
-    playerheroPicUI[0][4] = ui->radiantHeroPic_5;
+    playerHeroPicUI[0][0] = ui->radiantHeroPic_1;
+    playerHeroPicUI[0][1] = ui->radiantHeroPic_2;
+    playerHeroPicUI[0][2] = ui->radiantHeroPic_3;
+    playerHeroPicUI[0][3] = ui->radiantHeroPic_4;
+    playerHeroPicUI[0][4] = ui->radiantHeroPic_5;
     //dire hero pic
-    playerheroPicUI[1][0] = ui->direHeroPic_1;
-    playerheroPicUI[1][1] = ui->direHeroPic_2;
-    playerheroPicUI[1][2] = ui->direHeroPic_3;
-    playerheroPicUI[1][3] = ui->direHeroPic_4;
-    playerheroPicUI[1][4] = ui->direHeroPic_5;
+    playerHeroPicUI[1][0] = ui->direHeroPic_1;
+    playerHeroPicUI[1][1] = ui->direHeroPic_2;
+    playerHeroPicUI[1][2] = ui->direHeroPic_3;
+    playerHeroPicUI[1][3] = ui->direHeroPic_4;
+    playerHeroPicUI[1][4] = ui->direHeroPic_5;
 
     //radiant hero name
     playerHeroNameUI[0][0] = ui->radiantHero_1;

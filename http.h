@@ -28,7 +28,6 @@ signals:
 
 private slots:
     void startNextDownload();
-    void downloadProgress(qint64 bytesReceived, qint64 bytesTotal);
     void downloadFinished();
     void downloadReadyRead();
 

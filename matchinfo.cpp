@@ -82,10 +82,6 @@ void matchInfo::parse(const QString &filename)
             }
         }
     }
-    //Captains Draft is similar to CM, but has less bans
-    else if(gameMode.compare("Captains Draft") == 0)
-    {
-    }
 
     //used for holding either 'dire' or 'radiant' depending on which part of the for loop we are in.
     QString team;
@@ -104,6 +100,12 @@ void matchInfo::parse(const QString &filename)
             playerDN[i][j] = json.object().value("slots").toObject().value(team).toArray().at(j).toObject().value("denies").toString();
             playerGPM[i][j] = json.object().value("slots").toObject().value(team).toArray().at(j).toObject().value("gold_per_min").toString();
             playerXPM[i][j] = json.object().value("slots").toObject().value(team).toArray().at(j).toObject().value("xp_per_min").toString();
+
+            //parse items into the array (QVector)
+            for(int k=0; k<6; k++)
+            {
+                playerItems[i][j][k] = json.object().value("slots").toObject().value(team).toArray().at(j).toObject().value("item_" + QString::number(k) ).toString();
+            }
         }
 
     //Now Download Images since we are done parsing
@@ -236,12 +238,21 @@ void matchInfo::downloadImages()
     }
     else if(gameMode.compare("Captains Draft") == 0)
     {
+        for(int i=0; i<2; i++)
+            for(int j=0; j<2; j++)
+                http.append(QUrl(baseUrl + "heroes/" + getPicks()[i][j] + "_sb.png" ));
     }
 
     for(int i=0; i<2; i++)
         for(int j=0; j<5; j++)
         {
+            //download hero pic(s)
             http.append(QUrl(baseUrl + "heroes/" + getPlayerHeroName()[i][j].value("name").toString() + "_sb.png"));
+            //download item(s)
+            for(int k=0; k<6; k++)
+            {
+                http.append(QUrl(baseUrl + "items/" + getPlayerItems()[i][j][k] + "_lg.png"));
+            }
         }
 
     //Need an event loop so that networking can do its thing and download the files.

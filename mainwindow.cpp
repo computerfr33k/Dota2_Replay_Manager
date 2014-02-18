@@ -268,291 +268,16 @@ void MainWindow::setMatchInfo()
             playerDeniesUI[i][j]->setText( MatchParser.getPlayerDN()[i][j] );
             playerGPMUI[i][j]->setText( MatchParser.getPlayerGPM()[i][j] );
             playerXPMUI[i][j]->setText( MatchParser.getPlayerXPM()[i][j] );
-        }
 
-    /*
-     * file.open(QIODevice::ReadOnly);
-    QJsonDocument json = QJsonDocument::fromJson(file.readAll());
-
-    //set winner
-    if(json.object().value("radiant_win").toString().compare("1") == 0)
-        ui->winner->setText("<font color=\"green\">Radiant Victory</font>");
-    else
-        ui->winner->setText("<font color=\"red\">Dire Victory</font>");
-
-    //main match info
-    ui->matchID->setText(QString("<a href=\"http://dotabuff.com/matches/%1\">%1</a>").arg(json.object().value("match_id").toString()));
-
-    ui->gameMode->setText(json.object().value("game_mode").toString());
-    ui->startTime->setText(json.object().value("start_time").toString());
-    ui->lobbyType->setText(json.object().value("lobby_type").toString());
-    ui->duration->setText(json.object().value("duration").toString());
-    ui->fbTime->setText(json.object().value("first_blood_time").toString());
-
-    //picks and bans
-    if(json.object().value("game_mode").toString().compare("Captains Mode") == 0)
-    {
-        QJsonArray radiantBans = json.object().value("picks_bans").toObject().value("radiant").toObject().value("bans").toArray();
-        for(int i=0; i < 5; i++)
-        {
-            http.append(QUrl(baseUrl + radiantBans.at(i).toObject().value("name").toString() + "_sb.png"));
-        }
-
-        for(int i=0; i < 5; i++)
-            radiantBansUI[i]->setPixmap(getImage(QString("heroes"), radiantBans.at(i).toObject().value("name").toString()));
-
-        QJsonArray radiantPicks = json.object().value("picks_bans").toObject().value("radiant").toObject().value("picks").toArray();
-        //ui->radiantPick_1->setPixmap(QPixmap(picDir + "heroes/JPEG/" + radiantPicks.at(0).toObject().value("name").toString() + ".jpg"));
-        ui->radiantPick_1->setPixmap(getImage("heroes", radiantPicks.at(0).toObject().value("name").toString() ));
-        ui->radiantPick_2->setPixmap(getImage("heroes", radiantPicks.at(1).toObject().value("name").toString() ));
-        ui->radiantPick_3->setPixmap(getImage("heroes", radiantPicks.at(2).toObject().value("name").toString() ));
-        ui->radiantPick_4->setPixmap(getImage("heroes", radiantPicks.at(3).toObject().value("name").toString() ));
-        ui->radiantPick_5->setPixmap(getImage("heroes", radiantPicks.at(4).toObject().value("name").toString() ));
-
-        QJsonArray direBans = json.object().value("picks_bans").toObject().value("dire").toObject().value("bans").toArray();
-        //ui->direBan_1->setPixmap(QPixmap(picDir + "heroes/JPEG/" + direBans.at(0).toObject().value("name").toString() + ".jpg"));
-        ui->direBan_1->setPixmap(getImage( "heroes", direBans.at(0).toObject().value("name").toString() ));
-        ui->direBan_2->setPixmap(getImage( "heroes", direBans.at(1).toObject().value("name").toString() ));
-        ui->direBan_3->setPixmap(getImage( "heroes", direBans.at(2).toObject().value("name").toString() ));
-        ui->direBan_4->setPixmap(getImage( "heroes", direBans.at(3).toObject().value("name").toString() ));
-        ui->direBan_5->setPixmap(getImage( "heroes", direBans.at(4).toObject().value("name").toString() ));
-
-        QJsonArray direPicks = json.object().value("picks_bans").toObject().value("dire").toObject().value("picks").toArray();
-        //ui->direPick_1->setPixmap(QPixmap(picDir + "heroes/JPEG/" + direPicks.at(0).toObject().value("name").toString() + ".jpg"));
-        ui->direPick_1->setPixmap(getImage( "heroes", direPicks.at(0).toObject().value("name").toString() ));
-        ui->direPick_2->setPixmap(getImage( "heroes", direPicks.at(1).toObject().value("name").toString() ));
-        ui->direPick_3->setPixmap(getImage( "heroes", direPicks.at(2).toObject().value("name").toString() ));
-        ui->direPick_4->setPixmap(getImage( "heroes", direPicks.at(3).toObject().value("name").toString() ));
-        ui->direPick_5->setPixmap(getImage( "heroes", direPicks.at(4).toObject().value("name").toString() ));
-    }
-    else
-    {
-        //clear picks and bans because the selected match was not in CM
-        for(int i=0; i < 5; i++)
-        {
-            radiantBansUI[i]->clear();
-            radiantPicksUI[i]->clear();
-            direBansUI[i]->clear();
-            direPicksUI[i]->clear();
-        }
-    }
-
-    //radiant
-    // radiant Player Names
-    QJsonArray radiantSlots = json.object().value("slots").toObject().value("radiant").toArray();
-    for(int i=0; i<5; i++)
-        playerNameUI[0][i]->setText(radiantSlots.at(i).toObject().value("account_name").toString());
-
-    //radiant levels
-    for(int i=0; i<5; i++)
-        playerLevelUI[0][i]->setText(radiantSlots.at(i).toObject().value("level").toString());
-
-    //radiant Hero Pix
-    for(int i=0; i < 5; i++)
-        http.append(QUrl(baseUrl + "heroes/" + radiantSlots.at(i).toObject().value("hero").toObject().value("name").toString() + "_sb.png"));
-
-    for(int i=0; i<5;i++)
-        radiantHeroPicUI[i]->setPixmap(getImage( "heroes", radiantSlots.at(i).toObject().value("hero").toObject().value("name").toString() ));
-
-    // radiant Hero Names
-    for(int i=0 ; i<5; i++)
-        playerHeroNameUI[0][i]->setText(radiantSlots.at(i).toObject().value("hero").toObject().value("localized_name").toString());
-
-    //radiant Kills
-    for(int i=0; i<5; i++)
-        playerKillsUI[0][i]->setText(radiantSlots.at(i).toObject().value("kills").toString());
-
-    //radiant Deaths
-    for(int i=0; i<5; i++)
-        playerDeathsUI[0][i]->setText(radiantSlots.at(i).toObject().value("deaths").toString());
-
-    //radiant Assists
-    for(int i=0; i<5; i++)
-        playerAssistsUI[0][i]->setText(radiantSlots.at(i).toObject().value("assists").toString());
-
-    //radiant Items
-    for(int i=0; i<5; i++)
-        for(int j=0; j<6; j++)
-        {
-            //trying to get an image named empty is a waste of time since it does not exist, so just skip it.
-            if(radiantSlots.at(i).toObject().value( QString("item_") + QString::number(j) ).toString().compare("empty") != 0)
+            //display items
+            for(int k=0; k<6; k++)
             {
-                http.append(baseUrl + "items/" + radiantSlots.at(i).toObject().value( QString("item_") + QString::number(j) ).toString() + "_lg.png");
-                playerItemsUI[0][i][j]->setPixmap(getImage( "items", radiantSlots.at(i).toObject().value( QString("item_") + QString::number(j) ).toString() ));
+                //only display image if it is not empty
+                if(MatchParser.getPlayerItems()[i][j][k] != "empty")
+                    playerItemsUI[i][j][k]->setText( "<img src=\"downloads/" + MatchParser.getPlayerItems()[i][j][k] + "_lg.png\" width=\"32\"/>" );
             }
         }
 
-    //wait for downloads to complete, so we can have images to display
-    while(!http.isFinished())
-        QApplication::processEvents();
-
-    //radiant gold spent
-    ui->radiantGold_1->setText(radiantSlots.at(0).toObject().value("gold_spent").toString());
-    ui->radiantGold_2->setText(radiantSlots.at(1).toObject().value("gold_spent").toString());
-    ui->radiantGold_3->setText(radiantSlots.at(2).toObject().value("gold_spent").toString());
-    ui->radiantGold_4->setText(radiantSlots.at(3).toObject().value("gold_spent").toString());
-    ui->radiantGold_5->setText(radiantSlots.at(4).toObject().value("gold_spent").toString());
-
-    //radiant Last Hits
-    ui->radiantLH_1->setText(radiantSlots.at(0).toObject().value("last_hits").toString());
-    ui->radiantLH_2->setText(radiantSlots.at(1).toObject().value("last_hits").toString());
-    ui->radiantLH_3->setText(radiantSlots.at(2).toObject().value("last_hits").toString());
-    ui->radiantLH_4->setText(radiantSlots.at(3).toObject().value("last_hits").toString());
-    ui->radiantLH_5->setText(radiantSlots.at(4).toObject().value("last_hits").toString());
-
-    //radiant Denies
-    ui->radiantDN_1->setText(radiantSlots.at(0).toObject().value("denies").toString());
-    ui->radiantDN_2->setText(radiantSlots.at(1).toObject().value("denies").toString());
-    ui->radiantDN_3->setText(radiantSlots.at(2).toObject().value("denies").toString());
-    ui->radiantDN_4->setText(radiantSlots.at(3).toObject().value("denies").toString());
-    ui->radiantDN_5->setText(radiantSlots.at(4).toObject().value("denies").toString());
-
-    //radiant Gold/Min
-    ui->radiantGPM_1->setText(radiantSlots.at(0).toObject().value("gold_per_min").toString());
-    ui->radiantGPM_2->setText(radiantSlots.at(1).toObject().value("gold_per_min").toString());
-    ui->radiantGPM_3->setText(radiantSlots.at(2).toObject().value("gold_per_min").toString());
-    ui->radiantGPM_4->setText(radiantSlots.at(3).toObject().value("gold_per_min").toString());
-    ui->radiantGPM_5->setText(radiantSlots.at(4).toObject().value("gold_per_min").toString());
-
-    //radiant XP/Min
-    ui->radiantXPM_1->setText(radiantSlots.at(0).toObject().value("xp_per_min").toString());
-    ui->radiantXPM_2->setText(radiantSlots.at(1).toObject().value("xp_per_min").toString());
-    ui->radiantXPM_3->setText(radiantSlots.at(2).toObject().value("xp_per_min").toString());
-    ui->radiantXPM_4->setText(radiantSlots.at(3).toObject().value("xp_per_min").toString());
-    ui->radiantXPM_5->setText(radiantSlots.at(4).toObject().value("xp_per_min").toString());
-    //end radiant
-
-    //dire
-    QJsonArray direSlots = json.object().value("slots").toObject().value("dire").toArray();
-    //dire player names
-    ui->direPlayer_1->setText(direSlots.at(0).toObject().value("account_name").toString());
-    ui->direPlayer_2->setText(direSlots.at(1).toObject().value("account_name").toString());
-    ui->direPlayer_3->setText(direSlots.at(2).toObject().value("account_name").toString());
-    ui->direPlayer_4->setText(direSlots.at(3).toObject().value("account_name").toString());
-    ui->direPlayer_5->setText(direSlots.at(4).toObject().value("account_name").toString());
-
-    //dire Levels
-    ui->direLevel_1->setText(direSlots.at(0).toObject().value("level").toString());
-    ui->direLevel_2->setText(direSlots.at(1).toObject().value("level").toString());
-    ui->direLevel_3->setText(direSlots.at(2).toObject().value("level").toString());
-    ui->direLevel_4->setText(direSlots.at(3).toObject().value("level").toString());
-    ui->direLevel_5->setText(direSlots.at(4).toObject().value("level").toString());
-
-    //dire Hero Pix
-    for(int i=0; i<5; i++)
-        http.append(QUrl("http://media.steampowered.com/apps/dota2/images/heroes/" + direSlots.at(i).toObject().value("hero").toObject().value("name").toString() + "_sb.png"));
-    ui->direHeroPic_1->setPixmap(getImage( "heroes", direSlots.at(0).toObject().value("hero").toObject().value("name").toString() ));
-    ui->direHeroPic_2->setPixmap(getImage( "heroes", direSlots.at(1).toObject().value("hero").toObject().value("name").toString() ));
-    ui->direHeroPic_3->setPixmap(getImage( "heroes", direSlots.at(2).toObject().value("hero").toObject().value("name").toString() ));
-    ui->direHeroPic_4->setPixmap(getImage( "heroes", direSlots.at(3).toObject().value("hero").toObject().value("name").toString() ));
-    ui->direHeroPic_5->setPixmap(getImage( "heroes", direSlots.at(4).toObject().value("hero").toObject().value("name").toString() ));
-
-    //dire Hero Names
-    ui->direHero_1->setText(direSlots.at(0).toObject().value("hero").toObject().value("localized_name").toString());
-    ui->direHero_2->setText(direSlots.at(1).toObject().value("hero").toObject().value("localized_name").toString());
-    ui->direHero_3->setText(direSlots.at(2).toObject().value("hero").toObject().value("localized_name").toString());
-    ui->direHero_4->setText(direSlots.at(3).toObject().value("hero").toObject().value("localized_name").toString());
-    ui->direHero_5->setText(direSlots.at(4).toObject().value("hero").toObject().value("localized_name").toString());
-
-    //dire Kills
-    ui->direKills_1->setText(direSlots.at(0).toObject().value("kills").toString());
-    ui->direKills_2->setText(direSlots.at(1).toObject().value("kills").toString());
-    ui->direKills_3->setText(direSlots.at(2).toObject().value("kills").toString());
-    ui->direKills_4->setText(direSlots.at(3).toObject().value("kills").toString());
-    ui->direKills_5->setText(direSlots.at(4).toObject().value("kills").toString());
-
-    //dire Deaths
-    ui->direDeaths_1->setText(direSlots.at(0).toObject().value("deaths").toString());
-    ui->direDeaths_2->setText(direSlots.at(1).toObject().value("deaths").toString());
-    ui->direDeaths_3->setText(direSlots.at(2).toObject().value("deaths").toString());
-    ui->direDeaths_4->setText(direSlots.at(3).toObject().value("deaths").toString());
-    ui->direDeaths_5->setText(direSlots.at(4).toObject().value("deaths").toString());
-
-    //dire Assists
-    ui->direAssists_1->setText(direSlots.at(0).toObject().value("assists").toString());
-    ui->direAssists_2->setText(direSlots.at(1).toObject().value("assists").toString());
-    ui->direAssists_3->setText(direSlots.at(2).toObject().value("assists").toString());
-    ui->direAssists_4->setText(direSlots.at(3).toObject().value("assists").toString());
-    ui->direAssists_5->setText(direSlots.at(4).toObject().value("assists").toString());
-
-    //dire Items
-    //player 1
-    ui->direItems_1_1->setPixmap(getImage( "items", direSlots.at(0).toObject().value("item_0").toString() ));
-    ui->direItems_1_2->setPixmap(getImage( "items", direSlots.at(0).toObject().value("item_1").toString() ));
-    ui->direItems_1_3->setPixmap(getImage( "items", direSlots.at(0).toObject().value("item_2").toString() ));
-    ui->direItems_1_4->setPixmap(getImage( "items", direSlots.at(0).toObject().value("item_3").toString() ));
-    ui->direItems_1_5->setPixmap(getImage( "items", direSlots.at(0).toObject().value("item_4").toString() ));
-    ui->direItems_1_6->setPixmap(getImage( "items", direSlots.at(0).toObject().value("item_5").toString() ));
-
-    //player 2
-    ui->direItems_2_1->setPixmap(getImage( "items", direSlots.at(1).toObject().value("item_0").toString() ));
-    ui->direItems_2_2->setPixmap(getImage( "items", direSlots.at(1).toObject().value("item_1").toString() ));
-    ui->direItems_2_3->setPixmap(getImage( "items", direSlots.at(1).toObject().value("item_2").toString() ));
-    ui->direItems_2_4->setPixmap(getImage( "items", direSlots.at(1).toObject().value("item_3").toString() ));
-    ui->direItems_2_5->setPixmap(getImage( "items", direSlots.at(1).toObject().value("item_4").toString() ));
-    ui->direItems_2_6->setPixmap(getImage( "items", direSlots.at(1).toObject().value("item_5").toString() ));
-
-    //player 3
-    ui->direItems_3_1->setPixmap(getImage( "items", direSlots.at(2).toObject().value("item_0").toString() ));
-    ui->direItems_3_2->setPixmap(getImage( "items", direSlots.at(2).toObject().value("item_1").toString() ));
-    ui->direItems_3_3->setPixmap(getImage( "items", direSlots.at(2).toObject().value("item_2").toString() ));
-    ui->direItems_3_4->setPixmap(getImage( "items", direSlots.at(2).toObject().value("item_3").toString() ));
-    ui->direItems_3_5->setPixmap(getImage( "items", direSlots.at(2).toObject().value("item_4").toString() ));
-    ui->direItems_3_6->setPixmap(getImage( "items", direSlots.at(2).toObject().value("item_5").toString() ));
-
-    //player 4
-    ui->direItems_4_1->setPixmap(getImage( "items", direSlots.at(3).toObject().value("item_0").toString() ));
-    ui->direItems_4_2->setPixmap(getImage( "items", direSlots.at(3).toObject().value("item_1").toString() ));
-    ui->direItems_4_3->setPixmap(getImage( "items", direSlots.at(3).toObject().value("item_2").toString() ));
-    ui->direItems_4_4->setPixmap(getImage( "items", direSlots.at(3).toObject().value("item_3").toString() ));
-    ui->direItems_4_5->setPixmap(getImage( "items", direSlots.at(3).toObject().value("item_4").toString() ));
-    ui->direItems_4_6->setPixmap(getImage( "items", direSlots.at(3).toObject().value("item_5").toString() ));
-
-    //player 5
-    ui->direItems_5_1->setPixmap(getImage( "items", direSlots.at(4).toObject().value("item_0").toString() ));
-    ui->direItems_5_2->setPixmap(getImage( "items", direSlots.at(4).toObject().value("item_1").toString() ));
-    ui->direItems_5_3->setPixmap(getImage( "items", direSlots.at(4).toObject().value("item_2").toString() ));
-    ui->direItems_5_4->setPixmap(getImage( "items", direSlots.at(4).toObject().value("item_3").toString() ));
-    ui->direItems_5_5->setPixmap(getImage( "items", direSlots.at(4).toObject().value("item_4").toString() ));
-    ui->direItems_5_6->setPixmap(getImage( "items", direSlots.at(4).toObject().value("item_5").toString() ));
-
-    //dire Gold
-    ui->direGold_1->setText(direSlots.at(0).toObject().value("gold_spent").toString());
-    ui->direGold_2->setText(direSlots.at(1).toObject().value("gold_spent").toString());
-    ui->direGold_3->setText(direSlots.at(2).toObject().value("gold_spent").toString());
-    ui->direGold_4->setText(direSlots.at(3).toObject().value("gold_spent").toString());
-    ui->direGold_5->setText(direSlots.at(4).toObject().value("gold_spent").toString());
-
-    //dire Last Hits
-    ui->direLH_1->setText(direSlots.at(0).toObject().value("last_hits").toString());
-    ui->direLH_2->setText(direSlots.at(1).toObject().value("last_hits").toString());
-    ui->direLH_3->setText(direSlots.at(2).toObject().value("last_hits").toString());
-    ui->direLH_4->setText(direSlots.at(3).toObject().value("last_hits").toString());
-    ui->direLH_5->setText(direSlots.at(4).toObject().value("last_hits").toString());
-
-    //dire Denies
-    ui->direDN_1->setText(direSlots.at(0).toObject().value("denies").toString());
-    ui->direDN_2->setText(direSlots.at(1).toObject().value("denies").toString());
-    ui->direDN_3->setText(direSlots.at(2).toObject().value("denies").toString());
-    ui->direDN_4->setText(direSlots.at(3).toObject().value("denies").toString());
-    ui->direDN_5->setText(direSlots.at(4).toObject().value("denies").toString());
-
-    //dire GPM
-    ui->direGPM_1->setText(direSlots.at(0).toObject().value("gold_per_min").toString());
-    ui->direGPM_2->setText(direSlots.at(1).toObject().value("gold_per_min").toString());
-    ui->direGPM_3->setText(direSlots.at(2).toObject().value("gold_per_min").toString());
-    ui->direGPM_4->setText(direSlots.at(3).toObject().value("gold_per_min").toString());
-    ui->direGPM_5->setText(direSlots.at(4).toObject().value("gold_per_min").toString());
-
-    //dire XPM
-    ui->direXPM_1->setText(direSlots.at(0).toObject().value("xp_per_min").toString());
-    ui->direXPM_2->setText(direSlots.at(1).toObject().value("xp_per_min").toString());
-    ui->direXPM_3->setText(direSlots.at(2).toObject().value("xp_per_min").toString());
-    ui->direXPM_4->setText(direSlots.at(3).toObject().value("xp_per_min").toString());
-    ui->direXPM_5->setText(direSlots.at(4).toObject().value("xp_per_min").toString());
-
-    //end dire
-    */
     ui->statusBar->showMessage("Loading Complete!", 30000);     //display message in status bar for 30 sec.
 }
 
@@ -861,25 +586,25 @@ void MainWindow::initializeUIPointers()
     playerItemsUI[1][1][5] = ui->direItems_2_6;
     //player 3
     playerItemsUI[1][2][0] = ui->direItems_3_1;
-    playerItemsUI[1][2][1] = ui->direItems_3_1;
-    playerItemsUI[1][2][2] = ui->direItems_3_1;
-    playerItemsUI[1][2][3] = ui->direItems_3_1;
-    playerItemsUI[1][2][4] = ui->direItems_3_1;
-    playerItemsUI[1][2][5] = ui->direItems_3_1;
+    playerItemsUI[1][2][1] = ui->direItems_3_2;
+    playerItemsUI[1][2][2] = ui->direItems_3_3;
+    playerItemsUI[1][2][3] = ui->direItems_3_4;
+    playerItemsUI[1][2][4] = ui->direItems_3_5;
+    playerItemsUI[1][2][5] = ui->direItems_3_6;
     //player 4
     playerItemsUI[1][3][0] = ui->direItems_4_1;
-    playerItemsUI[1][3][1] = ui->direItems_4_1;
-    playerItemsUI[1][3][2] = ui->direItems_4_1;
-    playerItemsUI[1][3][3] = ui->direItems_4_1;
-    playerItemsUI[1][3][4] = ui->direItems_4_1;
-    playerItemsUI[1][3][5] = ui->direItems_4_1;
+    playerItemsUI[1][3][1] = ui->direItems_4_2;
+    playerItemsUI[1][3][2] = ui->direItems_4_3;
+    playerItemsUI[1][3][3] = ui->direItems_4_4;
+    playerItemsUI[1][3][4] = ui->direItems_4_5;
+    playerItemsUI[1][3][5] = ui->direItems_4_6;
     //player 5
     playerItemsUI[1][4][0] = ui->direItems_5_1;
-    playerItemsUI[1][4][1] = ui->direItems_5_1;
-    playerItemsUI[1][4][2] = ui->direItems_5_1;
-    playerItemsUI[1][4][3] = ui->direItems_5_1;
-    playerItemsUI[1][4][4] = ui->direItems_5_1;
-    playerItemsUI[1][4][5] = ui->direItems_5_1;
+    playerItemsUI[1][4][1] = ui->direItems_5_2;
+    playerItemsUI[1][4][2] = ui->direItems_5_3;
+    playerItemsUI[1][4][3] = ui->direItems_5_4;
+    playerItemsUI[1][4][4] = ui->direItems_5_5;
+    playerItemsUI[1][4][5] = ui->direItems_5_6;
 
     //radiant Gold
     playerGoldUI[0][0] = ui->radiantGold_1;

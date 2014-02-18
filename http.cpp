@@ -11,6 +11,7 @@
 Http::Http(QObject *parent) : QObject(parent), downloadCount(0), totalCount(0)
 {
     manager = new QNetworkAccessManager(this);
+    downloadsDir = QStandardPaths::standardLocations(QStandardPaths::DataLocation).at(0) + "/downloads";
 }
 Http::~Http()
 {
@@ -75,7 +76,7 @@ void Http::startNextDownload()
         return;
     }
 
-    output.setFileName("downloads/" + filename);
+    output.setFileName(downloadsDir.path() + "/" + filename);
     if(QFileInfo(output.fileName()).lastModified().addDays(14) > QDateTime::currentDateTime()) //file is not older than 2 weeks, do not bother updating it.
     {
         startNextDownload();

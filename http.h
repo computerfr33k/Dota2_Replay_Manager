@@ -39,6 +39,7 @@ private:
     QFile output;
     QTime downloadTime;
     QProgressDialog progressDialog;
+    QDir downloadsDir;
 
     int downloadCount;
     int totalCount;

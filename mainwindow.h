@@ -37,6 +37,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    //static QString getDownloadsDir();
+
 protected:
     void start();
     void checkDb();
@@ -92,18 +94,16 @@ private:
     QSettings *settings;
     QDir dir;                           //replay Dir
     QDir userDir;                       //AppData Location for storing program settings
+    QDir downloadsDir;
     QFont font;
     Ui::MainWindow *ui;
     QSqlDatabase db;                    //for the database of files and names
     QSqlTableModel *model;
     QSqlQueryModel queryModel;          //for querying the sqlite3 db
     QStringList list;                   //list of replay files
-    //QNetworkAccessManager *manager;     //manager for network connections
-    //QNetworkReply *reply;               //http reply
     QString picDir;                     //dir where images are located. (./thumbnails)
     QString apiKey;
     QPixmap image;                      //QPixmap object that is empty, useful so we only need one object for empty images instead of multiple.
-    //QProgressDialog *progressDialog;
     bool block;                         //if true, block all network requests
     Http http;
 };

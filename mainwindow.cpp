@@ -33,11 +33,18 @@ MainWindow::~MainWindow()
 void MainWindow::start()
 {
     userDir = QStandardPaths::standardLocations(QStandardPaths::DataLocation).at(0);
+    downloadsDir = userDir.path() + "/downloads";
 
     //create the folder if it doesn't already exist
     if(!QDir(userDir).exists())
     {
         userDir.mkpath(userDir.absolutePath());
+    }
+
+    //create folder for storing downloads if it doesn't exist
+    if(!downloadsDir.exists())
+    {
+        downloadsDir.mkpath(downloadsDir.path());
     }
 
     settings = new QSettings(userDir.absolutePath() + "/settings.ini", QSettings::IniFormat);
@@ -209,11 +216,10 @@ void MainWindow::setMatchInfo()
     ui->tabWidget->setCurrentIndex(0);
 
     QString matchID = queryModel.record(ui->tableView->selectionModel()->currentIndex().row()).value("filename").toString().remove(".dem");
-    QFile file("downloads/" + matchID + ".json");
 
     //test matchInfo parse class
     matchInfo MatchParser;
-    MatchParser.parse("downloads/" + matchID + ".json");
+    MatchParser.parse(downloadsDir.path() + "/" + matchID + ".json");
 
     //display basic match info
     ui->matchID->setText( MatchParser.getMatchID() );
@@ -228,8 +234,8 @@ void MainWindow::setMatchInfo()
     {
         for(int i=0; i < 5; i++)
         {
-            radiantBansUI[i]->setText("<img src=\"downloads/" + MatchParser.getBans()[0][i] + "_sb.png\" width=\"45\" />");
-            radiantPicksUI[i]->setText("<img src=\"downloads/" + MatchParser.getPicks()[0][i] + "_sb.png\" width=\"45\" />");
+            radiantBansUI[i]->setText("<img src=\"" + downloadsDir.path() + "/" + MatchParser.getBans()[0][i] + "_sb.png\" width=\"45\" />");
+            radiantPicksUI[i]->setText("<img src=\"" + downloadsDir.path() + "/" + MatchParser.getPicks()[0][i] + "_sb.png\" width=\"45\" />");
         }
 
         for(int i=0; i<5; i++)
@@ -238,8 +244,8 @@ void MainWindow::setMatchInfo()
             //QPixmap pic;
             //pic.load("downloads/" + MatchParser.getBans()[1][i] + "_sb.png");
 
-            direBansUI[i]->setText("<img src=\"downloads/" + MatchParser.getBans()[1][i] + "_sb.png\" width=\"45\" />");
-            direPicksUI[i]->setText("<img src=\"downloads/" + MatchParser.getPicks()[1][i] + "_sb.png\" width=\"45\" />");
+            direBansUI[i]->setText("<img src=\"" + downloadsDir.path() + "/" + MatchParser.getBans()[1][i] + "_sb.png\" width=\"45\" />");
+            direPicksUI[i]->setText("<img src=\"" + downloadsDir.path() + "/" + MatchParser.getPicks()[1][i] + "_sb.png\" width=\"45\" />");
         }
     }
     else //match was not CM, clear images
@@ -256,9 +262,10 @@ void MainWindow::setMatchInfo()
     for(int i=0; i<2; i++)
         for(int j=0; j<5; j++)
         {
+            qDebug() << "<img src=\"file:///" + downloadsDir.path() + "/" + MatchParser.getPlayerHeroName()[i][j].value("name").toString() + "_sb.png\" width=\"45\" />";
             playerNameUI[i][j]->setText( MatchParser.getPlayerNames()[i][j] );
             playerLevelUI[i][j]->setText( MatchParser.getPlayerLevel()[i][j] );
-            playerHeroPicUI[i][j]->setText( "<img src=\"downloads/" + MatchParser.getPlayerHeroName()[i][j].value("name").toString() + "_sb.png\" width=\"45\" />" );
+            playerHeroPicUI[i][j]->setText( "<img src=\"" + downloadsDir.path() + "/" + MatchParser.getPlayerHeroName()[i][j].value("name").toString() + "_sb.png\" width=\"45\" />" );
             playerHeroNameUI[i][j]->setText( MatchParser.getPlayerHeroName()[i][j].value("localized_name").toString() );
             playerKillsUI[i][j]->setText( MatchParser.getPlayerKills()[i][j] );
             playerDeathsUI[i][j]->setText( MatchParser.getPlayerDeaths()[i][j] );
@@ -274,7 +281,7 @@ void MainWindow::setMatchInfo()
             {
                 //only display image if it is not empty
                 if(MatchParser.getPlayerItems()[i][j][k] != "empty")
-                    playerItemsUI[i][j][k]->setText( "<img src=\"downloads/" + MatchParser.getPlayerItems()[i][j][k] + "_lg.png\" width=\"32\"/>" );
+                    playerItemsUI[i][j][k]->setText( "<img src=\"" + downloadsDir.path() + "/" + MatchParser.getPlayerItems()[i][j][k] + "_lg.png\" width=\"32\"/>" );
             }
         }
 
@@ -330,9 +337,9 @@ void MainWindow::on_actionPreferences_triggered()
 
 void MainWindow::on_actionClear_Cache_triggered()
 {
-    QDir cache("downloads");
+    QDir cache(downloadsDir.path());
     QMessageBox::information(this, tr("Clear Cache"), cache.removeRecursively() ? tr("cache cleared successfully") : tr("cache was not cleared successfully") );
-    cache.mkdir(QDir::currentPath() + "/downloads");
+    cache.mkdir(downloadsDir.path());
 }
 
 void MainWindow::on_deleteReplayButton_clicked()

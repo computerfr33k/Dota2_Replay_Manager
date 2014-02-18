@@ -48,6 +48,7 @@ void MainWindow::start()
     }
 
     settings = new QSettings(userDir.absolutePath() + "/settings.ini", QSettings::IniFormat);
+
     apiKey = settings->value("apiKey").toString();
 
     dir = settings->value("replayFolder", "C:/Program Files (x86)/Steam/SteamApps/common/dota 2 beta/dota/replays").toString();
@@ -222,6 +223,7 @@ void MainWindow::setMatchInfo()
     MatchParser.parse(downloadsDir.path() + "/" + matchID + ".json");
 
     //display basic match info
+    ui->winner->setText( MatchParser.getMatchWinner() );
     ui->matchID->setText( MatchParser.getMatchID() );
     ui->gameMode->setText( MatchParser.getGameMode() );
     ui->startTime->setText( MatchParser.getStartTime() );
@@ -262,7 +264,7 @@ void MainWindow::setMatchInfo()
     for(int i=0; i<2; i++)
         for(int j=0; j<5; j++)
         {
-            qDebug() << "<img src=\"file:///" + downloadsDir.path() + "/" + MatchParser.getPlayerHeroName()[i][j].value("name").toString() + "_sb.png\" width=\"45\" />";
+            //qDebug() << "<img src=\"file:///" + downloadsDir.path() + "/" + MatchParser.getPlayerHeroName()[i][j].value("name").toString() + "_sb.png\" width=\"45\" />";
             playerNameUI[i][j]->setText( MatchParser.getPlayerNames()[i][j] );
             playerLevelUI[i][j]->setText( MatchParser.getPlayerLevel()[i][j] );
             playerHeroPicUI[i][j]->setText( "<img src=\"" + downloadsDir.path() + "/" + MatchParser.getPlayerHeroName()[i][j].value("name").toString() + "_sb.png\" width=\"45\" />" );

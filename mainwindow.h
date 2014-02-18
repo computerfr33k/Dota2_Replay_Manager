@@ -24,6 +24,7 @@
 #include "http.h"
 #include "thread.h"
 #include "matchinfo.h"
+#include "firstrun.h"
 
 namespace Ui {
 class MainWindow;

@@ -13,4 +13,4 @@ Screenshots can be viewed [here](http://dota2replay-manager.com/screenshots)
 [Latest](http://dota2replay-manager.com/downloads)
 
 ###Current Version:###
-Beta 2
+Beta 3

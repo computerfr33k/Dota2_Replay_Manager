@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FirstRun</class>
+ <widget class="QDialog" name="FirstRun">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>612</width>
+    <height>296</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>First Run Wizard</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QTextEdit" name="textEdit">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Tahoma,Georgia,Arial,sans-serif'; font-size:13px; color:#333333; background-color:transparent;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Register/Login to &lt;/span&gt;&lt;a href=&quot;https://www.mashape.com/&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0593c7;&quot;&gt;https://www.mashape.com&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:'Tahoma,Georgia,Arial,sans-serif'; font-size:11pt; color:#333333; background-color:transparent;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:13px;&quot;&gt;Then head over to &lt;/span&gt;&lt;a href=&quot;https://www.mashape.com/computerfr33k/dota-2-replay-manager#!documentation&quot;&gt;&lt;span style=&quot; font-size:13px; text-decoration: underline; color:#0593c7;&quot;&gt;https://www.mashape.com/computerfr33k/dota-2-replay-manager#!documentation&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:13px;&quot;&gt; and consume the api call using the example replay id (this is so we can make a production key use this api) &lt;/span&gt;&lt;span style=&quot; font-size:13px; font-style:italic;&quot;&gt;production keys are safer for a number of reasons, look at their docs for more info&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:'Tahoma,Georgia,Arial,sans-serif'; font-size:11pt; color:#333333; background-color:transparent;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:13px;&quot;&gt;Goto your dashboard and click on 'keystore', create key, select computerfr33k/Dota 2 Replay Manager from the dropdown, and name the key for what helps you identify the key.&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:'Tahoma,Georgia,Arial,sans-serif'; font-size:11pt; color:#333333; background-color:transparent;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:13px;&quot;&gt;Open my program and goto settings-&amp;gt;preferences, enter in your api key, and then select where your replays are located then click ok.&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:'Tahoma,Georgia,Arial,sans-serif'; font-size:11pt; color:#333333; background-color:transparent;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:13px;&quot;&gt;Done! Now you may view replay details.&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>Close</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>FirstRun</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>514</x>
+     <y>393</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>287</x>
+     <y>216</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

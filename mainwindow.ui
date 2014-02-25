@@ -4746,6 +4746,7 @@
     <addaction name="actionAbout"/>
     <addaction name="actionWebsite"/>
     <addaction name="actionCheck_For_Updates"/>
+    <addaction name="actionTutorial"/>
     <addaction name="separator"/>
     <addaction name="actionAbout_Qt"/>
    </widget>
@@ -4789,6 +4790,11 @@
     <string>Check For Updates</string>
    </property>
   </action>
+  <action name="actionTutorial">
+   <property name="text">
+    <string>Tutorial</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
@@ -4806,6 +4812,22 @@
     <hint type="destinationlabel">
      <x>517</x>
      <y>352</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tableView</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>editTitle</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>516</x>
+     <y>346</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>516</x>
+     <y>650</y>
     </hint>
    </hints>
   </connection>

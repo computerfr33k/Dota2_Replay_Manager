@@ -417,6 +417,14 @@ void MainWindow::sslError()
 {
 }
 
+void MainWindow::on_actionTutorial_triggered()
+{
+    FirstRun *fr = new FirstRun;
+    fr->show();
+    //delete memory once the dialog is closed
+    connect(fr, SIGNAL(rejected()), fr, SLOT(deleteLater()));
+}
+
 void MainWindow::initializeUIPointers()
 {
     //create our QLabel array so we can for loop our match info

@@ -4746,6 +4746,7 @@
     <addaction name="actionAbout"/>
     <addaction name="actionWebsite"/>
     <addaction name="actionCheck_For_Updates"/>
+    <addaction name="actionTutorial"/>
     <addaction name="separator"/>
     <addaction name="actionAbout_Qt"/>
    </widget>
@@ -4787,6 +4788,11 @@
   <action name="actionCheck_For_Updates">
    <property name="text">
     <string>Check For Updates</string>
+   </property>
+  </action>
+  <action name="actionTutorial">
+   <property name="text">
+    <string>Tutorial</string>
    </property>
   </action>
  </widget>

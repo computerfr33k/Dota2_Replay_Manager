@@ -66,6 +66,8 @@ private slots:
     void sslError();
     void setMatchInfo();
 
+    void on_actionTutorial_triggered();
+
 private:
     void initializeUIPointers();
     //Thread *thread;

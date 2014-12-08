@@ -1,11 +1,21 @@
 ---
 layout: page
+status: publish
+published: true
 title: About
-permalink: /about/
+author:
+  display_name: computerfr33k
+  login: computerfr33k
+  email: computerfreak@computerfr33k.com
+  url: ''
+author_login: computerfr33k
+author_email: computerfreak@computerfr33k.com
+wordpress_id: 4
+wordpress_url: http://www.dota2replay-manager.com/?page_id=4
+date: '2014-04-25 15:43:39 -0500'
+date_gmt: '2014-04-25 15:43:39 -0500'
+categories: []
+tags: []
+comments: []
 ---
-
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
-
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
-
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+Dota 2 replay manager is a simple program for helping you keep track and manage all of your downloaded replays. This program allows you to name your replays and view the stats for that match (must be a publicly available match).

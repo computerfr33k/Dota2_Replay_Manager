@@ -1,6 +1,8 @@
 language: cpp
 before_install:
-  - yes | sudo apt-add-repository ppa:ubuntu-sdk-team/ppa
+  - yes | sudo apt-add-repository ppa:beineri/opt-qt56-trusty
   - sudo apt-get update -qq
-  - sudo apt-get install -qq qtbase5-dev qtchooser qtdeclarative5-dev
-script: cd src && qtchooser -run-tool=qmake -qt=qt5 && make
+  - sudo apt-get install -qq qt56base qt56tools qt56declarative
+script:
+  - /opt/qt56/bin/qt56-env.sh
+  - cd src && qmake && make

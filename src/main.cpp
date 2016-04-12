@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
     w.show();
 
     //use settings to determine if this is the first Run.
+    /*
     QSettings settings(QStandardPaths::standardLocations(QStandardPaths::DataLocation).at(0) + "/settings.ini", QSettings::IniFormat);
     FirstRun firstRun;
     //if this is the first time the user uses this program, then display the Tutorial.
@@ -25,6 +26,7 @@ int main(int argc, char *argv[])
         settings.setValue("firstRun", false);
         settings.sync();
     }
+    */
 
     return a.exec();
 }

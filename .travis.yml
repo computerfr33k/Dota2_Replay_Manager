@@ -1,12 +1,13 @@
-sudo: required
-dist: trusty
 language: cpp
 os:
   - linux
-before_install:
-  - yes | sudo apt-add-repository ppa:beineri/opt-qt56-trusty
+install:
+  - sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-add-repository -y ppa:beineri/opt-qt542
   - sudo apt-get update -qq
-  - sudo apt-get install -qq qt56base qt56tools qt56declarative
+  - sudo apt-get -qq install g++-4.8 libc6-i386 qt54tools qt54svg qt54webkit qt54script qt54declarative
 script:
-  - /opt/qt56/bin/qt56-env.sh
-  - cd src && qmake && make
+  - QTDIR="/opt/qt54" && PATH="$QTDIR/bin:$PATH" && qt54-env.sh
+  - cd src
+  - qmake
+  - make
